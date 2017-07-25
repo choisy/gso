@@ -4,7 +4,7 @@ library(devtools) # for "use_data"
 
 # Average Population by province: ##############################################
 # Loading the file:
-pop_size <- read.csv2("average_population_by_province.csv",skip=1,na.strings="..",as.is=T)
+pop_size <- read.csv2("data-raw/Population and Employment/Average population by province.csv",skip=1,na.strings="..",as.is=T)
 # Excluding the non-interesting rows:
 exclude <- c(" WHOLE COUNTRY","Red River Delta","Northern midlands and mountain areas",
              "Northern Central area and Central coastal area","Central Highlands",
@@ -27,9 +27,9 @@ fct <- function(keyword) {
 pop_size <- lapply(c("Total","Male","Female","Urban","Rural"),fct)
 pop_size <- Reduce(function(x,y)merge(x,y,all=T),pop_size)
 # Renaming some provinces
-conversion <- matrix(c("Ba Ria - Vung Tau", "Vung Tau - Ba Ria",
-                       "Ha Noi",            "Hanoi",
-                       "Ho Chi Minh city",  "Tp. Ho Chi Minh",
+conversion <- matrix(c(#"Ba Ria - Vung Tau", "Vung Tau - Ba Ria",
+                       #"Ha Noi",            "Hanoi",
+                       "Ho Chi Minh city",  "Ho Chi Minh",
                        "Thua Thien-Hue",    "Thua Thien - Hue"),ncol=2,byrow=T)
 fct <- function(x,tab) {
   for(i in 1:nrow(tab)) x <- sub(tab[i,1],tab[i,2],x)
@@ -41,7 +41,7 @@ for(i in c(1,3:7)) pop_size[,i] <- as.integer(pop_size[,i])
 
 
 # Saving to disk: ##############################################################
-use_data(pop_size,overwrite=T)
+devtools::use_data(pop_size,overwrite=T)
 
 
 # Cleaning: ####################################################################
