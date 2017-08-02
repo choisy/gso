@@ -1,8 +1,7 @@
 test <- get(p_list[88])
 df <- get(p_list[88]) %>%
   spread_merge_province(FUN = sum,
-                        from = "1992-01-01", to = "2010-12-31",
-                        df2 = pop_size, args = NULL)
+                        from = "1992-01-01", to = "2010-12-31")
 
 # FROM >= 1992 ------------------------------------------------------------------
 
@@ -62,22 +61,82 @@ df %>% filter(province == "Binh Tri Tien", year == 2007, key == "Total") %>% .$v
 
 # test provinces names ---------------------------------------------------------
 
+prov80 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre",
+            "Binh Tri Thien", "Cao Bang", "Cuu Long", "Dack Lak", "Dong Nai",
+            "Dong Thap", "Gia Lai - Kon Tum", "Ha Bac", "Ha Nam Ninh", "Ha Noi",
+            "Ha Son Binh", "Ha Tuyen", "Hai Hung", "Hai Phong", "Hau Giang",
+            "Ho Chi Minh", "Hoang Lien Son", "Kien Giang", "Lai Chau",
+            "Lam Dong", "Lang Son", "Long An",  "Minh Hai", "Nghe Tinh",
+            "Nghia Binh", "Phu Khanh", "Quang Nam - Da Nang", "Quang Ninh",
+            "Son La", "Song Be", "Tay Ninh", "Thai Binh", "Thanh Hoa",
+            "Thuan Hai", "Tien Giang", "Vinh Phu")
+
+prov90 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre",
+            "Binh Dinh", "Cao Bang", "Cuu Long", "Dack Lak", "Dong Nai",
+            "Dong Thap", "Gia Lai - Kon Tum", "Ha Bac", "Ha Nam Ninh", "Ha Noi",
+            "Ha Son Binh","Ha Tuyen", "Hai Hung", "Hai Phong", "Hau Giang",
+            "Ho Chi Minh", "Hoang Lien Son", "Khanh Hoa", "Kien Giang",
+            "Lai Chau", "Lam Dong", "Lang Son", "Long An",  "Minh Hai",
+            "Nghe Tinh", "Phu Yen", "Quang Binh", "Quang Nam - Da Nang",
+            "Quang Ngai", "Quang Ninh", "Quang Tri", "Son La", "Song Be",
+            "Tay Ninh", "Thai Binh", "Thanh Hoa", "Thua Thien - Hue",
+            "Thuan Hai", "Tien Giang", "Vinh Phu")
+
+prov91 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre", "Binh Dinh",
+            "Cao Bang", "Cuu Long", "Dack Lak", "Dong Nai", "Dong Thap",
+            "Gia Lai - Kon Tum", "Ha Bac", "Ha Nam Ninh", "Ha Noi",
+            "Ha Son Binh", "Ha Tinh", "Ha Tuyen", "Hai Hung", "Hai Phong",
+            "Hau Giang", "Ho Chi Minh", "Hoang Lien Son", "Khanh Hoa",
+            "Kien Giang", "Lai Chau", "Lam Dong", "Lang Son", "Long An",
+            "Minh Hai", "Nghe An", "Phu Yen", "Quang Binh",
+            "Quang Nam - Da Nang", "Quang Ngai", "Quang Ninh", "Quang Tri",
+            "Son La", "Song Be", "Tay Ninh", "Thai Binh", "Thanh Hoa",
+            "Thua Thien - Hue", "Thuan Hai", "Tien Giang", "Vinh Phu")
+
 prov92 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre", "Binh Dinh",
-            "Binh Thuan", "Can Tho", "Cao Bang", "Dack Lak", "Dong Nai", "Dong Thap",
-            "Gia Lai", "Ha Bac", "Ha Giang", "Ha Noi", "Ha Tinh", "Hai Hung",
-            "Hai Phong", "Ho Chi Minh", "Hoa Binh", "Khanh Hoa",
-            "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai",
-            "Long An",  "Minh Hai", "Nam Ha", "Nghe An", "Ninh Binh", "Ninh Thuan",
-            "Phu Yen", "Quang Binh", "Quang Nam - Da Nang", "Quang Ngai",
-            "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Song Be", "Tay Ninh",
-            "Thai Binh", "Thanh Hoa", "Thua Thien - Hue", "Tien Giang", "Tra Vinh",
-            "Tuyen Quang", "Vinh Long", "Vinh Phu", "Yen Bai")
+            "Binh Thuan", "Can Tho", "Cao Bang", "Dack Lak", "Dong Nai",
+            "Dong Thap", "Gia Lai", "Ha Bac", "Ha Giang", "Ha Noi", "Ha Tinh",
+            "Hai Hung", "Hai Phong", "Ho Chi Minh", "Hoa Binh", "Khanh Hoa",
+            "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son",
+            "Lao Cai", "Long An",  "Minh Hai", "Nam Ha", "Nghe An", "Ninh Binh",
+            "Ninh Thuan", "Phu Yen", "Quang Binh", "Quang Nam - Da Nang",
+            "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", "Son La",
+            "Song Be", "Tay Ninh", "Thai Binh", "Thanh Hoa", "Thua Thien - Hue",
+            "Tien Giang", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phu",
+            "Yen Bai")
+
+prov97 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu",
+            "Bac Ninh", "Ben Tre",  "Binh Dinh", "Binh Duong", "Binh Phuoc",
+            "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang",
+            "Dack Lak", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang",
+            "Ha Nam", "Ha Noi", "Ha Tay", "Ha Tinh", "Hai Duong", "Hai Phong",
+            "Ho Chi Minh", "Hoa Binh", "Hung Yen", "Khanh Hoa", "Kien Giang",
+            "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai", "Long An",
+            "Nam Dinh", "Nghe An", "Ninh Binh", "Ninh Thuan", "Phu Tho",
+            "Phu Yen", "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh",
+            "Quang Tri", "Soc Trang", "Son La", "Tay Ninh", "Thai Binh",
+            "Thai Nguyen", "Thanh Hoa", "Thua Thien - Hue", "Tien Giang",
+            "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai")
 
 prov04 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu",
             "Bac Ninh", "Ben Tre",  "Binh Dinh", "Binh Duong", "Binh Phuoc",
             "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak",
             "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai",
             "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tay", "Ha Tinh", "Hai Duong",
+            "Hai Phong", "Hau Giang", "Ho Chi Minh", "Hoa Binh", "Hung Yen",
+            "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong",
+            "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An",
+            "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh",
+            "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang",
+            "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa",
+            "Thua Thien - Hue", "Tien Giang", "Tra Vinh", "Tuyen Quang",
+            "Vinh Long", "Vinh Phuc", "Yen Bai")
+
+prov08 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu",
+            "Bac Ninh", "Ben Tre",  "Binh Dinh", "Binh Duong", "Binh Phuoc",
+            "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak",
+            "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai",
+            "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tinh", "Hai Duong",
             "Hai Phong", "Hau Giang", "Ho Chi Minh", "Hoa Binh", "Hung Yen",
             "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong",
             "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An",
