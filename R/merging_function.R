@@ -131,6 +131,31 @@ gather_sum <- function(df, FUN, df2, args){
   return(df)
 }
 
+################################################################################
+#' Merging Ha Noi / Ha Son Binh event
+#'
+#' Applies only if the time range contains the split and the combine event of
+#' Ha Noi & Ha Son Binh, does an additional merging on Hanoi and Ha Son Dinh.
+#'
+#' @param df A  data frame should contain at least the variables \code{year},
+#'  \code{province} containing \code{"Ha Noi"} and \code{"Ha Son Binh"}
+#' @param FUN A function to apply on the data when merging the province together
+#' @param df2 A data frame containing at least the variables \code{province},
+#' \code{year}. Can be used to provide additional arguments through the
+#' paramaters args by providing the name of the column(s) containing the data.
+#' @param args A vector or list of additional arguments to pass to FUN
+#' @return A data frame with the same variables as \code{df}
+#' @keywords internal
+#' @noRd
+hanoi_function <- function(df, FUN, df2, args) {
+  tab <- split(df, df$province %in% c("Ha Noi", "Ha Son Binh"))
+  tab$`TRUE` %<>%
+    prepare_data %>%
+    gather_sum(FUN, df2 = df2, args = args) %>%
+    mutate(province = "Ha Noi")
+  bind_rows(tab$`TRUE`, tab$`FALSE`)
+}
+
 
 ################################################################################
 #' Merges provinces
@@ -165,6 +190,29 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
       province_lst <- province_splits(lst_events[i])
       tmp <- split(df, df$province %in% province_lst[[1]])
       if (tmp$`TRUE` %>% length > 0){
+        # Take care of the problem of NA for province before year of creation
+        if (anyNA(tmp$`TRUE`) == TRUE &
+            sum(!province_lst[[1]] %in% "Ha Tay")/length(province_lst[[1]]) == 1){
+          limit <- lst_events[i][[1]]$date %>% lubridate::year(.)
+          add_df <- tmp$`TRUE` %>%
+            dplyr::filter(year < limit) %>%
+            filter(province == lst_events[i][[1]]$combined)
+          tmp$`FALSE` %<>% rbind(add_df)
+          tmp$`TRUE` %<>%
+            dplyr::filter(year >= limit)
+        }
+        # Take care of the problem of NA for Ha Tay after year of merging
+        if (anyNA(tmp$`TRUE`) == TRUE &
+            sum(!province_lst[[1]] %in% "Ha Tay")/length(province_lst[[1]]) != 1){
+          limit <- lst_events[i][[1]]$date %>% lubridate::year(.)
+          add_df <- tmp$`TRUE` %>%
+            dplyr::filter(province != "Ha Tay" & year >= limit)
+          tmp$`FALSE` %<>% rbind(add_df)
+          tmp$`TRUE` %<>%
+            dplyr::filter(year < limit)
+        }
+
+
         tmp$`TRUE` %<>%
           prepare_data %>%
           gather_sum(FUN, df2 = df2, args = args) %>%
@@ -175,6 +223,11 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
       }
     }
   } else { df }
+
+  if (from < 1992 & to > 2008){
+    df %<>% hanoi_function(FUN, df2 = df2, args = args)
+  }
+
   return(df)
 }
 
@@ -236,7 +289,7 @@ year")
 }
 
 
-## Parameters which disease for which history, Na structurel out, NA value IN
+## Parameters which disease for which history, Na structural out, NA value IN
 
 
 # Functions GSO ----------------------------------------------------------------
@@ -269,7 +322,7 @@ df <- get(p_list[100]) %>%
                         from = "1992-01-01", to = "2010-12-31",
                         df2 = pop_size, args = NULL)
 
-
+test <- get(p_list[88])
 df <- get(p_list[88]) %>%
   spread_merge_province(FUN = sum,
                         from = "1992-01-01", to = "2010-12-31",
