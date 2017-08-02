@@ -91,7 +91,7 @@ province_splits <- function(lst_split) {
 #' \code{incidence} and \code{mortality}
 #' @keywo
 prepare_data <- function(df) {
-  split(df, as.character(unique(df$province))) %>%
+  df <- split(df, as.character(unique(df$province))) %>%
     purrr::reduce(full_join, by = c("year", "key", "value", "province"))
 }
 
@@ -117,8 +117,8 @@ gather_sum <- function(df, FUN, df2, args){
   args2 <- c("value", unlist(args))
   targs_quoted <-  do.call(call, c("list", lapply(args2, as.name)), quote=TRUE)
   if (is.data.frame(df2) == TRUE){
-    df %<>%
-      left_join(df2, by = c("province", "year"))
+    sel <- grep(names(df) %>% paste(collapse = "|"), names(df2), value = T)
+    df <- suppressWarnings(left_join(df,df2, by = sel))
   }
     df %<>%
       gather(name, value, contains("value")) %>%
@@ -212,16 +212,19 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
             dplyr::filter(year < limit)
         }
 
-
-        tmp$`TRUE` %<>%
-          prepare_data %>%
-          gather_sum(FUN, df2 = df2, args = args) %>%
-          mutate(province = names(province_lst[1]))
-        df <- bind_rows(tmp$`TRUE`, tmp$`FALSE`)
+        if (tmp$`TRUE` %>% dim %>% .[1] > 0){
+          tmp$`TRUE` %<>%
+            prepare_data %>%
+            gather_sum(FUN, df2 = df2, args = args) %>%
+            mutate(province = names(province_lst[1]))
+          df <- bind_rows(tmp$`TRUE`, tmp$`FALSE`)
+        } else {
+          df <- tmp$`FALSE`
+        }
       } else {
         df <- tmp$`FALSE`
       }
-    }
+    } ##
   } else { df }
 
   if (from < 1992 & to > 2008){
@@ -309,6 +312,7 @@ p_list <- data_frame_summary %>%
 #from = "1990-01-01"
 #to = "2010-12-31"
 #splits_lst = splits_list
+#sel = names(df)
 
 
 df <- get(p_list[100]) %>%
@@ -328,6 +332,12 @@ df <- get(p_list[88]) %>%
                         from = "1992-01-01", to = "2010-12-31",
                         df2 = pop_size, args = NULL)
 
+lapply(seq_along(p_list), function(x){
+  df <- get(p_list[x]) %>%
+    spread_merge_province(FUN = sum,
+                          from = "1992-01-01", to = "2010-12-31")
+})
+
 
 lapply(seq_along(p_list), function(x){
   df <- get(p_list[x]) %>%
@@ -335,36 +345,4 @@ lapply(seq_along(p_list), function(x){
                           from = "1992-01-01", to = "2010-12-31",
                           df2 = pop_size, args = "total")
 })
-
-# test provinces names ---------------------------------------------------------
-
-prov92 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre", "Binh Dinh",
-  "Binh Thuan", "Can Tho", "Cao Bang", "Dack Lak", "Dong Nai", "Dong Thap",
-  "Gia Lai", "Ha Bac", "Ha Giang", "Ha Noi", "Ha Tinh", "Hai Hung",
-  "Hai Phong", "Ho Chi Minh", "Hoa Binh", "Khanh Hoa",
-  "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai",
-  "Long An",  "Minh Hai", "Nam Ha", "Nghe An", "Ninh Binh", "Ninh Thuan",
-  "Phu Yen", "Quang Binh", "Quang Nam - Da Nang", "Quang Ngai",
-  "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Song Be", "Tay Ninh",
-  "Thai Binh", "Thanh Hoa", "Thua Thien - Hue", "Tien Giang", "Tra Vinh",
-  "Tuyen Quang", "Vinh Long", "Vinh Phu", "Yen Bai")
-
-prov04 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu",
-            "Bac Ninh", "Ben Tre",  "Binh Dinh", "Binh Duong", "Binh Phuoc",
-            "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak",
-            "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai",
-            "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tay", "Ha Tinh", "Hai Duong",
-            "Hai Phong", "Hau Giang", "Ho Chi Minh", "Hoa Binh", "Hung Yen",
-            "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong",
-            "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An",
-            "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh",
-            "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang",
-            "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa",
-            "Thua Thien - Hue", "Tien Giang", "Tra Vinh", "Tuyen Quang",
-            "Vinh Long", "Vinh Phuc", "Yen Bai")
-
-testthat::expect_equal(
-    mean(df$province %in%
-        c("Dack Lak",prov92 %>% unique)), 1)
-
 
