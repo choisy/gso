@@ -109,25 +109,36 @@ prepare_data <- function(df) {
 #' \code{year}. Can be used to provide additional arguments through the
 #' paramaters args by providing the name of the column(s) containing the data.
 #' @param args A vector or list of additional arguments to pass to FUN
+#' @param FUN2 A function to apply on df2 when merging the province together,
+#' to keep the same information at every step of the merging process
 #' @return A data frame with the same variables as \code{df}
 #' @keywords internal
 #' @noRd
 gather_sum <- function(df, FUN, df2, args, FUN2){
+
+  # prepare the arguments in a good format
   args2 <- c("value", unlist(args))
   targs_quoted <-  do.call(call, c("list", lapply(args2, as.name)), quote=TRUE)
+
+  # Prepare the df in a good format and group the data by year and key for the
+  # merging event
     df %<>%
       gather(name, value, contains("value")) %>%
       select(-matches("name")) %>%
       group_by(year, key)
 
+  # if two dfs and the parameter args were provided, apply the merging event on
+  # the both of them (with the possibility to apply two different function on
+  #  them), if it's not the case, the merging event will be apply only
+  # on the first df.
   if(is.data.frame(df2) & is.null(args) == FALSE){
     args_quoted <- do.call(call, c("list", lapply(args, as.name)), quote=TRUE)
-    df %<>% summarise_(
-      value = lazyeval::interp(~do.call(FUN, xs),
-      .values = list(FUN = FUN, xs = targs_quoted)),
-      args = lazyeval::interp(~do.call(FUN2, args),
-                              .values = list(FUN2 = FUN2,
-                                             args = args_quoted))) %>%
+    df %<>%
+      summarise_(
+        value = lazyeval::interp(~do.call(FUN, xs),
+          .values = list(FUN = FUN, xs = targs_quoted)),
+        args = lazyeval::interp(~do.call(FUN2, args),
+           .values = list(FUN2 = FUN2, args = args_quoted))) %>%
       rename_(.dots = setNames(list("args"), args))
   } else {
     df %<>% summarise_(value = lazyeval::interp(
@@ -150,6 +161,8 @@ gather_sum <- function(df, FUN, df2, args, FUN2){
 #' \code{year}. Can be used to provide additional arguments through the
 #' paramaters args by providing the name of the column(s) containing the data.
 #' @param args A vector or list of additional arguments to pass to FUN
+#' @param FUN2 A function to apply on df2 when merging the province together,
+#' to keep the same information at every step of the merging process
 #' @return A data frame with the same variables as \code{df}
 #' @keywords internal
 #' @noRd
@@ -157,11 +170,10 @@ hanoi_function <- function(df, FUN, df2, args, FUN2) {
   tab <- split(df, df$province %in% c("Ha Noi", "Ha Son Binh"))
   tab$`TRUE` %<>%
     prepare_data %>%
-    gather_sum(FUN, df2 = df2, args = args, FUN2 = FUN2) %>%
+    gather_sum(FUN = FUN, df2 = df2, args = args, FUN2 = FUN2) %>%
     mutate(province = "Ha Noi")
   bind_rows(tab$`TRUE`, tab$`FALSE`)
 }
-
 
 ################################################################################
 #' Merges provinces
@@ -176,13 +188,15 @@ hanoi_function <- function(df, FUN, df2, args, FUN2) {
 #' @param from Initial date of the time range, of the class \code{Date}.
 #' @param to Final date of the data, of the class \code{Date}.
 #' @param splits_lst A list containing a list of event, each code with a slot
-#' \code{combined} and a slot \code{elements}. The first one contains the name
-#' of the merged provinces and the second one contains a vector of the names of
-#' the provinces to merge.
+#' \code{combined}, a slot \code{elements} and a slot \code{date}. The first one
+#' contains the name of the merged provinces and the second one contains a
+#' vector of the names of the provinces to merge.
 #' @param df2 A data frame containing at least the variables \code{province},
 #' \code{year}. Can be used to provide additional arguments through the
 #' paramaters args by providing the name of the column(s) containing the data.
 #' @param args A vector or list of additional arguments to pass to FUN
+#' @param FUN2 A function to apply on df2 when merging the province together,
+#' to keep the same information at every step of the merging process
 #' @return A object of the same class as \code{df} in which all the provinces
 #' that needed to be merged (according to the time range) are merged.
 #' @keywords internal
@@ -190,25 +204,39 @@ hanoi_function <- function(df, FUN, df2, args, FUN2) {
 merge_province <- function(df, FUN, from, to, splits_lst,
                            df2, args, FUN2)
 {
+  # select the list of event corresponding at the time range from - to
   lst_events <- select_events(splits_lst, from = from, to = to)
+
+  # if the list contains some events, merge or split the province concerned
   if (length(lst_events) > 0) {
+
     for (i in rev(seq_along(lst_events))) {
       province_lst <- province_splits(lst_events[i])
       tmp <- split(df, df$province %in% province_lst[[1]])
+
       if (tmp$`TRUE` %>% length > 0){
-        # Take care of the problem of NA for province before year of creation
+
+        # Take care of the problem of NA for province before year of creation,
+        # some dataset have some for some provinces before their year of
+        # creation
         if (anyNA(tmp$`TRUE`) == TRUE &
             sum(!province_lst[[1]] %in% "Ha Tay")
             /length(province_lst[[1]]) == 1){
+          # Add the data of the province existing before the split event to the
+          # data frame containing the other province none of interest at this
+          # point and filter the data  to keep only the split event data and re-
+          # merge them together
           limit <- lst_events[i][[1]]$date %>% lubridate::year(.)
           add_df <- tmp$`TRUE` %>%
             dplyr::filter(year < limit) %>%
             filter(province == lst_events[i][[1]]$combined)
           tmp$`FALSE` %<>% rbind(add_df)
-          tmp$`TRUE` %<>%
-            dplyr::filter(year >= limit)
+          tmp$`TRUE` %<>% dplyr::filter(year >= limit)
         }
-        # Take care of the problem of NA for Ha Tay after year of merging
+
+        # As Ha Tay is a merging event with Hanoi in 2008, another process is
+        # province to take care of the problem of the presence of NA for Ha Tay
+        # after 2008
         if (anyNA(tmp$`TRUE`) == TRUE &
             sum(!province_lst[[1]] %in% "Ha Tay")
             /length(province_lst[[1]]) != 1){
@@ -220,21 +248,21 @@ merge_province <- function(df, FUN, from, to, splits_lst,
             dplyr::filter(year < limit)
         }
 
+        # Merge back together the province
         if (tmp$`TRUE` %>% dim %>% .[1] > 0){
           tmp$`TRUE` %<>%
             prepare_data %>%
             gather_sum(FUN, df2 = df2, args = args, FUN2 = FUN2) %>%
             mutate(province = names(province_lst[1]))
           df <- bind_rows(tmp$`TRUE`, tmp$`FALSE`)
-        } else {
-          df <- tmp$`FALSE`
-        }
-      } else {
-        df <- tmp$`FALSE`
-      }
-    } ##
-  } else { df }
 
+        } else {df <- tmp$`FALSE`}
+      } else {df <- tmp$`FALSE`}
+    }
+  } else {df}
+
+  # if the time range contains the split and the combine event of
+  # Ha Noi & Ha Son Binh, does an additional merging on Hanoi and Ha Son Dinh.
   if (from < 1992 & to > 2008){
     df %<>% hanoi_function(FUN, df2 = df2, args = args, FUN2 = FUN2)
   }
@@ -255,7 +283,12 @@ merge_province <- function(df, FUN, from, to, splits_lst,
 #' @param sel A vector of character to select only the variable to merge. Can
 #' be useful if, to merge different variable, you need to use different
 #' mathematical operation. By default, select all the variables.
-#' @param FUN A function to apply on the data when merging the province together
+#' @param FUN A function to apply on the data when merging the province
+#' together.
+#' @param diseases A vector of character used to know which history of vietnam
+#' has to be taken for the merging event as two diseases has different story.
+#' Used if you want the same merging event as your infectious disease dataframe,
+#'  for more details look at the /code{gdpm package}. By default, \code{NULL}
 #' @param from Initial date of the time range, of the class \code{Date}.
 #' @param to Final date of the data, of the class \code{Date}.
 #' @param splits_lst A list containing a list of event, each code with a slot
@@ -266,11 +299,14 @@ merge_province <- function(df, FUN, from, to, splits_lst,
 #' \code{year}. Can be used to provide additional arguments through the
 #' paramaters args by providing the name of the column(s) containing the data.
 #' @param args A vector or list of additional arguments to pass to FUN
+#' @param FUN2 A function to apply on df2 when merging the province together,
+#' to keep the same information at every step of the merging process. By
+#' default \code{sum}
 #' @return A object of the same class as \code{df} in which all the provinces
 #' that needed to be merged (according to the time range) are merged.
 #' @keywords internal
 #' @noRd
-spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
+spread_merge_province <- function(df, sel = names(df), FUN, diseases = NULL,
                                   from , to, df2 = NULL, args = NULL,
                                   FUN2 = sum){
   # test df2 format, should be a data frame
@@ -280,6 +316,8 @@ spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
                   ", df2 should be a data frame."))
     }
   }
+  # select the history of merging/spliting event depending on the parameters
+  # diseases
   if (grep(paste(diseases, collapse = "|"), "hepatitis|amoebiasis") %>%
       length() != 0){
     spl <- ah_splits
@@ -287,8 +325,11 @@ spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
     spl <- splits
   }
 
+  # If the df contain at least a column "province" and a column "year",
+  # gather and merge the data accordingly with the time serie implemented and
+  # the history of Vietnam selected.
   if (grep("province|year", names(df)) %>% length >= 2){
-
+    # Join df2
     if (is.data.frame(df2) == TRUE){
       sel2 <- grep(names(df) %>% paste(collapse = "|"), names(df2), value = T)
       df <- suppressWarnings(left_join(df,df2, by = sel2))
@@ -300,7 +341,6 @@ spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
     if(is.null(args) == FALSE){
       gather_sel <- c("province", "year", args)
     }
-
     df %<>%
       select(one_of(sel)) %>%
       gather(key, value, -one_of(gather_sel)) %>%
@@ -310,7 +350,9 @@ spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
       ungroup %>%
       arrange(province, year) %>%
       select(province, year, key, value)
-  } else {
+  }
+  # If the df doesn't contain the two necessary columns, print a warning message
+  else {
     df
     warning("If you want to merge the province back together accordingly to
 Vietnam history, the data frame should contain at least the variables province,
@@ -321,10 +363,10 @@ year")
 }
 
 
-## Parameters which disease for which history(doc and tests)
-## test for weighted mean
+
 ## error time selection
 ## Add the two splits list in sysdata.rda
+## Assert for the test if
 
 
 # Functions GSO ----------------------------------------------------------------
@@ -332,12 +374,7 @@ year")
 #df <-  get(vect)
 
 # load data --------------------------------------------------------------------
-pop_size  %<>% select(province,year,total) # warning: range from 1995 to 2015
-#hasonbinh_pop <- pop_size %>%
- # filter(province == "Hoa Binh"| province == "Ha Tay") %>%
-#  group_by(year) %>% summarise(total = sum(total)) %>%
- # mutate(province = "Ha Son Binh")
-#pop_size %<>% rbind(hasonbinh_pop)
+pop_size  %<>% select(province,year,total)
 
 p_list <- data_frame_summary %>%
   filter(`priority` == "1") %>%
@@ -350,7 +387,6 @@ p_list <- data_frame_summary %>%
 #to = "2010-12-31"
 #splits_lst = splits_list
 #sel = names(df)
-
 
 df <- get(p_list[100]) %>%
   spread_merge_province(sel = c("Others", "Agriculture_forestry_fishery"),
