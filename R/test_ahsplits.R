@@ -76,18 +76,8 @@ df %>%
   test %>% filter(province == "Thua Thien - Hue", year == 2007) %>% .["Total"]
 
 
-prov80 <- c("An Giang", "Ba Ria - Vung Tau", "Bac Thai", "Ben Tre",
-            "Binh Tri Thien", "Cao Bang", "Cuu Long", "Dack Lak", "Dong Nai",
-            "Dong Thap", "Gia Lai - Kon Tum", "Ha Bac", "Ha Nam Ninh", "Ha Noi",
-            "Ha Son Binh", "Ha Tuyen", "Hai Hung", "Hai Phong", "Hau Giang",
-            "Ho Chi Minh", "Hoang Lien Son", "Kien Giang", "Lai Chau",
-            "Lam Dong", "Lang Son", "Long An",  "Minh Hai", "Nghe Tinh",
-            "Nghia Binh", "Phu Khanh", "Quang Nam - Da Nang", "Quang Ninh",
-            "Son La", "Song Be", "Tay Ninh", "Thai Binh", "Thanh Hoa",
-            "Thuan Hai", "Tien Giang", "Vinh Phu")
-
 testthat::expect_equal(
   mean(df$province %in%
-         c("Dack Lak",prov80 %>% unique)), 1)
+         dictionary::province_year$`1979`), 1)
 
 
