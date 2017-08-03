@@ -4,10 +4,9 @@ library(dplyr)
 library(tidyr)
 
 # Prerequisite -----------------------------------------------------------------
-splits_list <- readRDS("data-raw/splits.RDS")
-#provinces <- readRDS("data-raw/province.RDS")
+splits <- readRDS("data-raw/splits.RDS")
+ah_splits <- readRDS("data-raw/ah_splits.RDS")
 load(file = "data/pop_size.rda")
-#saveRDS(provinces,"data-raw/province.RDS")
 load(file = "data/data_frame_summary.rda")
 load(file = "R/sysdata.rda")
 
@@ -92,7 +91,7 @@ province_splits <- function(lst_split) {
 #' @keywo
 prepare_data <- function(df) {
   df <- split(df, as.character(unique(df$province))) %>%
-    purrr::reduce(full_join, by = c("year", "key", "value", "province"))
+    purrr::reduce(full_join, by = names(df))
 }
 
 ################################################################################
@@ -113,21 +112,28 @@ prepare_data <- function(df) {
 #' @return A data frame with the same variables as \code{df}
 #' @keywords internal
 #' @noRd
-gather_sum <- function(df, FUN, df2, args){
+gather_sum <- function(df, FUN, df2, args, FUN2){
   args2 <- c("value", unlist(args))
   targs_quoted <-  do.call(call, c("list", lapply(args2, as.name)), quote=TRUE)
-  if (is.data.frame(df2) == TRUE){
-    sel <- grep(names(df) %>% paste(collapse = "|"), names(df2), value = T)
-    df <- suppressWarnings(left_join(df,df2, by = sel))
-  }
     df %<>%
       gather(name, value, contains("value")) %>%
       select(-matches("name")) %>%
-      #filter(is.na(value) == FALSE) %>%
-      group_by(year, key) %>%
-      summarise_(value = lazyeval::interp(
+      group_by(year, key)
+
+  if(is.data.frame(df2) & is.null(args) == FALSE){
+    args_quoted <- do.call(call, c("list", lapply(args, as.name)), quote=TRUE)
+    df %<>% summarise_(
+      value = lazyeval::interp(~do.call(FUN, xs),
+      .values = list(FUN = FUN, xs = targs_quoted)),
+      args = lazyeval::interp(~do.call(FUN2, args),
+                              .values = list(FUN2 = FUN2,
+                                             args = args_quoted))) %>%
+      rename_(.dots = setNames(list("args"), args))
+  } else {
+    df %<>% summarise_(value = lazyeval::interp(
         ~do.call(FUN, xs),
         .values = list(FUN = FUN, xs = targs_quoted)))
+  }
   return(df)
 }
 
@@ -147,11 +153,11 @@ gather_sum <- function(df, FUN, df2, args){
 #' @return A data frame with the same variables as \code{df}
 #' @keywords internal
 #' @noRd
-hanoi_function <- function(df, FUN, df2, args) {
+hanoi_function <- function(df, FUN, df2, args, FUN2) {
   tab <- split(df, df$province %in% c("Ha Noi", "Ha Son Binh"))
   tab$`TRUE` %<>%
     prepare_data %>%
-    gather_sum(FUN, df2 = df2, args = args) %>%
+    gather_sum(FUN, df2 = df2, args = args, FUN2 = FUN2) %>%
     mutate(province = "Ha Noi")
   bind_rows(tab$`TRUE`, tab$`FALSE`)
 }
@@ -181,8 +187,8 @@ hanoi_function <- function(df, FUN, df2, args) {
 #' that needed to be merged (according to the time range) are merged.
 #' @keywords internal
 #' @noRd
-merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
-                           df2, args)
+merge_province <- function(df, FUN, from, to, splits_lst,
+                           df2, args, FUN2)
 {
   lst_events <- select_events(splits_lst, from = from, to = to)
   if (length(lst_events) > 0) {
@@ -192,7 +198,8 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
       if (tmp$`TRUE` %>% length > 0){
         # Take care of the problem of NA for province before year of creation
         if (anyNA(tmp$`TRUE`) == TRUE &
-            sum(!province_lst[[1]] %in% "Ha Tay")/length(province_lst[[1]]) == 1){
+            sum(!province_lst[[1]] %in% "Ha Tay")
+            /length(province_lst[[1]]) == 1){
           limit <- lst_events[i][[1]]$date %>% lubridate::year(.)
           add_df <- tmp$`TRUE` %>%
             dplyr::filter(year < limit) %>%
@@ -203,7 +210,8 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
         }
         # Take care of the problem of NA for Ha Tay after year of merging
         if (anyNA(tmp$`TRUE`) == TRUE &
-            sum(!province_lst[[1]] %in% "Ha Tay")/length(province_lst[[1]]) != 1){
+            sum(!province_lst[[1]] %in% "Ha Tay")
+            /length(province_lst[[1]]) != 1){
           limit <- lst_events[i][[1]]$date %>% lubridate::year(.)
           add_df <- tmp$`TRUE` %>%
             dplyr::filter(province != "Ha Tay" & year >= limit)
@@ -215,7 +223,7 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
         if (tmp$`TRUE` %>% dim %>% .[1] > 0){
           tmp$`TRUE` %<>%
             prepare_data %>%
-            gather_sum(FUN, df2 = df2, args = args) %>%
+            gather_sum(FUN, df2 = df2, args = args, FUN2 = FUN2) %>%
             mutate(province = names(province_lst[1]))
           df <- bind_rows(tmp$`TRUE`, tmp$`FALSE`)
         } else {
@@ -228,7 +236,7 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
   } else { df }
 
   if (from < 1992 & to > 2008){
-    df %<>% hanoi_function(FUN, df2 = df2, args = args)
+    df %<>% hanoi_function(FUN, df2 = df2, args = args, FUN2 = FUN2)
   }
 
   return(df)
@@ -262,8 +270,9 @@ merge_province <- function(df, FUN, from, to, splits_lst = splits_list,
 #' that needed to be merged (according to the time range) are merged.
 #' @keywords internal
 #' @noRd
-spread_merge_province <- function(df, sel = names(df), FUN, from , to,
-                                  df2 = NULL, args = NULL){
+spread_merge_province <- function(df, sel = names(df), FUN, diseases = "dis",
+                                  from , to, df2 = NULL, args = NULL,
+                                  FUN2 = sum){
   # test df2 format, should be a data frame
   if (is.null(df2) == FALSE){
     if(is.data.frame(df2) == FALSE){
@@ -271,13 +280,33 @@ spread_merge_province <- function(df, sel = names(df), FUN, from , to,
                   ", df2 should be a data frame."))
     }
   }
+  if (grep(paste(diseases, collapse = "|"), "hepatitis|amoebiasis") %>%
+      length() != 0){
+    spl <- ah_splits
+  } else {
+    spl <- splits
+  }
 
   if (grep("province|year", names(df)) %>% length >= 2){
+
+    if (is.data.frame(df2) == TRUE){
+      sel2 <- grep(names(df) %>% paste(collapse = "|"), names(df2), value = T)
+      df <- suppressWarnings(left_join(df,df2, by = sel2))
+      sel <- c(sel, args)
+    }
+
+    sel <- c("province", "year", sel)
+    gather_sel <-  c("province", "year")
+    if(is.null(args) == FALSE){
+      gather_sel <- c("province", "year", args)
+    }
+
     df %<>%
-      select(matches("province"), matches("year"), one_of(sel)) %>%
-      gather(key, value, -contains('province'), -contains("year")) %>%
+      select(one_of(sel)) %>%
+      gather(key, value, -one_of(gather_sel)) %>%
       mutate(year = as.integer(year)) %>%
-      merge_province(FUN, from = from, to = to, df2 = df2, args = args) %>%
+      merge_province(FUN, from = from, to = to,splits_lst = spl, df2 = df2,
+                     args = args, FUN2 = FUN2) %>%
       ungroup %>%
       arrange(province, year) %>%
       select(province, year, key, value)
@@ -292,7 +321,10 @@ year")
 }
 
 
-## Parameters which disease for which history, Na structural out, NA value IN
+## Parameters which disease for which history(doc and tests)
+## test for weighted mean
+## error time selection
+## Add the two splits list in sysdata.rda
 
 
 # Functions GSO ----------------------------------------------------------------
@@ -301,6 +333,11 @@ year")
 
 # load data --------------------------------------------------------------------
 pop_size  %<>% select(province,year,total) # warning: range from 1995 to 2015
+#hasonbinh_pop <- pop_size %>%
+ # filter(province == "Hoa Binh"| province == "Ha Tay") %>%
+#  group_by(year) %>% summarise(total = sum(total)) %>%
+ # mutate(province = "Ha Son Binh")
+#pop_size %<>% rbind(hasonbinh_pop)
 
 p_list <- data_frame_summary %>%
   filter(`priority` == "1") %>%
@@ -318,8 +355,7 @@ p_list <- data_frame_summary %>%
 df <- get(p_list[100]) %>%
   spread_merge_province(sel = c("Others", "Agriculture_forestry_fishery"),
                         FUN = sum,
-                        from = "1992-01-01", to = "2010-12-31",
-                        df2 = pop_size, args = NULL)
+                        from = "1992-01-01", to = "2010-12-31")
 
 df <- get(p_list[100]) %>%
   spread_merge_province(FUN = sum,
@@ -328,9 +364,9 @@ df <- get(p_list[100]) %>%
 
 test <- get(p_list[88])
 df <- get(p_list[88]) %>%
-  spread_merge_province(FUN = sum,
+  spread_merge_province(FUN = weighted.mean,
                         from = "1992-01-01", to = "2010-12-31",
-                        df2 = pop_size, args = NULL)
+                        df2 = pop_size, args = "total")
 
 lapply(seq_along(p_list), function(x){
   df <- get(p_list[x]) %>%
