@@ -2,10 +2,11 @@
 library(magrittr) # for "%>%" & "%<>%"
 library(dplyr) # for "filter",
 library(tidyr) # for "gather"
+library(dictionary) # for "provinces"
 
 # Prerequisite -----------------------------------------------------------------
 # dictionnary of provinces
-provinces <- readRDS("data-raw/province.RDS")
+provinces <- dictionary::provinces
 # summary table
 load("data/data_frame_summary.rda")
 
@@ -114,11 +115,6 @@ list_2 <- lapply(seq_len(dim(one_other)[1]), function(x){
 # Reunite the two lists of data frame (by province and by other scale) in one
 # uniaue list
 total <- do.call(c, list(list_2, province_lst))
-
-#lapply(names(total), function(x){
-#  as.symbol(x) %>%
-#    devtools::use_data(overwrite = TRUE, internal = TRUE, overwrite = TRUE)
-#})
 
 list2env(total,environment())
 devtools::use_data(`Land use (As of 1 January 2014)`,
@@ -237,6 +233,8 @@ devtools::use_data(`Land use (As of 1 January 2014)`,
                    overwrite = TRUE, internal = TRUE)
 
 ##### Test ---------------------------------------------------------------------
+library(testthat) #for "expect_equal"
+
 lapply(seq_along(province_lst),function(x){
   testthat::expect_equal(
     mean(province_lst[[x]]$province %in%

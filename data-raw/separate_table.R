@@ -1,11 +1,11 @@
 # packages neeeded
-library(magrittr)
-library(dplyr)
-library(tidyr)
+library(magrittr) # for " %>% ", " %<>% "
+library(dplyr) # for "filter"
+library(dictionary) # for "provinces"
 
 # Prerequisite -----------------------------------------------------------------
 data("data_frame_summary")
-provinces <- readRDS("data-raw/province.RDS") # dico provinces
+provinces <- dictionary::provinces
 
 # Function ---------------------------------------------------------------------
 # tidy province
