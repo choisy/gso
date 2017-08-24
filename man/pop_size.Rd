@@ -15,7 +15,8 @@
    \item \code{rural}: rural population
 }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 pop_size
@@ -28,4 +29,3 @@ year from 1995 to 2015.
 The precision is 100 people.
 }
 \keyword{datasets}
-

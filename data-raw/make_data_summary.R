@@ -1,7 +1,5 @@
 # Once this script is sourced, the outputed CSV file should be converted to
 # excel and edited manually.
-
-
 get_tables_names <- function(url, remDr) {
   # "url" is a vector of URLs
   # "remDr" is a remote driver
@@ -51,7 +49,9 @@ if(sub(".*/", "", path0) == "gso") setwd("data-raw")
 
 # getting the tables names for each of the categories:
 data_frames_summary <- urls %>%
-  lapply(function(x) as.data.frame(cbind(dir_names[x], get_tables_names(x, driver)), stringsAsFactors = FALSE)) %>%
+  lapply(function(x) as.data.frame(cbind(dir_names[x],
+                                         get_tables_names(x, driver)),
+                                   stringsAsFactors = FALSE)) %>%
   bind_rows %>%
   setNames(c("category", "dataframe")) %>%
   write.csv2("data_frame_summary.xls")
@@ -62,7 +62,11 @@ setwd(path0)
 # stops the selenium server:
 rD[["server"]]$stop()
 
-
-
-
+# After eidting with excel, transform the excel file in data frame (RData?)
+library(readxl) # for "read_excel"
+library(magrittr) # for " %>% "
+data_frame_summary <-
+  read_excel("data-raw/data_frame_summary.xls") %>%
+  as.data.frame()
+devtools::use_data(data_frame_summary, overwrite = TRUE)
 
