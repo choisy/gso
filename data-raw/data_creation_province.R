@@ -30,7 +30,7 @@ tidy_province <- function(df){
   df[, 1] <- df[, 1] %>%
     unlist  %>%
     as.vector  %>%
-    gsub("city", "", .) %>%
+    gsub(" city", "", .) %>%
     gsub("  ", " ", .) %>%
     provinces[.]
   names(df)[1] <- "province"
