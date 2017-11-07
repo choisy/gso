@@ -60,6 +60,15 @@ gather_data <-  function(df,vect){
   df %>% spread(unite, value)
 }
 
+# Function specific to the Dack Lak province. On the original file, the name of
+# the province is always written "Dak Lak". But, from 1980 until 2004, the name
+# of this province should be written "Dack Lak".
+dack_lak_function <- function(df) {
+  df[which(df$year < 2004 & df$province == "Dak Lak"), ] <-
+    dplyr::filter(df, province == "Dak Lak", year < 2004) %>%
+    mutate(province = "Dack Lak")
+  df
+}
 
 # Load data --------------------------------------------------------------------
 
@@ -115,6 +124,20 @@ list_2 <- lapply(seq_len(dim(one_other)[1]), function(x){
 # Reunite the two lists of data frame (by province and by other scale) in one
 # uniaue list
 total <- do.call(c, list(list_2, province_lst))
+
+
+# Correct the dack lack/ dak lak province names.
+
+total <- lapply(seq_along(total), function(x){
+  df <- total[[x]]
+  names(df) %<>% tolower
+  if(any(names(df) %in% "year" &
+         any(names(df) %in% "province"))){
+    df %<>%  dack_lak_function
+  }
+  df
+}) %>% setNames(names(total))
+
 
 list2env(total,environment())
 devtools::use_data(`Land use (As of 1 January 2014)`,
