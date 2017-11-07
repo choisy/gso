@@ -64,9 +64,10 @@ gather_data <-  function(df,vect){
 # the province is always written "Dak Lak". But, from 1980 until 2004, the name
 # of this province should be written "Dack Lak".
 dack_lak_function <- function(df) {
+  df %<>% mutate(province = as.character(province))
   df[which(df$year < 2004 & df$province == "Dak Lak"), ] <-
     dplyr::filter(df, province == "Dak Lak", year < 2004) %>%
-    mutate(province = "Dack Lak")
+    mutate(province = as.character("Dack Lak"))
   df
 }
 
@@ -140,6 +141,11 @@ total <- lapply(seq_along(total), function(x){
 
 
 list2env(total,environment())
+
+pop_size <-`Average population by province`
+
+devtools::use_data(pop_size,overwrite=T)
+
 devtools::use_data(`Land use (As of 1 January 2014)`,
                    `Average population by sex and by residence`,
                    `Sex ratio by residence`,
@@ -150,7 +156,6 @@ devtools::use_data(`Land use (As of 1 January 2014)`,
                    `Structure of used land by province (As of 1 January 2014)`,
                    `Index of land change in 2014 over 2013 by province (As of annual 1st January)`,
                    `Area, population and population density by province`,
-                   `Average population by province`,
                    `Sex ratio of population by province`,
                    `Crude birth rate, crude death rate and natural increase rate by province`,
                    `Total fertility rate by province`,

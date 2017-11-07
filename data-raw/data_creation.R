@@ -41,8 +41,8 @@ for(i in c(1,3:7)) pop_size[,i] <- as.integer(pop_size[,i])
 
 
 # Saving to disk: ##############################################################
-devtools::use_data(pop_size,overwrite=T)
-
+#devtools::use_data(pop_size,overwrite=T)
+# Done in "data_creation_province"
 
 # Cleaning: ####################################################################
 rm(list=ls())
