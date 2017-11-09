@@ -60,6 +60,16 @@ gather_data <-  function(df,vect){
   df %>% spread(unite, value)
 }
 
+# Function specific to the Dack Lak province. On the original file, the name of
+# the province is always written "Dak Lak". But, from 1980 until 2004, the name
+# of this province should be written "Dack Lak".
+dack_lak_function <- function(df) {
+  df %<>% mutate(province = as.character(province))
+  df[which(df$year < 2004 & df$province == "Dak Lak"), ] <-
+    dplyr::filter(df, province == "Dak Lak", year < 2004) %>%
+    mutate(province = as.character("Dack Lak"))
+  df
+}
 
 # Load data --------------------------------------------------------------------
 
@@ -116,7 +126,26 @@ list_2 <- lapply(seq_len(dim(one_other)[1]), function(x){
 # uniaue list
 total <- do.call(c, list(list_2, province_lst))
 
+
+# Correct the dack lack/ dak lak province names.
+
+total <- lapply(seq_along(total), function(x){
+  df <- total[[x]]
+  names(df) %<>% tolower
+  if(any(names(df) %in% "year" &
+         any(names(df) %in% "province"))){
+    df %<>%  dack_lak_function
+  }
+  df
+}) %>% setNames(names(total))
+
+
 list2env(total,environment())
+
+pop_size <-`Average population by province`
+
+devtools::use_data(pop_size,overwrite=T)
+
 devtools::use_data(`Land use (As of 1 January 2014)`,
                    `Average population by sex and by residence`,
                    `Sex ratio by residence`,
@@ -127,7 +156,6 @@ devtools::use_data(`Land use (As of 1 January 2014)`,
                    `Structure of used land by province (As of 1 January 2014)`,
                    `Index of land change in 2014 over 2013 by province (As of annual 1st January)`,
                    `Area, population and population density by province`,
-                   `Average population by province`,
                    `Sex ratio of population by province`,
                    `Crude birth rate, crude death rate and natural increase rate by province`,
                    `Total fertility rate by province`,
