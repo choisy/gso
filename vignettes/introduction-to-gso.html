@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Contamin Lucie" />
+
+<meta name="date" content="2017-11-15" />
+
+<title>Introduction to GSO</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to GSO</h1>
+<h4 class="author"><em>Contamin Lucie</em></h4>
+<h4 class="date"><em>2017-11-15</em></h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>GSO is the General Statistics Office of Vietnam (<a href="http://gso.gov.vn/Default_en.aspx?tabid=491">GSO</a>). The <code>gso</code> package contains the updated (last update 03/2017), cleaned and tidy version of all the 316 tables available on the website. For the moment, only 113 data frames and 1 summary data frameare available with this package (more details in this vignette).</p>
+<p>Installing the <code>so</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;choisy/gso&quot;</span>)</code></pre></div>
+<p>Loading and attaching the <code>gso</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gso)</code></pre></div>
+<p>If you don’t want to use R for data analysis, the data frames mentioned above can be exported to disk in different formats. For, example, into CSV, in the current directory:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(gso<span class="op">::</span>data_frame_summary, <span class="st">&quot;summary.csv&quot;</span>, <span class="dt">quote =</span> F, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> F)
+<span class="kw">write.table</span>(gso<span class="op">::</span>agriculture_<span class="dv">1</span>, <span class="st">&quot;agriculture.csv&quot;</span>, <span class="dt">quote =</span> F, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> F)</code></pre></div>
+<p>If you want to use R for data analysis, the rest of the document, presents in more details the data and the tools to use it.</p>
+</div>
+<div id="summary-data-frame" class="section level2">
+<h2>Summary data frame</h2>
+<p>The package contains also a summary data frame called <code>data_frame_summary</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(data_frame_summary)</code></pre></div>
+<pre><code>##                                category         subcategory time range
+## 1 Administrative Unit, Land and Climate Administrative Unit 2015-12-31
+## 2 Administrative Unit, Land and Climate            Land Use 2014-01-01
+## 3 Administrative Unit, Land and Climate            Land Use 2014-01-01
+## 4 Administrative Unit, Land and Climate            Land Use 2014-01-01
+## 5 Administrative Unit, Land and Climate            Land Use 2014-01-01
+## 6 Administrative Unit, Land and Climate             Climate  2006-2015
+##     time resolution spatial resolution
+## 1 single time point           province
+## 2 single time point            country
+## 3 single time point           province
+## 4 single time point           province
+## 5 single time point           province
+## 6              year      stations (15)
+##                                                                      data frame
+## 1             Number of administrative units as of 31 December 2015 by province
+## 2                                               Land use (As of 1 January 2014)
+## 3                                   Land use by province (As of 1 January 2014)
+## 4                     Structure of used land by province (As of 1 January 2014)
+## 5 Index of land change in 2014 over 2013 by province (As of annual 1st January)
+## 6                                      Total sunshine duration at some stations
+##   priority             data_name
+## 1        0 administrative_unit_1
+## 2        1            land_use_1
+## 3        1            land_use_2
+## 4        1            land_use_3
+## 5        1            land_use_4
+## 6        0             climate_1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_frame_summary)</code></pre></div>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    316 obs. of  8 variables:
+##  $ category          : chr  &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; ...
+##  $ subcategory       : chr  &quot;Administrative Unit&quot; &quot;Land Use&quot; &quot;Land Use&quot; &quot;Land Use&quot; ...
+##  $ time range        : chr  &quot;2015-12-31&quot; &quot;2014-01-01&quot; &quot;2014-01-01&quot; &quot;2014-01-01&quot; ...
+##  $ time resolution   : chr  &quot;single time point&quot; &quot;single time point&quot; &quot;single time point&quot; &quot;single time point&quot; ...
+##  $ spatial resolution: chr  &quot;province&quot; &quot;country&quot; &quot;province&quot; &quot;province&quot; ...
+##  $ data frame        : chr  &quot;Number of administrative units as of 31 December 2015 by province&quot; &quot;Land use (As of 1 January 2014)&quot; &quot;Land use by province (As of 1 January 2014)&quot; &quot;Structure of used land by province (As of 1 January 2014)&quot; ...
+##  $ priority          : num  0 1 1 1 1 0 0 0 0 0 ...
+##  $ data_name         : chr  &quot;administrative_unit_1&quot; &quot;land_use_1&quot; &quot;land_use_2&quot; &quot;land_use_3&quot; ...</code></pre>
+<p>The data frame contains different columns:</p>
+<ul>
+<li><code>category</code> : theme of the data frame. All the data are separated in 10 category: “Administrative Unit, Land and Climate”, “Population and Employment”, “National Accounts”, “Investment and Construction”, “Agriculture, Forestry and Fishery”, “Industry”, “Trade, Price and Tourism”, “Transport, Postal Services and Telecommunications”, “Education” and “Health, Culture and Living Standard”</li>
+<li><code>subcategory</code> : subcategory of the data frame</li>
+<li><code>time range</code> : time range expressed in year</li>
+<li><code>time resolution</code> : unit of time used in the data frame (year, month or single time point)</li>
+<li><code>spatial resoluation</code> : spatial unit used in the data frame (province, stations, city, rivers …)</li>
+<li><code>data frame</code> : name of the data frames on gso</li>
+<li><code>data_name</code> : name of the data frames in the package</li>
+<li><code>priority</code> : priority number (0, 1)</li>
+</ul>
+<p>For now, only the data frame with the priority number equal to 1 are available. For more details:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?data_frame_summary</code></pre></div>
+<p>You can used the data_frame_summary to select the data frame necessary for your study. You will need the <code>dplyr</code> package for this step:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<p>The first step is to filter the data_frame_summary to have only the data frame available information, by filtering with the priority number:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avail_data &lt;-<span class="st"> </span><span class="kw">filter</span>(data_frame_summary, priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+<span class="kw">dim</span>(avail_data)</code></pre></div>
+<pre><code>## [1] 113   8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(avail_data)</code></pre></div>
+<pre><code>## # A tibble: 6 x 8
+##                                category subcategory `time range`
+##                                   &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;
+## 1 Administrative Unit, Land and Climate    Land Use   2014-01-01
+## 2 Administrative Unit, Land and Climate    Land Use   2014-01-01
+## 3 Administrative Unit, Land and Climate    Land Use   2014-01-01
+## 4 Administrative Unit, Land and Climate    Land Use   2014-01-01
+## 5             Population and Employment  Demography    2011-2013
+## 6             Population and Employment  Demography    1990-2015
+## # ... with 5 more variables: `time resolution` &lt;chr&gt;, `spatial
+## #   resolution` &lt;chr&gt;, `data frame` &lt;chr&gt;, priority &lt;dbl&gt;, data_name &lt;chr&gt;</code></pre>
+<p>You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(avail_data<span class="op">$</span>category) <span class="co"># gives you the list of category available</span></code></pre></div>
+<pre><code>## [1] &quot;Administrative Unit, Land and Climate&quot;            
+## [2] &quot;Population and Employment&quot;                        
+## [3] &quot;Agriculture, Forestry and Fishery&quot;                
+## [4] &quot;Industry&quot;                                         
+## [5] &quot;Trade, Price and Tourism&quot;                         
+## [6] &quot;Transport, Postal Services and Telecommunications&quot;
+## [7] &quot;Education&quot;                                        
+## [8] &quot;Health, Culture and Living Standard&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">agri_forest_fish &lt;-<span class="st"> </span><span class="kw">filter</span>(data_frame_summary, category <span class="op">==</span><span class="st"> &quot;Agriculture, Forestry and Fishery&quot;</span>)
+<span class="kw">str</span>(agri_forest_fish)</code></pre></div>
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    66 obs. of  8 variables:
+##  $ category          : chr  &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; ...
+##  $ subcategory       : chr  &quot;Agriculture&quot; &quot;Agriculture&quot; &quot;Agriculture&quot; &quot;Agriculture&quot; ...
+##  $ time range        : chr  &quot;2000-2015&quot; &quot;2011-2015&quot; &quot;2004-2015&quot; &quot;1990-2015&quot; ...
+##  $ time resolution   : chr  &quot;year&quot; &quot;year&quot; &quot;year&quot; &quot;year&quot; ...
+##  $ spatial resolution: chr  &quot;province&quot; &quot;province&quot; &quot;surface&quot; &quot;country&quot; ...
+##  $ data frame        : chr  &quot;Number of farms by province&quot; &quot;Number of farms by kinds of manufacturing sector and by province&quot; &quot;Gross output of product per ha of cultivated land and aquaculture water surface&quot; &quot;Planted area of crops by crop group&quot; ...
+##  $ priority          : num  1 1 NA NA NA NA NA NA 1 1 ...
+##  $ data_name         : chr  &quot;agriculture_1&quot; &quot;agriculture_2&quot; &quot;agriculture_3&quot; &quot;agriculture_4&quot; ...</code></pre>
+<p>Or you can also used the function <code>View()</code> to print the data frame and explore all the data available. Used the <code>data_name</code> to call the data frame that you want.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(avail_data)
+<span class="co"># Call the data frame</span>
+agriculture_<span class="dv">1</span></code></pre></div>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<div id="population-size" class="section level3">
+<h3>Population Size</h3>
+<p>A notable data frame in this pacakge is <code>pop_size</code>. It contains the Vietnamese population sizes by province and year from 1995 to 2015 (in thousand peoples).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pop_size)</code></pre></div>
+<pre><code>##   province year female   male  rural  total urban
+## 1 An Giang 1995 1003.4  966.7 1602.1 1970.1 368.0
+## 2 An Giang 1996 1012.6  978.1 1619.8 1990.7 370.9
+## 3 An Giang 1997 1022.0  989.1 1616.0 2011.1 395.1
+## 4 An Giang 1998 1031.4 1001.1 1634.5 2032.5 398.0
+## 5 An Giang 1999 1043.9 1011.5 1650.1 2055.4 405.3
+## 6 An Giang 2000 1047.6 1014.1 1604.2 2061.7 457.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(pop_size)</code></pre></div>
+<pre><code>## 'data.frame':    1344 obs. of  7 variables:
+##  $ province: chr  &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; ...
+##  $ year    : int  1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 ...
+##  $ female  : num  1003 1013 1022 1031 1044 ...
+##  $ male    : num  967 978 989 1001 1012 ...
+##  $ rural   : num  1602 1620 1616 1634 1650 ...
+##  $ total   : num  1970 1991 2011 2032 2055 ...
+##  $ urban   : num  368 371 395 398 405 ...</code></pre>
+<p>The data frame contains by year and by province:</p>
+<ul>
+<li><code>male</code> : the male population</li>
+<li><code>female</code> : the female population</li>
+<li><code>urban</code> : the urban population</li>
+<li><code>rural</code> : the rural population</li>
+<li><code>total</code> : the total population</li>
+</ul>
+<p>For more information:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?pop_size</code></pre></div>
+<pre><code>## Using development documentation for pop_size</code></pre>
+</div>
+<div id="other" class="section level3">
+<h3>Other</h3>
+<p>All the data available are in a clean tidy version. It means that each variable must have its own column, each observation must have its own row and each value must have its own cell. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(agriculture_<span class="dv">1</span>)</code></pre></div>
+<pre><code>##   province year number_of_farms
+## 1 An Giang 2000            8313
+## 2 An Giang 2001            6080
+## 3 An Giang 2002            6135
+## 4 An Giang 2003            6182
+## 5 An Giang 2004            8349
+## 6 An Giang 2005            8403</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(agriculture_<span class="dv">1</span>)</code></pre></div>
+<pre><code>## 'data.frame':    1024 obs. of  3 variables:
+##  $ province       : chr  &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; ...
+##  $ year           : int  2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 ...
+##  $ number_of_farms: int  8313 6080 6135 6182 8349 8403 6180 6180 7464 14500 ...</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

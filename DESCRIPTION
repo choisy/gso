@@ -13,5 +13,6 @@ Depends:
     R (>= 2.10)
 Suggests: knitr,
     rmarkdown,
-    RSelenium
+    RSelenium,
+    dplyr
 VignetteBuilder: knitr
