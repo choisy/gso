@@ -4,7 +4,7 @@
 \name{pop_size}
 \alias{pop_size}
 \title{Vietnamese population sizes}
-\format{A data frame with 1,344 rows and 7 variables:
+\format{A data frame with 1344 rows and 7 variables:
 \itemize{
    \item \code{year}: year
    \item \code{province}: province name
@@ -23,7 +23,7 @@ pop_size
 }
 \description{
 A dataset containing the Vietnamese population sizes by province (64) and
-year from 1995 to 2015.
+year from 1995 to 2015 expressed in thousand peoples.
 }
 \details{
 The precision is 100 people.
