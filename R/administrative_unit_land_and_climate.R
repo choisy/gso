@@ -20,12 +20,13 @@
 #' province.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 78 rows and 7 columns.
-#' \itemize{ \item \code{ items } A column of class : factor. \item \code{ year
-#' } A column of class : factor. \item \code{ total } A column of class :
-#' numeric. \item \code{ male } A column of class : numeric. \item \code{
-#' female } A column of class : numeric. \item \code{ urban } A column of class
-#' : numeric. \item \code{ rural } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 62 rows and 6 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ agricultural_production_land } A column of class : numeric. \item
+#' \code{ forestry_land } A column of class : numeric. \item \code{
+#' homestead_land } A column of class : numeric. \item \code{
+#' specially_used_land } A column of class : numeric. \item \code{ total_area }
+#' A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -37,11 +38,13 @@
 #' province.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 32 rows and 5 columns.
-#' \itemize{ \item \code{ sex_ratio } A column of class : factor. \item \code{
-#' year } A column of class : factor. \item \code{ total } A column of class :
-#' numeric. \item \code{ urban } A column of class : numeric. \item \code{
-#' rural } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 63 rows and 6 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ agricultural_production_land } A column of class : numeric. \item
+#' \code{ forestry_land } A column of class : numeric. \item \code{
+#' homestead_land } A column of class : numeric. \item \code{
+#' specially_used_land } A column of class : numeric. \item \code{ total_area }
+#' A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -54,11 +57,12 @@
 #' province.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 45 rows and 5 columns.
-#' \itemize{ \item \code{ residence } A column of class : factor. \item \code{
-#' year } A column of class : factor. \item \code{ crude_birth_rate } A column
-#' of class : numeric. \item \code{ crude_death_rate } A column of class :
-#' numeric. \item \code{ natural_increase_rate } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 63 rows and 5 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ agricultural_production_land } A column of class : numeric. \item
+#' \code{ forestry_land } A column of class : numeric. \item \code{
+#' homestead_land } A column of class : numeric. \item \code{
+#' specially_used_land } A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})

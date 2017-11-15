@@ -136,13 +136,13 @@ data_frame_summary %<>%
            gsub(" ", "_", .)) %>%
   ungroup
 
-names_tot <- filter(data_frame_summary, `data frame` %in% names(total)) %>%
-  select(data_name) %>%
-  unlist %>%
-  as.vector
+transl <- data_frame_summary[which(data_frame_summary$`data frame` %in%
+                                     names(total) == TRUE),]
+dico <- setNames(transl$data_name, transl$`data frame`)
+
 
 # Correct the dack lack/ dak lak province names.
-total <- lapply(seq_along(total), function(x){
+total_df <- lapply(seq_along(total), function(x){
   df <- total[[x]]
   names(df) %<>% tolower
   if(any(names(df) %in% "year" &
@@ -150,12 +150,11 @@ total <- lapply(seq_along(total), function(x){
     df %<>%  dack_lak_function
   }
   df
-}) %>% setNames(names_tot)
+}) %>% setNames(dico[names(total)])
 
+list2env(total_df,environment())
 
-list2env(total,environment())
-
-pop_size <-demography_3
+pop_size <- demography_3
 
 devtools::use_data(pop_size, data_frame_summary, overwrite=T)
 

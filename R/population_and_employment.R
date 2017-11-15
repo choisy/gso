@@ -3,10 +3,12 @@
 #' Contains the data expressed : 2011-2013, by year and by province.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 15 rows and 4 columns.
-#' \itemize{ \item \code{ year } A column of class : factor. \item \code{ total
-#' } A column of class : numeric. \item \code{ urban } A column of class :
-#' numeric. \item \code{ rural } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 315 rows and 5 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ year } A column of class : integer. \item \code{ area_km2 } A column
+#' of class : numeric. \item \code{ average_population_thous_pers } A column of
+#' class : numeric. \item \code{ population_density_person_km2 } A column of
+#' class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -17,12 +19,10 @@
 #' Contains the data expressed : 2005-2015, by year and by province.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 640 rows and 5 columns.
+#' @format An object of class \code{data.frame} with 640 rows and 3 columns.
 #' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ year } A column of class : integer. \item \code{ crude_birth_rate } A
-#' column of class : numeric. \item \code{ crude_death_rate } A column of class
-#' : numeric. \item \code{ natural_increase_rate } A column of class : numeric.
-#' }
+#' \code{ year } A column of class : integer. \item \code{ total_fertility_rate
+#' } A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -33,10 +33,13 @@
 #' Contains the data expressed : 2001-2015, by year and by residence.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 640 rows and 3 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ year } A column of class : integer. \item \code{ total_fertility_rate
-#' } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 30 rows and 7 columns.
+#' \itemize{ \item \code{ child_mortality_rate } A column of class : factor.
+#' \item \code{ year } A column of class : factor. \item \code{ total } A
+#' column of class : numeric. \item \code{ male } A column of class : numeric.
+#' \item \code{ female } A column of class : numeric. \item \code{ urban } A
+#' column of class : numeric. \item \code{ rural } A column of class : numeric.
+#' }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -105,13 +108,12 @@
 #' Contains the data expressed : 1990-2015, by year and by residence.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 30 rows and 7 columns.
-#' \itemize{ \item \code{ child_mortality_rate } A column of class : factor.
-#' \item \code{ year } A column of class : factor. \item \code{ total } A
-#' column of class : numeric. \item \code{ male } A column of class : numeric.
-#' \item \code{ female } A column of class : numeric. \item \code{ urban } A
-#' column of class : numeric. \item \code{ rural } A column of class : numeric.
-#' }
+#' @format An object of class \code{data.frame} with 78 rows and 7 columns.
+#' \itemize{ \item \code{ items } A column of class : factor. \item \code{ year
+#' } A column of class : factor. \item \code{ total } A column of class :
+#' numeric. \item \code{ male } A column of class : numeric. \item \code{
+#' female } A column of class : numeric. \item \code{ urban } A column of class
+#' : numeric. \item \code{ rural } A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
@@ -120,73 +122,6 @@
 #' Average population by province
 #' 
 #' Contains the data expressed : 1995-2015, by year and by province.
-#' 
-#' 
-#' @format An object of class \code{data.frame} with 62 rows and 6 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ agricultural_production_land } A column of class : numeric. \item
-#' \code{ forestry_land } A column of class : numeric. \item \code{
-#' homestead_land } A column of class : numeric. \item \code{
-#' specially_used_land } A column of class : numeric. \item \code{ total_area }
-#' A column of class : numeric. }
-#' @source General Statistical Office of Vietnam
-#' 
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
-'demography_3'
-
-#' Sex ratio by residence
-#' 
-#' Contains the data expressed : 2006-2015, by year and by residence.
-#' 
-#' 
-#' @format An object of class \code{data.frame} with 63 rows and 6 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ agricultural_production_land } A column of class : numeric. \item
-#' \code{ forestry_land } A column of class : numeric. \item \code{
-#' homestead_land } A column of class : numeric. \item \code{
-#' specially_used_land } A column of class : numeric. \item \code{ total_area }
-#' A column of class : numeric. }
-#' @source General Statistical Office of Vietnam
-#' 
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
-'demography_4'
-
-#' Sex ratio of population by province
-#' 
-#' Contains the data expressed : 2005-2015, by year and by province.
-#' 
-#' 
-#' @format An object of class \code{data.frame} with 63 rows and 5 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ agricultural_production_land } A column of class : numeric. \item
-#' \code{ forestry_land } A column of class : numeric. \item \code{
-#' homestead_land } A column of class : numeric. \item \code{
-#' specially_used_land } A column of class : numeric. }
-#' @source General Statistical Office of Vietnam
-#' 
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
-'demography_5'
-
-#' Crude birth rate, crude death rate and natural increase rate of population
-#' by residence
-#' 
-#' Contains the data expressed : 2001-2015, by year and by residence.
-#' 
-#' 
-#' @format An object of class \code{data.frame} with 315 rows and 5 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ year } A column of class : integer. \item \code{ area_km2 } A column
-#' of class : numeric. \item \code{ average_population_thous_pers } A column of
-#' class : numeric. \item \code{ population_density_person_km2 } A column of
-#' class : numeric. }
-#' @source General Statistical Office of Vietnam
-#' 
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
-'demography_7'
-
-#' Crude birth rate, crude death rate and natural increase rate by province
-#' 
-#' Contains the data expressed : 2005-2015, by year and by province.
 #' 
 #' 
 #' @format An object of class \code{data.frame} with 1344 rows and 7 columns.
@@ -198,6 +133,67 @@
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+'demography_3'
+
+#' Sex ratio by residence
+#' 
+#' Contains the data expressed : 2006-2015, by year and by residence.
+#' 
+#' 
+#' @format An object of class \code{data.frame} with 32 rows and 5 columns.
+#' \itemize{ \item \code{ sex_ratio } A column of class : factor. \item \code{
+#' year } A column of class : factor. \item \code{ total } A column of class :
+#' numeric. \item \code{ urban } A column of class : numeric. \item \code{
+#' rural } A column of class : numeric. }
+#' @source General Statistical Office of Vietnam
+#' 
+#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+'demography_4'
+
+#' Sex ratio of population by province
+#' 
+#' Contains the data expressed : 2005-2015, by year and by province.
+#' 
+#' 
+#' @format An object of class \code{data.frame} with 640 rows and 3 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ year } A column of class : integer. \item \code{
+#' sex_ratio_of_population } A column of class : numeric. }
+#' @source General Statistical Office of Vietnam
+#' 
+#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+'demography_5'
+
+#' Crude birth rate, crude death rate and natural increase rate of population
+#' by residence
+#' 
+#' Contains the data expressed : 2001-2015, by year and by residence.
+#' 
+#' 
+#' @format An object of class \code{data.frame} with 45 rows and 5 columns.
+#' \itemize{ \item \code{ residence } A column of class : factor. \item \code{
+#' year } A column of class : factor. \item \code{ crude_birth_rate } A column
+#' of class : numeric. \item \code{ crude_death_rate } A column of class :
+#' numeric. \item \code{ natural_increase_rate } A column of class : numeric. }
+#' @source General Statistical Office of Vietnam
+#' 
+#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+'demography_7'
+
+#' Crude birth rate, crude death rate and natural increase rate by province
+#' 
+#' Contains the data expressed : 2005-2015, by year and by province.
+#' 
+#' 
+#' @format An object of class \code{data.frame} with 640 rows and 5 columns.
+#' \itemize{ \item \code{ province } A column of class : character. \item
+#' \code{ year } A column of class : integer. \item \code{ crude_birth_rate } A
+#' column of class : numeric. \item \code{ crude_death_rate } A column of class
+#' : numeric. \item \code{ natural_increase_rate } A column of class : numeric.
+#' }
+#' @source General Statistical Office of Vietnam
+#' 
+#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 'demography_8'
 
 #' Total fertility rate by residence
@@ -205,10 +201,10 @@
 #' Contains the data expressed : 2001-2015, by year and by residence.
 #' 
 #' 
-#' @format An object of class \code{data.frame} with 640 rows and 3 columns.
-#' \itemize{ \item \code{ province } A column of class : character. \item
-#' \code{ year } A column of class : integer. \item \code{
-#' sex_ratio_of_population } A column of class : numeric. }
+#' @format An object of class \code{data.frame} with 15 rows and 4 columns.
+#' \itemize{ \item \code{ year } A column of class : factor. \item \code{ total
+#' } A column of class : numeric. \item \code{ urban } A column of class :
+#' numeric. \item \code{ rural } A column of class : numeric. }
 #' @source General Statistical Office of Vietnam
 #' 
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
