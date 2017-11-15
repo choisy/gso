@@ -4,13 +4,11 @@
 \name{demography_4}
 \alias{demography_4}
 \title{Sex ratio by residence}
-\format{An object of class \code{data.frame} with 63 rows and 6 columns.
-\itemize{ \item \code{ province } A column of class : character. \item
-\code{ agricultural_production_land } A column of class : numeric. \item
-\code{ forestry_land } A column of class : numeric. \item \code{
-homestead_land } A column of class : numeric. \item \code{
-specially_used_land } A column of class : numeric. \item \code{ total_area }
-A column of class : numeric. }}
+\format{An object of class \code{data.frame} with 32 rows and 5 columns.
+\itemize{ \item \code{ sex_ratio } A column of class : factor. \item \code{
+year } A column of class : factor. \item \code{ total } A column of class :
+numeric. \item \code{ urban } A column of class : numeric. \item \code{
+rural } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

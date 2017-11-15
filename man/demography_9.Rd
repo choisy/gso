@@ -4,10 +4,10 @@
 \name{demography_9}
 \alias{demography_9}
 \title{Total fertility rate by residence}
-\format{An object of class \code{data.frame} with 640 rows and 3 columns.
-\itemize{ \item \code{ province } A column of class : character. \item
-\code{ year } A column of class : integer. \item \code{
-sex_ratio_of_population } A column of class : numeric. }}
+\format{An object of class \code{data.frame} with 15 rows and 4 columns.
+\itemize{ \item \code{ year } A column of class : factor. \item \code{ total
+} A column of class : numeric. \item \code{ urban } A column of class :
+numeric. \item \code{ rural } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

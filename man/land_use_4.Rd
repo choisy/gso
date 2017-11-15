@@ -5,11 +5,12 @@
 \alias{land_use_4}
 \title{Index of land change in 2014 over 2013 by province (As of annual 1st
 January)}
-\format{An object of class \code{data.frame} with 45 rows and 5 columns.
-\itemize{ \item \code{ residence } A column of class : factor. \item \code{
-year } A column of class : factor. \item \code{ crude_birth_rate } A column
-of class : numeric. \item \code{ crude_death_rate } A column of class :
-numeric. \item \code{ natural_increase_rate } A column of class : numeric. }}
+\format{An object of class \code{data.frame} with 63 rows and 5 columns.
+\itemize{ \item \code{ province } A column of class : character. \item
+\code{ agricultural_production_land } A column of class : numeric. \item
+\code{ forestry_land } A column of class : numeric. \item \code{
+homestead_land } A column of class : numeric. \item \code{
+specially_used_land } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

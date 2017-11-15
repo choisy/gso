@@ -4,12 +4,10 @@
 \name{demography_10}
 \alias{demography_10}
 \title{Total fertility rate by province}
-\format{An object of class \code{data.frame} with 640 rows and 5 columns.
+\format{An object of class \code{data.frame} with 640 rows and 3 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
-\code{ year } A column of class : integer. \item \code{ crude_birth_rate } A
-column of class : numeric. \item \code{ crude_death_rate } A column of class
-: numeric. \item \code{ natural_increase_rate } A column of class : numeric.
-}}
+\code{ year } A column of class : integer. \item \code{ total_fertility_rate
+} A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

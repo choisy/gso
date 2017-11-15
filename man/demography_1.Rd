@@ -4,10 +4,12 @@
 \name{demography_1}
 \alias{demography_1}
 \title{Area, population and population density by province}
-\format{An object of class \code{data.frame} with 15 rows and 4 columns.
-\itemize{ \item \code{ year } A column of class : factor. \item \code{ total
-} A column of class : numeric. \item \code{ urban } A column of class :
-numeric. \item \code{ rural } A column of class : numeric. }}
+\format{An object of class \code{data.frame} with 315 rows and 5 columns.
+\itemize{ \item \code{ province } A column of class : character. \item
+\code{ year } A column of class : integer. \item \code{ area_km2 } A column
+of class : numeric. \item \code{ average_population_thous_pers } A column of
+class : numeric. \item \code{ population_density_person_km2 } A column of
+class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

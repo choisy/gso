@@ -4,13 +4,12 @@
 \name{demography_2}
 \alias{demography_2}
 \title{Average population by sex and by residence}
-\format{An object of class \code{data.frame} with 30 rows and 7 columns.
-\itemize{ \item \code{ child_mortality_rate } A column of class : factor.
-\item \code{ year } A column of class : factor. \item \code{ total } A
-column of class : numeric. \item \code{ male } A column of class : numeric.
-\item \code{ female } A column of class : numeric. \item \code{ urban } A
-column of class : numeric. \item \code{ rural } A column of class : numeric.
-}}
+\format{An object of class \code{data.frame} with 78 rows and 7 columns.
+\itemize{ \item \code{ items } A column of class : factor. \item \code{ year
+} A column of class : factor. \item \code{ total } A column of class :
+numeric. \item \code{ male } A column of class : numeric. \item \code{
+female } A column of class : numeric. \item \code{ urban } A column of class
+: numeric. \item \code{ rural } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

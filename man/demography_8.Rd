@@ -4,12 +4,12 @@
 \name{demography_8}
 \alias{demography_8}
 \title{Crude birth rate, crude death rate and natural increase rate by province}
-\format{An object of class \code{data.frame} with 1344 rows and 7 columns.
+\format{An object of class \code{data.frame} with 640 rows and 5 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
-\code{ year } A column of class : integer. \item \code{ female } A column of
-class : numeric. \item \code{ male } A column of class : numeric. \item
-\code{ rural } A column of class : numeric. \item \code{ total } A column of
-class : numeric. \item \code{ urban } A column of class : numeric. }}
+\code{ year } A column of class : integer. \item \code{ crude_birth_rate } A
+column of class : numeric. \item \code{ crude_death_rate } A column of class
+: numeric. \item \code{ natural_increase_rate } A column of class : numeric.
+}}
 \source{
 General Statistical Office of Vietnam
 

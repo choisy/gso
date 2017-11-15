@@ -5,12 +5,11 @@
 \alias{demography_7}
 \title{Crude birth rate, crude death rate and natural increase rate of population
 by residence}
-\format{An object of class \code{data.frame} with 315 rows and 5 columns.
-\itemize{ \item \code{ province } A column of class : character. \item
-\code{ year } A column of class : integer. \item \code{ area_km2 } A column
-of class : numeric. \item \code{ average_population_thous_pers } A column of
-class : numeric. \item \code{ population_density_person_km2 } A column of
-class : numeric. }}
+\format{An object of class \code{data.frame} with 45 rows and 5 columns.
+\itemize{ \item \code{ residence } A column of class : factor. \item \code{
+year } A column of class : factor. \item \code{ crude_birth_rate } A column
+of class : numeric. \item \code{ crude_death_rate } A column of class :
+numeric. \item \code{ natural_increase_rate } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

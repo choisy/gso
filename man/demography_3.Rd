@@ -4,13 +4,12 @@
 \name{demography_3}
 \alias{demography_3}
 \title{Average population by province}
-\format{An object of class \code{data.frame} with 62 rows and 6 columns.
+\format{An object of class \code{data.frame} with 1344 rows and 7 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
-\code{ agricultural_production_land } A column of class : numeric. \item
-\code{ forestry_land } A column of class : numeric. \item \code{
-homestead_land } A column of class : numeric. \item \code{
-specially_used_land } A column of class : numeric. \item \code{ total_area }
-A column of class : numeric. }}
+\code{ year } A column of class : integer. \item \code{ female } A column of
+class : numeric. \item \code{ male } A column of class : numeric. \item
+\code{ rural } A column of class : numeric. \item \code{ total } A column of
+class : numeric. \item \code{ urban } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

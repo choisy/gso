@@ -4,12 +4,10 @@
 \name{demography_5}
 \alias{demography_5}
 \title{Sex ratio of population by province}
-\format{An object of class \code{data.frame} with 63 rows and 5 columns.
+\format{An object of class \code{data.frame} with 640 rows and 3 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
-\code{ agricultural_production_land } A column of class : numeric. \item
-\code{ forestry_land } A column of class : numeric. \item \code{
-homestead_land } A column of class : numeric. \item \code{
-specially_used_land } A column of class : numeric. }}
+\code{ year } A column of class : integer. \item \code{
+sex_ratio_of_population } A column of class : numeric. }}
 \source{
 General Statistical Office of Vietnam
 

@@ -1,7 +1,7 @@
 #' Vietnamese population sizes
 #'
 #' A dataset containing the Vietnamese population sizes by province (64) and
-#' year from 1995 to 2015.
+#' year from 1995 to 2015 expressed in thousand peoples.
 #'
 #' The precision is 100 people.
 #'

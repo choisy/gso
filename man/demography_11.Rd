@@ -4,10 +4,13 @@
 \name{demography_11}
 \alias{demography_11}
 \title{Child mortality rate by sex and by residence}
-\format{An object of class \code{data.frame} with 640 rows and 3 columns.
-\itemize{ \item \code{ province } A column of class : character. \item
-\code{ year } A column of class : integer. \item \code{ total_fertility_rate
-} A column of class : numeric. }}
+\format{An object of class \code{data.frame} with 30 rows and 7 columns.
+\itemize{ \item \code{ child_mortality_rate } A column of class : factor.
+\item \code{ year } A column of class : factor. \item \code{ total } A
+column of class : numeric. \item \code{ male } A column of class : numeric.
+\item \code{ female } A column of class : numeric. \item \code{ urban } A
+column of class : numeric. \item \code{ rural } A column of class : numeric.
+}}
 \source{
 General Statistical Office of Vietnam
 
