@@ -5,7 +5,7 @@
 #'
 #' The precision is 100 people.
 #'
-#' @format A data frame with 1,344 rows and 7 variables:
+#' @format A data frame with 1344 rows and 7 variables:
 #' \itemize{
 #'    \item \code{year}: year
 #'    \item \code{province}: province name
@@ -51,7 +51,7 @@
 #'
 #' @usage data(data_frame_summary)
 #'
-#' @format A data frame of 316 rows and 7 variables:
+#' @format A data frame of 316 rows and 8 variables:
 #' \itemize{
 #'    \item \code{category}: theme of the data frame. All the data are separated
 #'    in 10 category: "Administrative Unit, Land and Climate",
@@ -66,10 +66,11 @@
 #'    month or single time point)
 #'    \item \code{spatial resoluation}: spatial unit used in the data frame
 #'    (province, stations, city, rivers ...)
-#'    \item \code{data frame}: name of the data frame
+#'    \item \code{data frame}: name of the data frames
+#'    \item \code{data_name}: name of the data frames in the data folder
 #'    \item \code{priority}: priority number (0, 1)
 #' }
 #'
-#' @source @source General Statistical Office of Vietnam
+#' @source General Statistical Office of Vietnam
 #' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 "data_frame_summary"

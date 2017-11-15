@@ -4,7 +4,7 @@
 \name{pop_size}
 \alias{pop_size}
 \title{Vietnamese population sizes}
-\format{A data frame with 1,344 rows and 7 variables:
+\format{A data frame with 1344 rows and 7 variables:
 \itemize{
    \item \code{year}: year
    \item \code{province}: province name
