@@ -13,7 +13,7 @@ vignette: >
 
 GSO is the General Statistics Office of Vietnam ([GSO](http://gso.gov.vn/Default_en.aspx?tabid=491)).  The `gso` package contains the updated (last update 03/2017), cleaned and tidy version of all the 316 tables available on the website. For the moment, only 113 data frames and 1 summary data frameare available with this package (more details in this vignette).
 
-Installing the `so` package:
+Installing the `gso` package:
 
 ```{r, eval=F}
 devtools::install_github("choisy/gso")
@@ -64,6 +64,7 @@ For more details:
 You can used the data_frame_summary to select the data frame necessary for your study.
 You will need the `dplyr` package for this step:
 ```{r, message=FALSE}
+#install.packages("dplyr")
 library(dplyr)
 ```
 
