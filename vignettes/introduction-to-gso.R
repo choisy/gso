@@ -16,6 +16,7 @@ str(data_frame_summary)
 #  ?data_frame_summary
 
 ## ---- message=FALSE------------------------------------------------------
+#install.packages("dplyr")
 library(dplyr)
 
 ## ------------------------------------------------------------------------
