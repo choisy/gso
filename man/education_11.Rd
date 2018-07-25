@@ -12,9 +12,7 @@ column of class : integer. \item \code{ primary } A column of class :
 integer. \item \code{ total } A column of class : integer. \item \code{
 upper_secondary } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 education_11

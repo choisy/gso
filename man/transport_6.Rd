@@ -10,9 +10,7 @@
 \code{ year } A column of class : integer. \item \code{
 volume_of_passengers_carried } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 transport_6

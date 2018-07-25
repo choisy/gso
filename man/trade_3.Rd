@@ -9,9 +9,7 @@
 \code{ year } A column of class : integer. \item \code{
 retail_sales_of_goods_and_services } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 trade_3

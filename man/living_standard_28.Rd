@@ -12,9 +12,7 @@ semi_permanent_house } A column of class : numeric. \item \code{
 simple_permanent_house } A column of class : numeric. \item \code{ total } A
 column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 living_standard_28

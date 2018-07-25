@@ -61,7 +61,7 @@ tot_rd <-  lapply(seq_along(cat), function(y){
                                    data_frame_summary$data_name ==
                                      gsub(".rda", "", list_cat[x])),
                                    "spatial resolution"], "."),
-                   source = "General Statistical Office of Vietnam \n
+                   source = "General Statistical Office of Vietnam
                    (\\url{http://gso.gov.vn/Default_en.aspx?tabid=491})"
       )
       test <- capture_output(cat(create_roxygen(test), sep = "\n"))

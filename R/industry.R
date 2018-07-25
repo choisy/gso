@@ -1,14 +1,12 @@
 #' Index of Industrial production by province
-#' 
+#'
 #' Contains the data expressed : 2012-2015, by year and by province.
-#' 
-#' 
+#'
+#'
 #' @format An object of class \code{data.frame} with 252 rows and 3 columns.
 #' \itemize{ \item \code{ province } A column of class : character. \item
 #' \code{ year } A column of class : integer. \item \code{
 #' index_of_industrial_production } A column of class : numeric. }
-#' @source General Statistical Office of Vietnam
-#' 
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+#' @source General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 'industry_2'
 

@@ -12,9 +12,7 @@ numeric. \item \code{ newplanted_are } A column of class : numeric. \item
 \code{ planted_forest } A column of class : numeric. \item \code{
 proportion_of_forest_coverage } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 forestry_1

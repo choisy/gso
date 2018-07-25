@@ -11,7 +11,7 @@ vignette: >
 
 ## Introduction
 
-GSO is the General Statistics Office of Vietnam ([GSO](http://gso.gov.vn/Default_en.aspx?tabid=491)).  The `gso` package contains the updated (last update 03/2017), cleaned and tidy version of all the 316 tables available on the website. For the moment, only 113 data frames and 1 summary data frameare available with this package (more details in this vignette).
+GSO is the General Statistics Office of Vietnam ([GSO](http://gso.gov.vn/Default_en.aspx?tabid=491)).  The `gso` package contains the updated (last update 03/2017), cleaned and tidy version of all the 316 tables available on the website. For the moment, only 113 data frames and 1 summary data frame are available within this package (more details in this vignette).
 
 Installing the `gso` package:
 
