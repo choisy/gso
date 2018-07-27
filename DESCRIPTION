@@ -20,5 +20,6 @@ Depends:
 Suggests: knitr,
     rmarkdown,
     RSelenium,
-    dplyr
+    dplyr,
+    stringi
 VignetteBuilder: knitr
