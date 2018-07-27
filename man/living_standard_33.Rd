@@ -11,7 +11,8 @@
 total_of_collected_solid_waste_treated_in_accordance_with_corresponding_defined_national_criteria
 } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 living_standard_33

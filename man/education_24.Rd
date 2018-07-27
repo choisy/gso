@@ -20,7 +20,8 @@ integer. \item \code{ 3_teacher_public } A column of class : integer. \item
 A column of class : integer. \item \code{ teacher } A column of class :
 integer. \item \code{ teacher_public } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 education_24

@@ -12,7 +12,8 @@ assistant_pharmacists } A column of class : integer. \item \code{
 pharmacists_of_high_degree } A column of class : integer. \item \code{
 pharmacists_of_middle_degree } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 health_12

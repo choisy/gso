@@ -12,7 +12,8 @@ January)}
 homestead_land } A column of class : numeric. \item \code{
 specially_used_land } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 land_use_4

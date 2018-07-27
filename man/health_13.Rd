@@ -15,7 +15,8 @@ class : integer. \item \code{ hiv_infected_people_new_case_in } A column of
 class : integer. \item \code{ number_of_aids_deathsin } A column of class :
 integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 health_13

@@ -10,7 +10,8 @@
 land_was_allocated_for_users } A column of class : numeric. \item \code{
 land_was_allocated_for_managers } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 land_use_1

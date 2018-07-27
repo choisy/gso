@@ -9,7 +9,8 @@
 \code{ year } A column of class : integer. \item \code{
 spatial_cost_of_living_index } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 price_10

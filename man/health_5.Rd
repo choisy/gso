@@ -13,7 +13,8 @@ integer. \item \code{ regional_polyclinic } A column of class : integer.
 \item \code{ sanatorium_and_rehabilitation_hospital } A column of class :
 integer. \item \code{ total } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 health_5

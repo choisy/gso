@@ -9,7 +9,8 @@
 \code{ year } A column of class : integer. \item \code{ labour_force } A
 column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 employment_3
