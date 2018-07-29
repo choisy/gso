@@ -9,9 +9,7 @@
 \code{ year } A column of class : integer. \item \code{ area_of_fired_forest
 } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 forestry_6

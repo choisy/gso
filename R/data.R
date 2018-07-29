@@ -1,9 +1,12 @@
 #' Vietnamese population sizes
 #'
+#'
 #' A dataset containing the Vietnamese population sizes by province (64) and
 #' year from 1995 to 2015 expressed in thousand peoples.
 #'
+#'
 #' The precision is 100 people.
+#'
 #'
 #' @format A data frame with 1344 rows and 7 variables:
 #' \itemize{
@@ -15,15 +18,18 @@
 #'    \item \code{urban}: urban population
 #'    \item \code{rural}: rural population
 #' }
-#' @source General Statistical Office of Vietnam
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+#'
+#' @source General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+#'
 "pop_size"
 
 
 #' Summary Table
 #'
+#'
 #' A dataset containing the description of all the data frame contain in the
 #' package.
+#'
 #'
 #' The dataset contains, the names of each data frame,the folder corresponding
 #' which is also the category, a sub category for more information, the
@@ -31,6 +37,7 @@
 #' data and the priority. \cr\cr
 #' This table can be use as a resume of all the other data_frame contain in this
 #'  package and maybe be useful for computing on the various files.
+#'
 #'
 #' @details For each data frame a code of priority has been defined, either 0
 #' (equal to NA) or 1. The 113 data frame quoted priority 1 are the only one
@@ -47,9 +54,10 @@
 #'     \item \code{'Total fertility rate by residence'}
 #'     \item \code{'Child mortality rate by sex and by residence'}
 #'}
-#'\cr\cr
+#'
 #'
 #' @usage data(data_frame_summary)
+#'
 #'
 #' @format A data frame of 316 rows and 8 variables:
 #' \itemize{
@@ -71,6 +79,7 @@
 #'    \item \code{priority}: priority number (0, 1)
 #' }
 #'
-#' @source General Statistical Office of Vietnam
-#' (\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+#'
+#' @source General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+#'
 "data_frame_summary"

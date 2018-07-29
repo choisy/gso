@@ -9,9 +9,7 @@
 } A column of class : numeric. \item \code{ urban } A column of class :
 numeric. \item \code{ rural } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 demography_9

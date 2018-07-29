@@ -12,7 +12,7 @@ number_of_books_in_library_thous_copies } A column of class : numeric. \item
 \source{
 General Statistical Office of Vietnam
 
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 culture_2

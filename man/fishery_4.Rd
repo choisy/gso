@@ -10,9 +10,7 @@
 total_capacity_of_upper_90_cv_offshore_fishing_vessels } A column of class :
 numeric. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 fishery_4

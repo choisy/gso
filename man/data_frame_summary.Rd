@@ -24,8 +24,7 @@
    \item \code{priority}: priority number (0, 1)
 }}
 \source{
-General Statistical Office of Vietnam
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 data(data_frame_summary)
@@ -57,6 +56,5 @@ Priority 1 contains the 107 data frames containing data expressed by province
     \item \code{'Total fertility rate by residence'}
     \item \code{'Child mortality rate by sex and by residence'}
 }
-\cr\cr
 }
 \keyword{datasets}

@@ -12,9 +12,7 @@ class : integer. \item \code{ pupil_thous_pupil } A column of class :
 integer. \item \code{ school } A column of class : integer. \item \code{
 teacher_pers } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam
-
-(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
+General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
 }
 \usage{
 education_4
