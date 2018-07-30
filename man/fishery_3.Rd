@@ -4,13 +4,14 @@
 \name{fishery_3}
 \alias{fishery_3}
 \title{Number of upper 90 CV offshore fishing vessels by province}
-\format{An object of class \code{data.frame} with 130 rows and 3 columns.
+\format{An object of class \code{data.frame} with 145 rows and 3 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
 \code{ year } A column of class : integer. \item \code{
 number_of_upper_90_cv_offshore_fishing_vessels } A column of class :
 integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 fishery_3

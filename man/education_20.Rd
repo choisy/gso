@@ -12,7 +12,8 @@ of_which_public_teacher } A column of class : integer. \item \code{ student
 } A column of class : integer. \item \code{ teacher } A column of class :
 integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 education_20

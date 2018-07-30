@@ -9,7 +9,8 @@
 \code{ year } A column of class : integer. \item \code{
 number_of_editorial_offices } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 culture_3
