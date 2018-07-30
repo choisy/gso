@@ -13,7 +13,8 @@ integer. \item \code{ quintile_2 } A column of class : integer. \item \code{
 quintile_3 } A column of class : integer. \item \code{ quintile_4 } A column
 of class : integer. \item \code{ quintile_5 } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 living_standard_5

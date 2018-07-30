@@ -4,7 +4,7 @@
 \name{land_use_2}
 \alias{land_use_2}
 \title{Land use by province (As of 1 January 2014)}
-\format{An object of class \code{data.frame} with 62 rows and 6 columns.
+\format{An object of class \code{data.frame} with 63 rows and 6 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
 \code{ agricultural_production_land } A column of class : numeric. \item
 \code{ forestry_land } A column of class : numeric. \item \code{
@@ -12,7 +12,8 @@ homestead_land } A column of class : numeric. \item \code{
 specially_used_land } A column of class : numeric. \item \code{ total_area }
 A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 land_use_2

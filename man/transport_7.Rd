@@ -10,7 +10,8 @@
 \code{ year } A column of class : integer. \item \code{
 number_of_passengers_traffic } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 transport_7

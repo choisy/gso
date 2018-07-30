@@ -32,6 +32,8 @@ tidy_province <- function(df){
     as.vector  %>%
     gsub(" city", "", .) %>%
     gsub("  ", " ", .) %>%
+    gsub("B\xecnh Dinh", "Binh Dinh", .) %>%
+    stringi::stri_escape_unicode() %>%
     provinces[.]
   names(df)[1] <- "province"
   df %>% filter(is.na(province) == FALSE)
@@ -276,10 +278,88 @@ devtools::use_data(land_use_1,
 ##### Test ---------------------------------------------------------------------
 library(testthat) #for "expect_equal"
 
+# test name in a good orthographe
+
 lapply(seq_along(province_lst),function(x){
   testthat::expect_equal(
     mean(province_lst[[x]]$province %in%
            c("Dack Lak",provinces %>% unique)), 1)
+})
+
+
+# test number of province
+
+prov_df <- filter(priority_one, `spatial resolution` == "province")
+
+lst_province_or <- lapply(list_province,function(x){
+    sel <- grep("Number of markets|Number of pupils", list_province, invert = T,
+                                value = T)
+    if (x %in% sel) {
+       df <- read.csv(paste0("data-raw/", x),
+                                           header = TRUE, skip = 2, sep = ";", na.strings = "..") %>%
+           tidy_table
+       df[,1] <-  df[, 1] %>%
+         unlist  %>%
+         as.vector  %>%
+         gsub(" WHOLE COUNTRY", NA, .) %>%
+         gsub("WHOLE COUNTRY", NA, .) %>%
+         gsub("Red River Delta", NA, .) %>%
+         gsub("Northern midlands and mountain areas", NA, .) %>%
+         gsub("Northern Central area and Central coastal area", NA, .) %>%
+         gsub("North Central and Central coastal areas", NA, .) %>%
+         gsub("Mekong River Delta", NA, .) %>%
+         gsub("South East", NA, .) %>%
+         gsub("North Central area and Central coastal area", NA, .) %>%
+         gsub("Northern midlands and moutain areas", NA, .) %>%
+         gsub("Other provinces", NA, .) %>%
+         gsub("Unidentified", NA, .) %>%
+         gsub("Central Highlands", NA, .) %>%
+         gsub("Upper secondary schoolgirls in universities have been excluded in province", NA, .) %>%
+         gsub("General classes in universities have been excluded in province", NA, .) %>%
+         gsub("Units are not included in provinces", NA, .)
+         } else {
+           df <- read.csv(paste0("data-raw/", x)) %>%
+                 tidy_table
+           df <- df[,-1]
+           }
+       return(df)
+}) %>%
+setNames(list_province %>% sub(".csv", "", .)  %>% sub("(.*)/(.*)", "\\2", .))
+
+prov63 <- filter(prov_df, `time range` >= 2008)
+lapply(seq_len(nrow(prov63)), function(x){
+       sel <- prov63$`data frame`
+       testthat::expect_identical(province_lst[sel[x]][[1]]$province %>% unique %>% length(),
+                                   lst_province_or[sel[x]][[1]][, 1] %>% na.omit() %>% length())
+
+})
+
+prov64 <- filter(prov_df, `time range` >= 2004) %>%
+  anti_join(prov63)
+lapply(seq_len(nrow(prov64)), function(x){
+  sel <- prov64$`data frame`
+  testthat::expect_identical(province_lst[sel[x]][[1]]$province %>% unique %>% length(),
+                             lst_province_or[sel[x]][[1]][, 1] %>% na.omit() %>% length())
+})
+
+
+prov65 <- filter(prov_df, `time range` >= 1997) %>%
+  anti_join(prov63) %>%
+  anti_join(prov64)
+lapply(seq_len(nrow(prov65)), function(x){
+  sel <- prov65$`data frame`
+  testthat::expect_identical(province_lst[sel[x]][[1]]$province %>% unique %>% length(),
+                             lst_province_or[sel[x]][[1]][, 1] %>% na.omit() %>% length())
+})
+
+prov72 <- filter(prov_df, `time range` >= 1992) %>%
+  anti_join(prov63) %>%
+  anti_join(prov64) %>%
+  anti_join(prov65)
+lapply(seq_len(nrow(prov72)), function(x){
+  sel <- prov72$`data frame`
+  testthat::expect_identical(province_lst[sel[x]][[1]]$province %>% unique %>% length(),
+                             lst_province_or[sel[x]][[1]][, 1] %>% na.omit() %>% length())
 })
 
 # erase everything #############################################################

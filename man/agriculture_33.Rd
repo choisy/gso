@@ -4,12 +4,13 @@
 \name{agriculture_33}
 \alias{agriculture_33}
 \title{Production of sugar-cane by province}
-\format{An object of class \code{data.frame} with 609 rows and 3 columns.
+\format{An object of class \code{data.frame} with 693 rows and 3 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
 \code{ year } A column of class : integer. \item \code{
 production_of_sugar-cane } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 agriculture_33

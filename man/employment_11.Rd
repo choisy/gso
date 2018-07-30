@@ -10,7 +10,8 @@ by province}
 \code{ year } A column of class : integer. \item \code{
 percentage_of_employed_workers } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 employment_11

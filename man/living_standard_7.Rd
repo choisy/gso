@@ -15,7 +15,8 @@ column of class : numeric. \item \code{
 the_highest_income_quintile_compared_with_the_lowest_income_quintile_time }
 A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 living_standard_7

@@ -5,14 +5,15 @@
 \alias{education_16}
 \title{Number of ethnic minority pupils of general education as of 30 September by
 some provinces}
-\format{An object of class \code{data.frame} with 624 rows and 6 columns.
+\format{An object of class \code{data.frame} with 636 rows and 6 columns.
 \itemize{ \item \code{ province } A column of class : character. \item
 \code{ year } A column of class : integer. \item \code{ lower_secondary } A
 column of class : integer. \item \code{ primary } A column of class :
 integer. \item \code{ total } A column of class : integer. \item \code{
 upper_secondary } A column of class : integer. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 education_16

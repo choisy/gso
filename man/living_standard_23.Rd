@@ -9,7 +9,8 @@
 \code{ year } A column of class : integer. \item \code{
 percentage_of_household_using_electricity } A column of class : numeric. }}
 \source{
-General Statistical Office of Vietnam (\url{http://gso.gov.vn/Default_en.aspx?tabid=491}).
+General Statistical Office of Vietnam
+(\url{http://gso.gov.vn/Default_en.aspx?tabid=491})
 }
 \usage{
 living_standard_23
