@@ -1,7 +1,20 @@
 ﻿"Some main indicators on capacity of transportation by Year, Indicators and Management"
 
 "Year";"Indicators";"Total";"Central management";"Provincial city management";"District management"
-"2014";"Road (Km)";212151;16832;37880;157439
+"2015";"Road (Km)";218224;19545;35870;162809
+"2015";"Asphalted road (Km)";113767;19109;31586;63072
+"2015";"Stone paved road (Km)";17987;126;1044;16817
+"2015";"Mixed stone & soil road (Km)";32796;274;1926;30596
+"2015";"Soil road (Km)";53674;36;1314;52324
+"2015";"Inland waterways (Km)";44338;9900;13420;21018
+"2015";"Inland waterways weight under 50 tons (Km)";24509;843;5437;18229
+"2015";"Inland waterways weight 51 tons - 100 tons (Km)";7519;2269;3098;2152
+"2015";"Inland waterways weight 101 tons - 500 tons (Km)";6138;3006;2595;537
+"2015";"Inland waterways weight 501 tons - 1000 tons (Km)";3091;2191;840;61
+"2015";"Inland waterways weight over 1001 tons (Km)";3081;1591;1450;39
+"2015";"Number of bridges (Unit)";..;..;..;..
+"2015";"Total length of bridges (M)";30916;3883;7696;19337
+"2014";"Road (Km)";939023;218735;247618;472670
 "2014";"Asphalted road (Km)";108323;16602;31777;59944
 "2014";"Stone paved road (Km)";6527;29;915;5583
 "2014";"Mixed stone & soil road (Km)";48892;151;3619;45122
@@ -97,7 +110,7 @@
 "2007";"Stone paved road (Km)";10231;275;865;9091
 "2007";"Mixed stone & soil road (Km)";36150;392;5034;30724
 "2007";"Soil road (Km)";47698;119;3590;43989
-"2007";"Inland waterways (Km)";33536;6999;10139;16398
+"2007";"Inland waterways (Km)";34759;8144;10217;16398
 "2007";"Inland waterways weight under 50 tons (Km)";19599;1149;5490;12960
 "2007";"Inland waterways weight 51 tons - 100 tons (Km)";6138;1666;2734;1738
 "2007";"Inland waterways weight 101 tons - 500 tons (Km)";5846;2680;1672;1494

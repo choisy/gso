@@ -12,7 +12,7 @@
 
 <meta name="author" content="Contamin Lucie" />
 
-<meta name="date" content="2018-07-25" />
+<meta name="date" content="2018-09-10" />
 
 <title>Introduction to GSO</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to GSO</h1>
 <h4 class="author"><em>Contamin Lucie</em></h4>
-<h4 class="date"><em>2018-07-25</em></h4>
+<h4 class="date"><em>2018-09-10</em></h4>
 
 
 
@@ -80,164 +80,83 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Installing the <code>gso</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;choisy/gso&quot;</span>)</code></pre></div>
 <p>Loading and attaching the <code>gso</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gso)</code></pre></div>
-<p>If you don’t want to use R for data analysis, the data frames mentioned above can be exported to disk in different formats. For, example, into CSV, in the current directory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write.table</span>(gso<span class="op">::</span>data_frame_summary, <span class="st">&quot;summary.csv&quot;</span>, <span class="dt">quote =</span> F, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> F)
-<span class="kw">write.table</span>(gso<span class="op">::</span>agriculture_<span class="dv">1</span>, <span class="st">&quot;agriculture.csv&quot;</span>, <span class="dt">quote =</span> F, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">row.names =</span> F)</code></pre></div>
-<p>If you want to use R for data analysis, the rest of the document, presents in more details the data and the tools to use it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gso)
+<span class="kw">library</span>(dplyr) <span class="co"># for data manipulation</span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div id="summary-data-frame" class="section level2">
-<h2>Summary data frame</h2>
-<p>The package contains also a summary data frame called <code>data_frame_summary</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(data_frame_summary)</code></pre></div>
-<pre><code>##                                category         subcategory time range
-## 1 Administrative Unit, Land and Climate Administrative Unit 2015-12-31
-## 2 Administrative Unit, Land and Climate            Land Use 2014-01-01
-## 3 Administrative Unit, Land and Climate            Land Use 2014-01-01
-## 4 Administrative Unit, Land and Climate            Land Use 2014-01-01
-## 5 Administrative Unit, Land and Climate            Land Use 2014-01-01
-## 6 Administrative Unit, Land and Climate             Climate  2006-2015
-##     time resolution spatial resolution
-## 1 single time point           province
-## 2 single time point            country
-## 3 single time point           province
-## 4 single time point           province
-## 5 single time point           province
-## 6              year      stations (15)
-##                                                                      data frame
-## 1             Number of administrative units as of 31 December 2015 by province
-## 2                                               Land use (As of 1 January 2014)
-## 3                                   Land use by province (As of 1 January 2014)
-## 4                     Structure of used land by province (As of 1 January 2014)
-## 5 Index of land change in 2014 over 2013 by province (As of annual 1st January)
-## 6                                      Total sunshine duration at some stations
-##   priority             data_name
-## 1        0 administrative_unit_1
-## 2        1            land_use_1
-## 3        1            land_use_2
-## 4        1            land_use_3
-## 5        1            land_use_4
-## 6        0             climate_1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(data_frame_summary)</code></pre></div>
-<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    316 obs. of  8 variables:
-##  $ category          : chr  &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; &quot;Administrative Unit, Land and Climate&quot; ...
-##  $ subcategory       : chr  &quot;Administrative Unit&quot; &quot;Land Use&quot; &quot;Land Use&quot; &quot;Land Use&quot; ...
-##  $ time range        : chr  &quot;2015-12-31&quot; &quot;2014-01-01&quot; &quot;2014-01-01&quot; &quot;2014-01-01&quot; ...
-##  $ time resolution   : chr  &quot;single time point&quot; &quot;single time point&quot; &quot;single time point&quot; &quot;single time point&quot; ...
-##  $ spatial resolution: chr  &quot;province&quot; &quot;country&quot; &quot;province&quot; &quot;province&quot; ...
-##  $ data frame        : chr  &quot;Number of administrative units as of 31 December 2015 by province&quot; &quot;Land use (As of 1 January 2014)&quot; &quot;Land use by province (As of 1 January 2014)&quot; &quot;Structure of used land by province (As of 1 January 2014)&quot; ...
-##  $ priority          : num  0 1 1 1 1 0 0 0 0 0 ...
-##  $ data_name         : chr  &quot;administrative_unit_1&quot; &quot;land_use_1&quot; &quot;land_use_2&quot; &quot;land_use_3&quot; ...</code></pre>
-<p>The data frame contains different columns:</p>
-<ul>
-<li><code>category</code> : theme of the data frame. All the data are separated in 10 category: “Administrative Unit, Land and Climate”, “Population and Employment”, “National Accounts”, “Investment and Construction”, “Agriculture, Forestry and Fishery”, “Industry”, “Trade, Price and Tourism”, “Transport, Postal Services and Telecommunications”, “Education” and “Health, Culture and Living Standard”</li>
-<li><code>subcategory</code> : subcategory of the data frame</li>
-<li><code>time range</code> : time range expressed in year</li>
-<li><code>time resolution</code> : unit of time used in the data frame (year, month or single time point)</li>
-<li><code>spatial resoluation</code> : spatial unit used in the data frame (province, stations, city, rivers …)</li>
-<li><code>data frame</code> : name of the data frames on gso</li>
-<li><code>data_name</code> : name of the data frames in the package</li>
-<li><code>priority</code> : priority number (0, 1)</li>
-</ul>
-<p>For now, only the data frame with the priority number equal to 1 are available. For more details:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?data_frame_summary</code></pre></div>
-<p>You can used the data_frame_summary to select the data frame necessary for your study. You will need the <code>dplyr</code> package for this step:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;dplyr&quot;)</span>
-<span class="kw">library</span>(dplyr)</code></pre></div>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.5.1</code></pre>
-<p>The first step is to filter the data_frame_summary to have only the data frame available information, by filtering with the priority number:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avail_data &lt;-<span class="st"> </span><span class="kw">filter</span>(data_frame_summary, priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
-<span class="kw">dim</span>(avail_data)</code></pre></div>
-<pre><code>## [1] 113   8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(avail_data)</code></pre></div>
+<div id="content-data-frame" class="section level2">
+<h2>Content data frame</h2>
+<p>The package contains a data frame called <code>content</code> containing for each row, a data frame (in the column <code>data</code>) and some description of this data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(content)</code></pre></div>
 <pre><code>## # A tibble: 6 x 8
-##   category subcategory `time range` `time resolutio… `spatial resolu…
-##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;           
-## 1 Adminis… Land Use    2014-01-01   single time poi… country         
-## 2 Adminis… Land Use    2014-01-01   single time poi… province        
-## 3 Adminis… Land Use    2014-01-01   single time poi… province        
-## 4 Adminis… Land Use    2014-01-01   single time poi… province        
-## 5 Populat… Demography  2011-2013    year             province        
-## 6 Populat… Demography  1990-2015    year             residence       
-## # ... with 3 more variables: `data frame` &lt;chr&gt;, priority &lt;dbl&gt;,
-## #   data_name &lt;chr&gt;</code></pre>
-<p>You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(avail_data<span class="op">$</span>category) <span class="co"># gives you the list of category available</span></code></pre></div>
-<pre><code>## [1] &quot;Administrative Unit, Land and Climate&quot;            
-## [2] &quot;Population and Employment&quot;                        
-## [3] &quot;Agriculture, Forestry and Fishery&quot;                
-## [4] &quot;Industry&quot;                                         
-## [5] &quot;Trade, Price and Tourism&quot;                         
-## [6] &quot;Transport, Postal Services and Telecommunications&quot;
-## [7] &quot;Education&quot;                                        
-## [8] &quot;Health, Culture and Living Standard&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">agri_forest_fish &lt;-<span class="st"> </span><span class="kw">filter</span>(data_frame_summary, category <span class="op">==</span><span class="st"> &quot;Agriculture, Forestry and Fishery&quot;</span>)
-<span class="kw">str</span>(agri_forest_fish)</code></pre></div>
-<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':    66 obs. of  8 variables:
-##  $ category          : chr  &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; &quot;Agriculture, Forestry and Fishery&quot; ...
-##  $ subcategory       : chr  &quot;Agriculture&quot; &quot;Agriculture&quot; &quot;Agriculture&quot; &quot;Agriculture&quot; ...
-##  $ time range        : chr  &quot;2000-2015&quot; &quot;2011-2015&quot; &quot;2004-2015&quot; &quot;1990-2015&quot; ...
-##  $ time resolution   : chr  &quot;year&quot; &quot;year&quot; &quot;year&quot; &quot;year&quot; ...
-##  $ spatial resolution: chr  &quot;province&quot; &quot;province&quot; &quot;surface&quot; &quot;country&quot; ...
-##  $ data frame        : chr  &quot;Number of farms by province&quot; &quot;Number of farms by kinds of manufacturing sector and by province&quot; &quot;Gross output of product per ha of cultivated land and aquaculture water surface&quot; &quot;Planted area of crops by crop group&quot; ...
-##  $ priority          : num  1 1 NA NA NA NA NA NA 1 1 ...
-##  $ data_name         : chr  &quot;agriculture_1&quot; &quot;agriculture_2&quot; &quot;agriculture_3&quot; &quot;agriculture_4&quot; ...</code></pre>
-<p>Or you can also used the function <code>View()</code> to print the data frame and explore all the data available. Used the <code>data_name</code> to call the data frame that you want.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(avail_data)
-<span class="co"># Call the data frame</span>
-agriculture_<span class="dv">1</span></code></pre></div>
-</div>
-<div id="data" class="section level2">
-<h2>Data</h2>
-<div id="population-size" class="section level3">
-<h3>Population Size</h3>
-<p>A notable data frame in this pacakge is <code>pop_size</code>. It contains the Vietnamese population sizes by province and year from 1995 to 2015 (in thousand peoples).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(pop_size)</code></pre></div>
-<pre><code>##   province year female   male  rural  total urban
-## 1 An Giang 1995 1003.4  966.7 1602.1 1970.1 368.0
-## 2 An Giang 1996 1012.6  978.1 1619.8 1990.7 370.9
-## 3 An Giang 1997 1022.0  989.1 1616.0 2011.1 395.1
-## 4 An Giang 1998 1031.4 1001.1 1634.5 2032.5 398.0
-## 5 An Giang 1999 1043.9 1011.5 1650.1 2055.4 405.3
-## 6 An Giang 2000 1047.6 1014.1 1604.2 2061.7 457.5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(pop_size)</code></pre></div>
-<pre><code>## 'data.frame':    1344 obs. of  7 variables:
-##  $ province: chr  &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; ...
-##  $ year    : int  1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 ...
-##  $ female  : num  1003 1013 1022 1031 1044 ...
-##  $ male    : num  967 978 989 1001 1012 ...
-##  $ rural   : num  1602 1620 1616 1634 1650 ...
-##  $ total   : num  1970 1991 2011 2032 2055 ...
-##  $ urban   : num  368 371 395 398 405 ...</code></pre>
-<p>The data frame contains by year and by province:</p>
+##   category subcategory data_frame data_name time_resolution time_range
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;     
+## 1 Adminis… Sea level   Average o… sea_leve… month           2014-2016 
+## 2 Adminis… Sea level   Average o… sea_leve… year            2013-2016 
+## 3 Adminis… Climate     Change in… climate_1 year            2010-2016 
+## 4 Adminis… Land use    Land use … land_use… single time po… 28-02-2015
+## 5 Adminis… Land use    Land use … land_use… single time po… 31-12-2015
+## 6 Adminis… Climate     Mean air … climate_2 year            2006-2016 
+## # ... with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
+<p>The data frame contains different columns describing the data:</p>
 <ul>
-<li><code>male</code> : the male population</li>
-<li><code>female</code> : the female population</li>
-<li><code>urban</code> : the urban population</li>
-<li><code>rural</code> : the rural population</li>
-<li><code>total</code> : the total population</li>
+<li><code>category</code> : global theme of the data frame.</li>
+<li><code>subcategory</code> : subcategory of the data frame</li>
+<li><code>time_range</code> : time range expressed in year</li>
+<li><code>time_resolution</code> : unit of time used in the data frame (year, month or single time point)</li>
+<li><code>sp_resoluation</code> : spatial unit used in the data frame (province, stations, city, rivers …)</li>
+<li><code>data_frame</code> : name of the data frames on gso</li>
+<li><code>data_name</code> : name of the data frames in the package</li>
 </ul>
-<p>For more information:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?pop_size</code></pre></div>
-<pre><code>## Using development documentation for pop_size</code></pre>
-</div>
-<div id="other" class="section level3">
-<h3>Other</h3>
-<p>All the data available are in a clean tidy version. It means that each variable must have its own column, each observation must have its own row and each value must have its own cell. For example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(agriculture_<span class="dv">1</span>)</code></pre></div>
-<pre><code>##   province year number_of_farms
-## 1 An Giang 2000            8313
-## 2 An Giang 2001            6080
-## 3 An Giang 2002            6135
-## 4 An Giang 2003            6182
-## 5 An Giang 2004            8349
-## 6 An Giang 2005            8403</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(agriculture_<span class="dv">1</span>)</code></pre></div>
-<pre><code>## 'data.frame':    1024 obs. of  3 variables:
-##  $ province       : chr  &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; &quot;An Giang&quot; ...
-##  $ year           : int  2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 ...
-##  $ number_of_farms: int  8313 6080 6135 6182 8349 8403 6180 6180 7464 14500 ...</code></pre>
-</div>
+<p>For more details:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?content</code></pre></div>
+<p>You can used <code>content</code> to select the data frame necessary for your study. You will need the <code>dplyr</code> and <code>tidyr</code> package for this step:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;dplyr&quot;)</span>
+<span class="co">#install.packages(&quot;tidyr&quot;)</span>
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(tidyr)
+<span class="kw">glimpse</span>(content)</code></pre></div>
+<pre><code>## Observations: 316
+## Variables: 8
+## $ category        &lt;chr&gt; &quot;Administrative Unit, Land and Climate&quot;, &quot;Admi...
+## $ subcategory     &lt;chr&gt; &quot;Sea level&quot;, &quot;Sea level&quot;, &quot;Climate&quot;, &quot;Land use...
+## $ data_frame      &lt;chr&gt; &quot;Average of sea level at some stations&quot;, &quot;Aver...
+## $ data_name       &lt;chr&gt; &quot;sea_level_1&quot;, &quot;sea_level_2&quot;, &quot;climate_1&quot;, &quot;la...
+## $ time_resolution &lt;chr&gt; &quot;month&quot;, &quot;year&quot;, &quot;year&quot;, &quot;single time point&quot;, ...
+## $ time_range      &lt;chr&gt; &quot;2014-2016&quot;, &quot;2013-2016&quot;, &quot;2010-2016&quot;, &quot;28-02-...
+## $ sp_resolution   &lt;chr&gt; &quot;station&quot;, &quot;station&quot;, &quot;station&quot;, &quot;country&quot;, &quot;p...
+## $ data            &lt;list&gt; [&lt;c(&quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;...</code></pre>
+<p>You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">agri_forest_fish &lt;-<span class="st"> </span><span class="kw">filter</span>(content, category <span class="op">==</span><span class="st"> &quot;Agriculture, Forestry and Fishery&quot;</span>)
+<span class="kw">glimpse</span>(agri_forest_fish)</code></pre></div>
+<pre><code>## Observations: 60
+## Variables: 8
+## $ category        &lt;chr&gt; &quot;Agriculture, Forestry and Fishery&quot;, &quot;Agricult...
+## $ subcategory     &lt;chr&gt; &quot;Agriculture&quot;, &quot;Forestry&quot;, &quot;Forestry&quot;, &quot;Forest...
+## $ data_frame      &lt;chr&gt; &quot;Area having product of main perennial crops&quot;,...
+## $ data_name       &lt;chr&gt; &quot;agriculture_1&quot;, &quot;forestry_1&quot;, &quot;forestry_2&quot;, &quot;...
+## $ time_resolution &lt;chr&gt; &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;...
+## $ time_range      &lt;chr&gt; &quot;2005-2016&quot;, &quot;1995-2016&quot;, &quot;2005-2016&quot;, &quot;1995-2...
+## $ sp_resolution   &lt;chr&gt; &quot;country&quot;, &quot;province&quot;, &quot;country&quot;, &quot;province&quot;, ...
+## $ data            &lt;list&gt; [&lt;c(&quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;...</code></pre>
+<p>or, to select a data frame related to HIV in Vietnam</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;hiv&quot;</span>, content<span class="op">$</span>data_frame, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)
+content[sel, ] <span class="co"># permit to print more information</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 8
+##   category subcategory data_frame data_name time_resolution time_range
+##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;     
+## 1 Health,… Health      Number of… health_12 year            2011-2016 
+## # ... with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hiv &lt;-<span class="st"> </span><span class="kw">unnest</span>(content[sel, <span class="st">&quot;data&quot;</span>])</code></pre></div>
+<p>Or you can also used the function <code>View()</code> to print the data frame and explore all the data available, but the display can be quite long to open because of the column <code>data</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(content)</code></pre></div>
 </div>
 
 

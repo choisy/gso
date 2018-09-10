@@ -1,46 +1,46 @@
 ﻿"Merchandise Import Price Index (USD, Year 2010 = 100) by Commondity group and Year"
 
-"Commondity group";"2011";"2012";"2013";"2014";"2015"
-"GENERAL IMPORT PRICE INDEX";120.18;119.79;116.96;115.73;109.00
-"Fishery products";116.43;119.38;126.18;129.51;121.00
-"Milk and milk products";125.63;128.42;135.72;140.67;142.37
-"Vegetables and fruit";103.74;104.29;112.00;121.60;120.07
-"Wheat";118.13;115.60;129.85;119.08;108.35
-"Animail or Vegetable oil and fats";123.24;122.03;123.21;125.70;122.64
-"Confectionery and cereal preparations";125.52;124.36;132.84;131.52;130.80
-"Aninal fodder and materials";104.47;109.55;126.03;121.67;108.61
-"Auxiliary materials for cigarettes";122.58;115.44;114.94;113.74;113.33
-"Clinhker";131.97;145.61;142.50;141.29;138.47
-"Petroleum oil, refined";141.43;147.67;141.42;135.23;80.65
-"Liquefied petroleum gas";120.13;125.13;121.14;121.01;69.76
-"Other petroleum products";123.75;126.83;127.32;127.40;104.22
-"Chemicals";116.76;114.47;107.78;103.17;95.72
-"Chemical products";120.33;118.98;110.26;109.60;103.87
-"Medicine materials";109.70;109.33;100.10;107.47;109.81
-"Pharmaceutical products";100.39;99.72;101.04;102.27;108.11
-"Chemical Fertilizers";121.17;129.86;106.70;92.26;79.29
-"Insecticides and materials";121.04;121.21;111.89;110.46;100.80
-"Plastic materials";116.78;111.90;114.61;119.18;103.69
-"Articles of plastic";122.29;120.94;120.32;123.43;109.06
-"Rubber";134.03;119.62;94.31;84.43;69.31
-"Articles of rubber";124.12;123.27;121.71;116.65;97.79
-"Wood and articles of wood";112.24;116.83;119.53;128.02;120.02
-"Paper";105.47;97.15;96.13;96.93;92.20
-"Articles of paper";114.96;113.73;113.70;114.14;110.29
-"Fibresm not spun";120.14;110.88;109.93;105.53;95.96
-"Textile fibrics";119.56;128.50;127.24;125.27;127.59
-"Auxiliary materials for textile, garment, leather, footwear";126.24;129.36;120.83;120.23;121.52
-"Precious stones, precious metals and their products";121.78;126.10;120.78;119.27;117.52
-"Iron, Steel";115.21;108.34;96.98;93.21;78.71
-"Articles of iron and steel";123.66;122.12;121.42;116.11;100.55
-"Other base metals";119.24;120.63;111.55;107.14;95.55
-"Other base metal products";118.32;119.86;116.25;115.29;104.30
-"Electronic parts (including TV parts), computer and their parts";116.34;113.40;108.75;109.18;114.61
-"Machinery, apparatus, accessory";112.72;109.53;109.08;109.34;111.45
-"Electrical wire and cable";120.78;121.54;123.39;111.58;104.19
-"Motor vehicles";125.76;122.37;119.65;118.07;111.65
-"Unassembled and parts for motor";122.33;120.64;120.21;118.69;111.97
-"Assembled motorcycles";119.60;118.66;116.65;114.96;111.25
-"Unassembled and parts for motorcycles";120.37;120.42;117.64;115.13;109.03
-"Other means of transort and equipment";117.68;116.43;110.94;109.13;105.03
-"Others";128.76;120.11;119.46;118.67;112.44
+"Commondity group";"2011";"2012";"2013";"2014";"2015";"2016"
+"GENERAL IMPORT PRICE INDEX";120.18;119.79;116.96;115.73;109.00;103.16
+"Fishery products";116.43;119.38;126.18;129.51;121.00;118.48
+"Vegetables and fruit";103.74;104.29;112.00;121.60;120.07;117.44
+"Milk and milk products";125.63;128.42;135.72;140.67;142.37;142.67
+"Wheat";118.13;115.60;129.85;119.08;108.35;91.22
+"Animail or Vegetable oil and fats";123.24;122.03;123.21;125.70;122.64;121.35
+"Auxiliary materials for cigarettes";122.58;115.44;114.94;113.74;113.33;113.17
+"Medicine materials";109.70;109.33;100.10;107.47;109.81;105.60
+"Pharmaceutical products";100.39;99.72;101.04;102.27;108.11;103.47
+"Rubber";134.03;119.62;94.31;84.43;69.31;64.83
+"Confectionery and cereal preparations";125.52;124.36;132.84;131.52;130.80;130.01
+"Clinker";131.97;145.61;142.50;141.29;138.47;..
+"Liquefied petroleum gas";120.13;125.13;121.14;121.01;69.76;63.68
+"Petroleum oil, refined";141.43;147.67;141.42;135.23;80.65;64.18
+"Aninal fodder and materials";104.47;109.55;126.03;121.67;108.61;102.32
+"Other petroleum products";123.75;126.83;127.32;127.40;104.22;96.72
+"Chemicals";116.76;114.47;107.78;103.17;95.72;86.73
+"Chemical products";120.33;118.98;110.26;109.60;103.87;99.33
+"Chemical Fertilizers";121.17;129.86;106.70;92.26;79.29;75.78
+"Plastic materials";116.78;111.90;114.61;119.18;103.69;95.15
+"Articles of plastic";122.29;120.94;120.32;123.43;109.06;102.43
+"Articles of rubber";124.12;123.27;121.71;116.65;97.79;97.41
+"Other base metals";119.24;120.63;111.55;107.14;95.55;86.26
+"Other base metal products";118.32;119.86;116.25;115.29;104.30;97.65
+"Wood and articles of wood";112.24;116.83;119.53;128.02;120.02;110.73
+"Paper";105.47;97.15;96.13;96.93;92.20;89.70
+"Articles of paper";114.96;113.73;113.70;114.14;110.29;109.26
+"Insecticides and materials";121.04;121.21;111.89;110.46;100.80;95.16
+"Fibresm not spun";120.14;110.88;109.93;105.53;95.96;90.38
+"Textile fibrics";119.56;128.50;127.24;125.27;127.59;126.23
+"Auxiliary materials for textile, garment, leather, footwear";126.24;129.36;120.83;120.23;121.52;118.83
+"Precious stones, precious metals and their products";121.78;126.10;120.78;119.27;117.52;125.74
+"Iron, Steel";115.21;108.34;96.98;93.21;78.71;64.46
+"Articles of iron and steel";123.66;122.12;121.42;116.11;100.55;87.50
+"Electronic parts (including TV parts), computer and their parts";116.34;113.40;108.75;109.18;114.61;112.77
+"Motor vehicles";125.76;122.37;119.65;118.07;111.65;111.77
+"Machinery, apparatus, accessory";112.72;109.53;109.08;109.34;111.45;108.76
+"Electrical wire and cable";120.78;121.54;123.39;111.58;104.19;101.81
+"Other means of transort and equipment";117.68;116.43;110.94;109.13;105.03;103.56
+"Unassembled and parts for motor";122.33;120.64;120.21;118.69;111.97;111.46
+"Assembled motorcycles";119.60;118.66;116.65;114.96;111.25;113.54
+"Unassembled and parts for motorcycles";120.37;120.42;117.64;115.13;109.03;110.22
+"Others";128.76;120.11;119.46;118.67;112.44;109.22

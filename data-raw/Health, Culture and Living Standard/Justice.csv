@@ -1,14 +1,14 @@
 ﻿"Justice by Iterms and Year"
 
-"Iterms";"2011";"2012";"2013";"2014";"Sơ bộ 2015"
-"Number of instituted cases (Case)";71665;74134;76220;68863;72864
-"Number of instituted people (Person)";114194;120401;122439;110213;110442
-"Of which: Female (Person) - instituted people";8405;10136;9596;12175;12387
-"Number of procecuted cases (Case)";60473;66870;67592;59788;16107
-"Number of procecuted people (Person)";106687;120253;121141;108031;107135
-"Of which: Female (Person) - procecuted people";..;11879;11628;11672;11735
-"Number of sentenced cases (Case)";..;..;67779;66676;61067
-"Number of guilty people (Person)";..;..;119889;119257;107071
-"Of which: Female (Person) - guilty people";..;..;7338;6779;5656
-"The number of people receiving legal aid (Person)";..;..;..;129164;..
-"Lawyers per 10000 inhabitants (Person)";..;..;..;1;..
+"Iterms";"2011";"2012";"2013";"2014";"2015";"Sơ bộ 2016"
+"Number of instituted cases (Case)";71665.0;74134.0;76220.0;68863.0;72922.0;69943.0
+"Number of instituted people (Person)";114194.0;120401.0;122439.0;110213.0;110548.0;99710.0
+"Of which: Female (Person) - instituted people";8405.0;10136.0;9596.0;12175.0;12419.0;10986.0
+"Number of procecuted cases (Case)";60473.0;66870.0;67592.0;59788.0;61147.0;58893.0
+"Number of procecuted people (Person)";106687.0;120253.0;121141.0;108031.0;107218.0;98712.0
+"Of which: Female (Person) - procecuted people";..;11879.0;11628.0;11672.0;11746.0;11462.0
+"Number of sentenced cases (Case)";..;..;67779.0;66676.0;61067.0;60309.0
+"Number of guilty people (Person)";..;..;119889.0;119257.0;107071.0;100421.0
+"Of which: Female (Person) - guilty people";..;..;7338.0;6779.0;5656.0;5226.0
+"The number of people receiving legal aid (Person)";..;..;..;129164.0;140041.0;90724.0
+"Lawyers per 10000 inhabitants (Person)";..;..;..;1.0;1.1;1.2
