@@ -23,108 +23,59 @@ Loading and attaching the `gso` package:
 
 ```{r}
 library(gso)
+library(dplyr) # for data manipulation
 ```
 
-If you don't want to use R for data analysis, the data frames mentioned above can be exported to disk in different formats. For, example, into CSV, in the current directory:
+## Content data frame
 
-```{r eval=F}
-write.table(gso::data_frame_summary, "summary.csv", quote = F, sep = ",", row.names = F)
-write.table(gso::agriculture_1, "agriculture.csv", quote = F, sep = ",", row.names = F)
-```
-
-If you want to use R for data analysis, the rest of the document, presents in more details the data and the tools to use it.
-
-## Summary data frame
-
-The package contains also a summary data frame called `data_frame_summary`:
+The package contains a data frame called `content` containing for each row, a data frame (in the column `data`) and some description of this data frame:
 
 ```{r}
-head(data_frame_summary)
-str(data_frame_summary)
+head(content)
 ```
 
-The data frame contains different columns: 
+The data frame contains different columns describing the data: 
 
-* `category` : theme of the data frame. 
-All the data are separated in 10 category: "Administrative Unit, Land and Climate", "Population and Employment", "National Accounts", "Investment and Construction", "Agriculture, Forestry and Fishery", "Industry", "Trade, Price and Tourism", "Transport, Postal Services and Telecommunications", "Education" and "Health, Culture and Living Standard"
+* `category` : global theme of the data frame. 
 * `subcategory` : subcategory of the data frame
-* `time range` : time range expressed in year
-* `time resolution` : unit of time used in the data frame (year, month or single time point)
-* `spatial resoluation` : spatial unit used in the data frame (province, stations, city, rivers ...)
-* `data frame` : name of the data frames on gso
+* `time_range` : time range expressed in year
+* `time_resolution` : unit of time used in the data frame (year, month or single time point)
+* `sp_resoluation` : spatial unit used in the data frame (province, stations, city, rivers ...)
+* `data_frame` : name of the data frames on gso
 * `data_name` : name of the data frames in the package
-* `priority` : priority number (0, 1)
 
-For now, only the data frame with the priority number equal to 1 are available.
 For more details:
 ```{r eval=F}
-?data_frame_summary
+?content
 ```
 
-You can used the data_frame_summary to select the data frame necessary for your study.
-You will need the `dplyr` package for this step:
+You can used `content` to select the data frame necessary for your study.
+You will need the `dplyr` and `tidyr` package for this step:
 ```{r, message=FALSE}
 #install.packages("dplyr")
+#install.packages("tidyr")
 library(dplyr)
-```
-
-The first step is to filter the data_frame_summary to have only the data frame available information, by filtering with the priority number:
-
-```{r}
-avail_data <- filter(data_frame_summary, priority == 1)
-dim(avail_data)
-head(avail_data)
+library(tidyr)
+glimpse(content)
 ```
 
 You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:
 
 ```{r}
-unique(avail_data$category) # gives you the list of category available
-agri_forest_fish <- filter(data_frame_summary, category == "Agriculture, Forestry and Fishery")
-str(agri_forest_fish)
+agri_forest_fish <- filter(content, category == "Agriculture, Forestry and Fishery")
+glimpse(agri_forest_fish)
 ```
 
-Or you can also used the function `View()` to print the data frame and explore all the data available. Used the `data_name` to call the data frame that you want.
+or, to select a data frame related to HIV in Vietnam
+
+```{r}
+sel <- grep("hiv", content$data_frame, ignore.case = TRUE)
+content[sel, ] # permit to print more information
+df_hiv <- unnest(content[sel, "data"])
+```
+
+Or you can also used the function `View()` to print the data frame and explore all the data available, but the display can be quite long to open because of the column `data`
 
 ```{r, eval = F}
-View(avail_data)
-# Call the data frame
-agriculture_1
-```
-
-## Data
-
-### Population Size
-
-A notable data frame in this pacakge is `pop_size`. It contains the Vietnamese population sizes by province and year from 1995 to 2015 (in thousand peoples). 
-
-```{r}
-head(pop_size)
-str(pop_size)
-```
-
-The data frame contains by year and by province:
-
- * `male` : the male population
- * `female` : the female population
- * `urban` : the urban population
- * `rural` : the rural population
- * `total` : the total population
-
-For more information:
-```{r}
-?pop_size
-```
-
-
-### Other
-
-All the data available are in a clean tidy version. It means that each variable must have its own column, each observation must have its own row and each value must have its own cell.
-For example:
-
-```{r}
-head(agriculture_1)
-```
-```{r}
-str(agriculture_1)
+View(content)
 ```

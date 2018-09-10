@@ -1,6 +1,6 @@
-﻿"State investment by management level by Iterms, Year and Management level"
+﻿"State investment by management level chia theo Items, Year và Management level"
 
-"Iterms";"Year";"Total";"Central";"Local"
+"Items";"Year";"Total";"Central";"Local"
 "At current prices (Bill.dongs)";"1995";30447.0;16533.0;13914.0
 "At current prices (Bill.dongs)";"1996";42894.0;24772.0;18122.0
 "At current prices (Bill.dongs)";"1997";53570.0;30055.0;23515.0
@@ -21,7 +21,8 @@
 "At current prices (Bill.dongs)";"2012";406514.0;175004.0;231510.0
 "At current prices (Bill.dongs)";"2013";441924.0;186711.0;255213.0
 "At current prices (Bill.dongs)";"2014";486804.0;215101.0;271703.0
-"At current prices (Bill.dongs)";"Prel. 2015";519505.0;247284.0;272221.0
+"At current prices (Bill.dongs)";"2015";519878.0;249022.0;270856.0
+"At current prices (Bill.dongs)";"Prel. 2016";557496.0;264810.0;292686.0
 "Structure(%)";"1995";100.0;54.3;45.7
 "Structure(%)";"1996";100.0;57.8;42.2
 "Structure(%)";"1997";100.0;56.1;43.9
@@ -42,7 +43,8 @@
 "Structure(%)";"2012";100.0;43.1;56.9
 "Structure(%)";"2013";100.0;42.2;57.8
 "Structure(%)";"2014";100.0;44.2;55.8
-"Structure(%)";"Prel. 2015";100.0;47.6;52.4
+"Structure(%)";"2015";100.0;47.9;52.1
+"Structure(%)";"Prel. 2016";100.0;47.5;52.5
 "At constant 2010 prices (Bill. Dongs)";"1995";..;..;..
 "At constant 2010 prices (Bill. Dongs)";"1996";..;..;..
 "At constant 2010 prices (Bill. Dongs)";"1997";..;..;..
@@ -63,7 +65,8 @@
 "At constant 2010 prices (Bill. Dongs)";"2012";325918.0;138707.0;187211.0
 "At constant 2010 prices (Bill. Dongs)";"2013";351005.0;146312.0;204693.0
 "At constant 2010 prices (Bill. Dongs)";"2014";379694.0;166501.0;213193.0
-"At constant 2010 prices (Bill. Dongs)";"Prel. 2015";397040.0;186212.0;210828.0
+"At constant 2010 prices (Bill. Dongs)";"2015";397324.0;188729.0;208595.0
+"At constant 2010 prices (Bill. Dongs)";"Prel. 2016";430254.0;203941.0;226313.0
 "Index (Previous year=100)-%";"1995";..;..;..
 "Index (Previous year=100)-%";"1996";..;..;..
 "Index (Previous year=100)-%";"1997";..;..;..
@@ -84,4 +87,5 @@
 "Index (Previous year=100)-%";"2012";113.5;111.6;114.9
 "Index (Previous year=100)-%";"2013";107.7;105.5;109.3
 "Index (Previous year=100)-%";"2014";108.2;113.8;104.2
-"Index (Previous year=100)-%";"Prel. 2015";104.6;111.8;98.9
+"Index (Previous year=100)-%";"2015";104.6;113.4;97.8
+"Index (Previous year=100)-%";"Prel. 2016";108.3;108.1;108.5

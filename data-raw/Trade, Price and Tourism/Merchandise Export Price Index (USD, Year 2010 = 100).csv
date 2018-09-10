@@ -1,39 +1,39 @@
 ﻿"Merchandise Export Price Index (USD, Year 2010 = 100) by Commondity group and Year"
 
-"Commondity group";"2011";"2012";"2013";"2014";"2015"
-"GENERAL EXPORT PRICE INDEX";119.62;118.97;116.10;117.38;112.93
-"Fishery products";115.73;119.58;118.21;126.99;123.77
-"Vegetables and fruit";112.64;113.45;117.65;129.28;124.88
-"Cashew nut";137.90;117.29;106.36;106.80;115.66
-"Coffee";153.19;143.75;137.92;137.72;128.89
-"Tea";102.81;100.60;103.15;108.10;111.27
-"Pepper";168.49;196.62;182.65;209.04;266.83
-"Rice";112.32;104.30;94.31;99.43;91.35
-"Casava and casava products";108.82;90.50;96.48;90.80;87.65
-"Confectionery and cereal preparations";105.57;106.87;108.30;106.58;111.07
-"Coal";123.60;108.85;91.79;87.65;78.85
-"Crude oil";142.78;148.16;144.54;143.91;67.66
-"Petroleum oil, refined";138.64;150.68;148.26;138.86;69.66
-"Ores and other minerals";101.87;103.25;104.33;107.05;104.50
-"Chemicals";107.00;104.00;98.80;104.96;110.16
-"Chemical products";106.42;103.35;99.57;105.54;108.19
-"Plastic materials";111.75;112.53;101.30;93.62;73.61
-"Articles of plastics";104.64;105.14;97.25;98.97;91.96
-"Rubber";142.26;98.13;79.53;58.11;44.09
-"Articles of rubber";146.87;103.25;88.66;77.46;66.90
-"Bags, pockets, wallets, suitcases, hats and umbrellas";111.24;112.21;122.69;123.48;131.14
-"Rattan, bamboo and rush products";131.55;112.54;111.58;112.65;114.47
-"Wood and Aticles of wood";107.53;113.40;115.72;118.75;118.90
-"Paper and Aticles of paper";110.06;113.33;114.14;116.21;119.73
-"Articles of apparel and clothing accessories";109.17;111.86;115.60;116.48;119.56
-"Footwear";107.14;115.13;115.98;119.91;125.24
-"Ceramic articles";109.75;108.32;107.85;113.11;111.05
-"Glass and articles of glass";107.57;102.14;97.67;100.34;90.77
-"Precious stones, precious metals and their products";110.88;115.26;115.62;113.92;116.88
-"Iron, Steel";110.41;110.37;109.14;98.67;91.22
-"Iron and steel producs";113.85;114.29;109.25;102.84;95.14
-"Electronic parts (including TV parts), computer and their parts";108.20;105.55;110.07;114.01;113.17
-"Machinery, apparatus, accessory";105.39;105.40;100.85;100.26;107.64
-"Electrical wire and cable";103.76;107.54;108.80;106.37;89.20
-"Means of transport and equipment";102.32;103.25;100.15;103.09;96.30
-"Other";115.52;113.66;112.98;119.57;120.39
+"Commondity group";"2011";"2012";"2013";"2014";"2015";"2016"
+"GENERAL EXPORT PRICE INDEX";119.62;118.97;116.10;117.38;112.93;111.00
+"Fishery products";115.73;119.58;118.21;126.99;123.77;119.87
+"Vegetables and fruit";112.64;113.45;117.65;129.28;124.88;118.86
+"Cashew nut";137.90;117.29;106.36;106.80;115.66;126.95
+"Coffee";153.19;143.75;137.92;137.72;128.89;114.39
+"Tea";102.81;100.60;103.15;108.10;111.27;103.08
+"Pepper";168.49;196.62;182.65;209.04;266.83;238.94
+"Rice";112.32;104.30;94.31;99.43;91.35;93.58
+"Casava and casava products";108.82;90.50;96.48;90.80;87.65;74.04
+"Confectionery and cereal preparations";105.57;106.87;108.30;106.58;111.07;114.94
+"Coal";123.60;108.85;91.79;87.65;78.85;74.51
+"Crude oil";142.78;148.16;144.54;143.91;67.66;53.29
+"Petroleum oil, refined";138.64;150.68;148.26;138.86;69.66;54.89
+"Ores and other minerals";101.87;103.25;104.33;107.05;104.50;106.91
+"Chemicals";107.00;104.00;98.80;104.96;110.16;100.17
+"Chemical products";106.42;103.35;99.57;105.54;108.19;100.26
+"Plastic materials";111.75;112.53;101.30;93.62;73.61;71.42
+"Articles of plastics";104.64;105.14;97.25;98.97;91.96;86.83
+"Rubber";142.26;98.13;79.53;58.11;44.09;40.09
+"Articles of rubber";146.87;103.25;88.66;77.46;66.90;61.39
+"Bags, pockets, wallets, suitcases, hats and umbrellas";111.24;112.21;122.69;123.48;131.14;127.52
+"Rattan, bamboo and rush products";131.55;112.54;111.58;112.65;114.47;119.08
+"Wood and Aticles of wood";107.53;113.40;115.72;118.75;118.90;115.44
+"Paper and Aticles of paper";110.06;113.33;114.14;116.21;119.73;113.60
+"Articles of apparel and clothing accessories";109.17;111.86;115.60;116.48;119.56;119.08
+"Footwear";107.14;115.13;115.98;119.91;125.24;129.13
+"Ceramic articles";109.75;108.32;107.85;113.11;111.05;107.91
+"Glass and articles of glass";107.57;102.14;97.67;100.34;90.77;89.61
+"Precious stones, precious metals and their products";110.88;115.26;115.62;113.92;116.88;116.96
+"Iron, Steel";110.41;110.37;109.14;98.67;91.22;71.15
+"Iron and steel producs";113.85;114.29;109.25;102.84;95.14;80.06
+"Electronic parts (including TV parts), computer and their parts";108.20;105.55;110.07;114.01;113.17;121.69
+"Machinery, apparatus, accessory (*)";105.39;105.40;100.85;100.26;100.53;105.57
+"Electrical wire and cable (*)";103.76;107.54;108.80;106.36;97.64;97.71
+"Means of transport and equipment (*)";102.32;103.25;100.15;103.09;97.86;97.20
+"Other";115.52;113.66;112.98;119.57;120.39;117.65
