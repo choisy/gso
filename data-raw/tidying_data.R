@@ -3,7 +3,7 @@ library(magrittr)  # for '%>%' & '%<>%'
 library(dplyr)  # for 'filter', 'mutate', 'select'
 library(tidyr)  # for 'gather'
 library(dictionary)  # for 'provinces'
-setwd("~/Desktop/gsotest")
+setwd("~/Desktop/gso")
 
 # Prerequisites ---------------------------------------------------------------
 
@@ -13,13 +13,14 @@ stations <- read.table("data-raw/stations_dictionary.txt",
 stations <- setNames(stringi::stri_escape_unicode(stations[, 2]),
                      stringi::stri_escape_unicode(stations[, 1]))
 
-load("data/content.rda")
+#load("data/content.rda")
 
 # Functions --------------------------------------------------------------------
 
 # Function specific to the Dack Lak province. With the translation, the name of
 # the province is always written 'Dak Lak'. But, from 1980 until 2004, the name
 # of this province should be written 'Dack Lak'.
+# Used in "tidy_clean_df"
 dack_lak_function <- function(df) {
     df %<>% mutate(province = as.character(province))
     df[which(df$year < 2004 & df$province == "Dak Lak"), ] <-
@@ -28,12 +29,26 @@ dack_lak_function <- function(df) {
     df
 }
 
+# Translate the Vietname names in one column (col_name) of a data frame (df) in
+# an English standardized version. 'hash' should be a named vector.
+# Used in "make_col"
+translate <- function(df, col_name, hash) {
+  df[, col_name] %<>%
+    gsub("B\xecnh Dinh", "Binh Dinh", .) %>%
+    stringi::stri_escape_unicode(.) %>%
+    hash[.] %>%
+    as.character()
+  df <- df[which(is.na(df[, col_name]) == FALSE), ]
+}
+
+
 # Standardize the columns names, and the column year (if exists): get rid of
 # the punctuation, standardized the name of the spatial definition column
 # (col_name), correct typo, and correct error of duplicated names of column in
 # one specific data frame.
 # Also translate one row in the first column of a specific data frame.
-make_col <- function(df, col_name = "province") {
+# Used in "tidy_clean_df"
+make_col <- function(df, col_name = "province", hash = "provinces") {
 
   # Clean (remove space, punctuation replace by one "_"), correct typo, get rid
   # of the "pre" in front of a year, and standardized the column containing the
@@ -58,7 +73,7 @@ make_col <- function(df, col_name = "province") {
 
     # If a column year is present, get rid of the space and
     # characters and replace punctuation by one "_".
-    if (is.na(match("year", names(df))) == FALSE) {
+    if (is_in("year", names(df))) {
       df[, "year"] %<>%
         tolower() %>%
         gsub("[[:blank:]]+", "", .) %>%
@@ -72,17 +87,24 @@ make_col <- function(df, col_name = "province") {
 
     # In one data frame (concerning state budget), one row name in the first
     # column is not translated to English.
-    if (is.na(match("state_budget_expenditure", names(df))) == FALSE) {
+    if (is_in("state_budget_expenditure", names(df))) {
       df[, 1] %<>%
         gsub("Chi sự nghiệp kinh tế, bảo vệ môi trường",
              "Expense for economic, environmental protection", .)
     }
+
+    # Translate spatial definition if necessary
+    if (col_name %in% c("province", "station")) {
+      df %<>% translate(col_name, hash)
+    }
+
     df
 }
 
 # Get rid of the raw 'of which:' NA which as no information and substitute the
 # row with the repetition of the word 'Total' to one 'total' in a column "key"
 # of a data frame (df).
+# Used in "tidy_clean_df"
 clean_rowkey <- function(df) {
   if (is_in("key", names(df))) {
     sel <- grep("Of which", df$key)
@@ -92,7 +114,8 @@ clean_rowkey <- function(df) {
                      gsub("[[:blank:]]+", "_", .) %>%
                      gsub("[[:punct:]]+", "_", .) %>%
                      gsub("_+", "_", .) %>%
-                     gsub("_$", "", .))
+                     gsub("_$", "", .) %>%
+                     gsub("^_", "", .))
   }
   df
 }
@@ -101,6 +124,7 @@ clean_rowkey <- function(df) {
 # Gathers the information in columns names of a data frame (df) to have the data
 # express in a long format. As the data are processed by spatial definition, the
 # parameters 'sp_res' permit to select the processing adpated to the data.
+# Used in "tidy_clean_df"
 gather_data <- function(df, sp_res) {
 
     # If the year is the only name of the columns, gather the year in one column
@@ -165,13 +189,6 @@ gather_data <- function(df, sp_res) {
           grep("year", ., invert = TRUE, value = TRUE)
         df %<>% gather(key, value, one_of(sel))
 
-#    # If the data are expressed by station but doesn't have the year information
-#   # in the column names, gather the numeric columns names in one
-#        # column names "key".
-#    } else if (sp_res == "station") {
-#        sel <- select_if(df, is.numeric) %>% names %>% grep("year", ., invert = TRUE, value = TRUE)
-#        df %<>% gather(key, value, one_of(sel))
-
     # If the data are expressed by country and have different column explaining
     # the value (unite, subcategory, detailed inforamtion, ...) but doesn't have
     # the year information in the column names, gather the columns containing
@@ -227,19 +244,9 @@ gather_data <- function(df, sp_res) {
                          c("year", "month", sp_res, "key", "value"))))
 }
 
-# Translate the Vietname names in one column (col_name) of a data frame (df) in
-# an English standardized version. 'hash' should be a named vector.
-translate <- function(df, col_name, hash) {
-  df[, col_name] %<>%
-    gsub("B\xecnh Dinh", "Binh Dinh", .) %>%
-    stringi::stri_escape_unicode(.) %>%
-    hash[.] %>%
-    as.character()
-  df <- df[which(is.na(df[, sp_res]) == FALSE), ]
-}
-
-# Read one csv file and standardized and remove the empty columns and rows.
-# Return a data frame
+# Reads one csv file and standardized and remove the empty columns and rows.
+# Returns a data frame.
+# Used in "tidy_clean_df"
 read_file <- function(file) {
 
     # For 4 csv files, the format is different
@@ -258,164 +265,125 @@ read_file <- function(file) {
     df
 }
 
+# from data of the content data frame and by spatial definition, clean and tidy
+# the data to express them in a long format. returns a list of data frame
+tidy_clean_df <- function(df, sp_res, hash = provinces){
+
+  df_tot <- df %>% filter(sp_resolution == !!sp_res)
+
+  if (sp_res == "river") {
+    col_name <- "river"
+    sp_res <- "station"
+  } else {
+    col_name <- sp_res
+  }
+
+  lst_df <- lapply(seq_along(df_tot$data_frame), function(x) {
+    df <- df_tot[x, ]
+    file <- paste0(df$category, "/", df$data_frame, ".csv")
+    df <- read_file(file) %>%
+      make_col(col_name = col_name, hash = hash) %>%
+      gather_data(sp_res = sp_res) %>%
+      clean_rowkey
+
+    # The river and stations names are in the same column, they need to be
+    # separated
+    if (col_name == "river") {
+      df %<>% separate(station, c("river", "station"), sep = " - ") %>%
+        mutate(station = gsub(" station", "", station)) %>%
+        translate("station", hash = hash)
+    }
+
+    # Correct the dack lack/ dak lak province names according to the yeat
+    if (any(names(df) %in% "year" & any(names(df) %in% "province"))) {
+      df %<>% dack_lak_function
+    }
+
+    df
+
+  }) %>%
+    setNames(df_tot$data_name)
+}
+
 # Load data --------------------------------------------------------------------
 
-sp_res <- "province"
-df_tot <- content %>%
-  filter(sp_resolution == sp_res)
-lst_province <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col %>%
-      translate(sp_res, provinces) %>%
-      gather_data(sp_res) %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
+source("data-raw/creating_content.R")
+# to have access to function "columns pattern"
 
-# lst_province %>% purrr::map(head) # to check the result
-
-sp_res <- "country"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_country <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col(col_name = sp_res) %>%
-      gather_data(sp_res) %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
-
-# lst_country[1:75] %>% purrr::map(head) lst_country[75:156] %>% purrr::map(head)
-
-sp_res <- "region"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_region <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col %>%
-      gather_data(sp_res) %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
-
-# lst_region %>% purrr::map(head)
-
-sp_res <- "residence"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_residence <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col %>%
-      gather_data(sp_res) %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
-
-# lst_residence %>% purrr::map(head)
-
-sp_res <- "station"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_station <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col(col_name = "station") %>%
-      translate(sp_res, stations) %>%
-      gather_data(sp_res)  %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
-
-# lst_station %>% purrr::map(head)
-
-sp_res <- "river"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_river <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>%
-      make_col(col_name = "station") %>%
-      gather_data(sp_res = "station") %>%
-      separate(station, c("river", "station"), sep = " - ") %>%
-      mutate(station = gsub(" station", "", station)) %>% translate("station",
-        stations) %>%
-      clean_rowkey
-}) %>% setNames(df_tot$data_name)
-
-# lst_river %>% purrr::map(head)
-
-sp_res <- "seaport"
-df_tot <- content %>% filter(sp_resolution == sp_res)
-lst_seaport <- lapply(seq_along(df_tot$data_frame), function(x) {
-    df <- df_tot[x, ]
-    file <- paste0(df$category, "/", df$data_frame, ".csv")
-    df <- read_file(file) %>% make_col %>% gather_data(sp_res)
-}) %>% setNames(df_tot$data_name)
-
-# lst_seaport %>% purrr::map(head)
-
-# Regroup all the data set in one list -----------------------------------------
-
-total_df <- purrr::splice(lst_country, lst_province, lst_region, lst_residence, lst_river, lst_seaport, lst_station)
-
-# Correct the dack lack/ dak lak province names.
-total_df <- lapply(seq_along(total_df), function(x) {
-    df <- total_df[[x]]
-    if (any(names(df) %in% "year" & any(names(df) %in% "province"))) {
-        df %<>% dack_lak_function
-    }
-    df
-}) %>% setNames(names(total_df))
+# Creating all the data frame
+lst_total <- lapply(content$sp_resolution %>% unique, function(x) {
+  if (x %in% c("station", "river")) {
+    lst_df <- tidy_clean_df(content, x, stations)
+  } else {
+    lst_df <- tidy_clean_df(content, x)
+  }
+}) %>%
+  unlist(recursive = FALSE)
 
 
-# Updating content data frame --------------------------------------------------
+# Integrating all the data frame in the content data frame
+content %<>%
+  full_join(tibble::tibble(data = lst_total, data_name = names(lst_total)),
+            by = "data_name")
 
-# Integrating all the data in the content data frame
-content %<>% full_join(tibble::tibble(data = total_df, data_name = names(total_df)), by = "data_name")
 
-
-# Updating two columns containing the time range and time resolution of all the data frames
+# Updating two columns containing the time range and time resolution of all the
+# data frames
 content$time_resolution <- NA
 content$time_range <- NA
 
+content$name_col <-  purrr::map(content$data, names) %>%
+  purrr::map(paste, collapse = ", ")
+
+# integrate time range and resolution by recognizing pattern in data_frame or
+# by the name of the column of data.
+content %<>%
+  name_pattern("name_col", "month", "time_resolution", "month") %>%
+  name_pattern("name_col", "year", "time_resolution", "year") %>%
+  name_pattern("data_frame", "31-12-2016", "time_resolution",
+               "single time point") %>%
+  name_pattern("data_frame", "31-12-2016", "time_range", "31-12-2016") %>%
+  name_pattern("data_frame", "31 Februarry 2015", "time_resolution",
+               "single time point") %>%
+  name_pattern("data_frame", "31 Februarry 2015", "time_range",
+               "28-02-2015") %>%
+  name_pattern("data_frame", "31 December 2015", "time_resolution",
+               "single time point") %>%
+  name_pattern("data_frame", "31 December 2015", "time_range",
+               "31-12-2015") %>%
+  replace_na(list(time_resolution = "year"))
+
+# integrate time range and resolution by recognizing pattern in data_frame or
+# by the value inside the column of data.
 for (i in seq_along(content$data_name)) {
 
-    df <- content$data[[i]]
-    names_col <- df %>% names()
+  df <- content$data[[i]]
+  time <- content[i, ]$data_frame
+  timerange <- df$key %>% unique %>%
+    stringr::str_extract("[[:digit:]]{4}") %>% .[!is.na(.)]
 
-    if (is_in("month", names_col) == TRUE) {
-        content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "month"))
-    }
+  if (is_in("year", colnames(df))) {
+    trange <- df$year %>% as.character() %>% strsplit("_") %>% unlist %>%
+      range() %>% paste(collapse = "-")
+    content[i, ] %<>%
+      mutate(time_range = replace_na(time_range, trange))
+  }
 
-    if (is_in("year", names_col) == TRUE) {
-        range_y <- df$year %>% unique %>% range %>% sub("^(\\d{4}).*$", "\\1", .)
-        content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "year"), time_range = replace_na(time_range,
-            paste0(min(range_y), "-", max(range_y))))
-    } else {
-        time <- content[i, ]$data_frame
-        if (grep("31-12-2016", time) %>% length == 1) {
-            content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "single time point"), time_range = replace_na(time_range,
-                "31-12-2016"))
+  if (grep("[[:digit:]]{4}", time) %>% length == 1) {
+    content[i, ] %<>%
+      mutate(time_range = replace_na(time_range, time %>%
+                                       stringr::str_extract("[[:digit:]]{4}")))
+  }
 
-        } else if (grep("31 Februarry 2015", time) %>% length == 1) {
-            content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "single time point"), time_range = replace_na(time_range,
-                "28-02-2015"))
-        } else if (grep("31 December 2015", time) %>% length == 1) {
-            content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "single time point"), time_range = replace_na(time_range,
-                "31-12-2015"))
-        } else if (grep("[[:digit:]]{4}", time) %>% length == 1) {
-            content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "year"), time_range = replace_na(time_range,
-                time %>% stringr::str_extract("[[:digit:]]{4}")))
-        } else {
-            timerange <- df$key %>% unique %>% stringr::str_extract("[[:digit:]]{4}") %>% .[!is.na(.)]
-            content[i, ] %<>% mutate(time_resolution = replace_na(time_resolution, "year"), time_range = replace_na(time_range,
-                timerange))
-        }
-    }
+  if (grep("[[:digit:]]{4}", timerange) %>% length == 1) {
+    content[i, ] %<>%
+      mutate(time_range = replace_na(time_range, timerange))
+  }
 }
 
-content %<>% select(category, subcategory, data_frame, data_name, time_resolution, time_range, sp_resolution,
-    data)
+
+content %<>% select(category, subcategory, data_frame, data_name,
+                    time_resolution, time_range, sp_resolution, data)
 
 
 # Save content in RData --------------------------------------------------------

@@ -4,7 +4,7 @@ library(dplyr)  # for 'select', 'filter', 'bind_rows'and 'mutate'
 library(tidyr)  # for 'replace_na'
 library(purrr)  # for 'map'
 library(lazyeval)
-setwd("~/Desktop/gsotest")
+setwd("~/Desktop/gso")
 
 # Functions --------------------------------------------------------------------
 
@@ -197,5 +197,4 @@ content %<>%
 
 devtools::use_data(content, overwrite = TRUE)
 
-# erase everything
-rm(list = ls())
+
