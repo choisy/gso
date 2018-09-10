@@ -1,0 +1,37 @@
+﻿"Input producer price index (*) (Previous year = 100) by Using purpose and product industry and Year"
+
+"Using purpose and product industry";"2012";"2013";"2014";"2015";"2016"
+"GENERAL INDEX";109.88;103.05;103.39;100.02;98.70
+"Using for agricultural, forestry and fishing";..;..;..;..;98.69
+"Using for manufacturing";..;..;..;..;98.80
+"Using for construction";..;..;..;..;98.06
+"Agriculture, forestry and fishing";108.34;100.49;103.97;99.46;99.77
+"Agricultural products and related services";..;..;..;..;97.35
+"Forestry products and related services";..;..;..;..;101.45
+"Fishing and aquaculture products";..;..;..;..;102.29
+"Mining and quarrying products";105.83;109.63;105.47;101.52;101.89
+"Coal and lignite";..;..;..;..;97.92
+"Metal ores";..;..;..;..;100.92
+"Mining products other";..;..;..;..;103.91
+"Manufacturing products";..;..;..;..;98.16
+"Food and foodstuff manufacturing products";108.47;100.60;103.92;99.82;98.14
+"Beverages and tobacco products";..;..;..;..;109.06
+"Textile, leather products";114.31;105.72;101.42;100.17;101.40
+"Wood products";109.89;103.73;101.81;101.66;100.16
+"Paper and paper products";..;..;..;..;100.15
+"Coke and refind petroleum";112.07;100.48;99.61;84.70;84.40
+"Chemicals and chemical products";109.86;102.24;100.29;98.73;98.79
+"Medicinal, pharmaceuticals products";108.57;105.58;105.41;100.68;100.96
+"Rubber and plastics products";113.80;106.16;103.47;100.37;99.58
+"Non metal products";..;..;..;..;100.49
+"Metal products";105.20;99.86;100.59;95.83;92.08
+"Basic metals and fabricated metal products (except of machinery and equipments)";..;..;..;..;100.84
+"Computer, electronic and optical products";113.14;100.05;100.00;98.82;101.83
+"Electrical equipments";105.31;103.03;94.02;98.64;101.87
+"Machinery and equipment non where classification";113.74;105.46;101.14;101.30;100.83
+"Motor vehicles, trailers and semi-trailers";101.83;101.43;99.68;99.94;100.19
+"Other transport equipments";..;..;..;..;101.57
+"Electricity, gas, steam and air conditioning supply";109.52;104.48;106.71;104.60;103.72
+"Natural water exploitation";109.57;108.45;105.21;103.42;104.08
+"Construction services";..;..;..;..;102.81
+"Professional, scientific and technical services";..;..;..;..;101.34
