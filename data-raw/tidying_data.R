@@ -325,7 +325,6 @@ lst_total <- lapply(content$sp_resolution %>% unique %>% sort, function(x) {
 content %<>%
   full_join(tibble::tibble(data = lst_total,
                            data_name = names(lst_total)), by = "data_name")
-content$data <- with(content, setNames(data, data_name))
 
 # Updating two columns containing the time range and time resolution of all the
 # data frames
@@ -384,6 +383,7 @@ for (i in seq_along(content$data_name)) {
 
 content %<>% select(category, subcategory, data_frame, data_name,
                     time_resolution, time_range, sp_resolution, data)
+content$data <- with(content, setNames(data, data_name))
 
 
 # Save content in RData --------------------------------------------------------
