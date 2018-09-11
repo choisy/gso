@@ -35,6 +35,7 @@ dack_lak_function <- function(df) {
 translate <- function(df, col_name, hash) {
   df[, col_name] %<>%
     gsub("B\xecnh Dinh", "Binh Dinh", .) %>%
+    gsub(" {2, }", " ", .) %>%
     stringi::stri_escape_unicode(.) %>%
     hash[.] %>%
     as.character()
@@ -311,14 +312,16 @@ source("data-raw/creating_content.R")
 # to have access to function "columns pattern"
 
 # Creating all the data frame
-lst_total <- lapply(content$sp_resolution %>% unique, function(x) {
+lst_total <- lapply(content$sp_resolution %>% unique %>% sort, function(x) {
   if (x %in% c("station", "river")) {
     lst_df <- tidy_clean_df(content, x, stations)
   } else {
     lst_df <- tidy_clean_df(content, x)
   }
 }) %>%
-  unlist(recursive = FALSE)
+  unlist(recursive = FALSE) %>%
+  setNames(content %>% arrange(sp_resolution) %>% .$data_name)
+
 
 
 # Integrating all the data frame in the content data frame
