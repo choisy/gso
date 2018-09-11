@@ -319,16 +319,13 @@ lst_total <- lapply(content$sp_resolution %>% unique %>% sort, function(x) {
     lst_df <- tidy_clean_df(content, x)
   }
 }) %>%
-  unlist(recursive = FALSE) %>%
-  setNames(content %>% arrange(sp_resolution) %>% .$data_name)
-
-
+  unlist(recursive = FALSE)
 
 # Integrating all the data frame in the content data frame
 content %<>%
-  full_join(tibble::tibble(data = lst_total, data_name = names(lst_total)),
-            by = "data_name")
-
+  full_join(tibble::tibble(data = lst_total,
+                           data_name = names(lst_total)), by = "data_name")
+content$data <- with(content, setNames(data, data_name))
 
 # Updating two columns containing the time range and time resolution of all the
 # data frames
