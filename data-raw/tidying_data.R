@@ -211,7 +211,8 @@ gather_data <- function(df, sp_res) {
     }
     if (is_in("month", names(df))) {
         month_trans <- setNames(rep(month.name, 3), c(month_name, month.name))
-        df %<>% mutate(month = month_trans[month])
+        df %<>% filter(month %in% names(month_trans)) %>%
+          mutate(month = as.character(month) %>% month_trans[.])
     }
 
     # If the data are expressd by region but contain the spatial information in
