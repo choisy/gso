@@ -125,7 +125,7 @@ file.remove(sel_region_residence)
 # Residence cases --------------------------------------------------------------
 
 sel_residence <-  cases %>% grep("region", ., value = TRUE, invert = TRUE ) %>%
-  grep("residence",. , value = TRUE)
+  grep("residence", ., value = TRUE)
 
 df_lst <- lapply(seq_along(sel_residence), function(x) {
 
@@ -162,9 +162,9 @@ file.remove(sel_residence)
 # Provinces cases --------------------------------------------------------------
 
 sel_province <- grep("region", cases, value = TRUE, invert = TRUE)  %>%
-  grep("residence",. , value = TRUE, invert = TRUE) %>%
-  grep("province",. , value = TRUE) %>%
-  grep("class",. , value = TRUE)
+  grep("residence", ., value = TRUE, invert = TRUE) %>%
+  grep("province", ., value = TRUE) %>%
+  grep("class", ., value = TRUE)
 
 df_lst <- lapply(seq_along(sel_province), function(x) {
 

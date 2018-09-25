@@ -32,7 +32,7 @@ name_pattern <- function(df, search_col, pattern, replace_col, x,
 
   # If 'category' is imputed, match the pattern only in the subseted data frame
   # with the category corresponging
-  if(is.null(category) == FALSE) {
+  if (is.null(category) == FALSE) {
    tmp <- split(df, df[, "category"] == category)
    df_split <- tmp$`TRUE`
    sel <- grep(pattern, df_split[, search_col] %>% unlist, ignore.case = T)
@@ -196,5 +196,3 @@ content %<>%
 # Save content in RData --------------------------------------------------------
 
 devtools::use_data(content, overwrite = TRUE)
-
-

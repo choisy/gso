@@ -15,8 +15,6 @@ stations <- read.table("data-raw/stations_dictionary.txt",
 stations <- setNames(stringi::stri_escape_unicode(stations[, 2]),
                      stringi::stri_escape_unicode(stations[, 1]))
 
-#load("data/content.rda")
-
 # Functions --------------------------------------------------------------------
 
 # Function specific to the Dack Lak province. With the translation, the name of
@@ -44,7 +42,8 @@ translate <- function(df, col_name, hash) {
   df <- df[which(is.na(df[, col_name]) == FALSE), ]
 }
 
-# Returns boolean to evalue if vect contains years after removing punctuation
+# Returns boolean to evalue if vect contains years after removing punctuation.
+# Used in "make_col"
 is_year <-  function(vect) {
   vect %>%
     gsub("[^[:digit:]]", "", .) %>%
@@ -52,23 +51,25 @@ is_year <-  function(vect) {
     all
 }
 
-# Returns boolean to evalue if vect contains residence after removing
-# punctuation
+# Returns boolean to evalue if vect contains residence value (rural/urban) after
+# removing punctuation.
+# Used in "make_col"
 is_residence <-  function(vect) {
   vect %>%
     grepl("Urban|Rural", ., ignore.case = TRUE) %>%
     any
 }
 
-# Renames all the vector by sel
-rename_vect <- function(vect, sel = "year"){
+# Renames all the vector by `sel`
+# Used in "make_col"
+rename_vect <- function(vect, sel = "year") {
   vect <- replace(vect, seq_along(vect), sel)
 }
 
-# Standardize the columns names, and the column year (if exists): get rid of
-# the punctuation, standardized the name of the spatial definition column
-# (col_name), correct typo, and correct error of duplicated names of column in
-# one specific data frame.
+# Standardize the columns names, and some columns of spatial and time resolution
+# (if exists): get rid of the punctuation, standardized the name of the spatial
+# definition column (col_name), correct typo, and correct error of duplicated
+# names of column in one specific data frame.
 # Also translate one row in the first column of a specific data frame.
 # Used in "tidy_clean_df"
 make_col <- function(df, col_name = "province", hash = "provinces") {
@@ -117,7 +118,7 @@ make_col <- function(df, col_name = "province", hash = "provinces") {
       gsub("WHOLE WORD|Of which:", NA, ., ignore.case = TRUE) %>%
       gsub("total|Of which", NA, ., ignore.case = TRUE)
     sel <- df[, "country"] %>% unlist  %>%
-      grep("Northern |Eastern |Southern |Western |America|Europe|Asia|^Africa|Oceania",
+      grep("Northern|Eastern|Souther|Western|America|Europ|Asia|^Africa|Oceani",
            ., value = TRUE, invert = TRUE) %>% na.omit
     df %<>% filter(is.na(country) == FALSE) %>%
       filter(country %in% sel)
@@ -125,7 +126,7 @@ make_col <- function(df, col_name = "province", hash = "provinces") {
 
   # Rename columns as residence if contains "rural" or "urban" in the column's
   # value
-  if(col_name == "residence"){
+  if (col_name == "residence") {
     df %<>% rename_if(is_residence, funs(rename_vect(., sel = "residence")))
   }
 
@@ -156,10 +157,11 @@ make_col <- function(df, col_name = "province", hash = "provinces") {
   df
 }
 
-# Get rid of the raw 'of which:' NA which as no information and substitute the
-# row with the repetition of the word 'Total' to one 'total' in a column "key"
-# of a data frame (df).
-# Used in "tidy_clean_df"
+# Clean the column after gathering the information in columns as: spatial
+# resolution, time resolution, key and value. Take care of the column: `key`,
+# `region` ou `residence`. Rename duplicate of total in total, keep only the raw
+# in the good spatial resolution.
+# Used in "gather_data"
 clean_rowkey <- function(df) {
   if (is_in("key", names(df))) {
     sel <- grep("Of which", df$key)
@@ -210,14 +212,6 @@ clean_rowkey <- function(df) {
   }
 
   df
-}
-
-# Remove duplicate words
-rem_dup_word <- function(vect){
-  vect <- tolower(vect) %>%
-    map(strsplit, "_") %>%
-    map(unlist) %>% map(unique) %>%
-    map(paste, collapse = "_")
 }
 
 # Gathers the information in columns names of a data frame (df) to have the data
@@ -296,7 +290,7 @@ gather_data <- function(df, sp_res, vect) {
     sel1 <- grep("urban|rural|total", names(df), value = TRUE,
                  ignore.case = TRUE)
     df %<>% gather(residence, value, one_of(sel1))
-    if(sel1 %>% length == 0) {
+    if (sel1 %>% length == 0) {
       sel <- select_if(df, is.numeric) %>% names %>%
         grep("year", ., invert = TRUE, value = TRUE)
       df %<>% gather(key, value, one_of(sel))
@@ -320,7 +314,7 @@ gather_data <- function(df, sp_res, vect) {
   }
 
   # Rename key column in residence for the data frame expressed by residence
-  if(sp_res == "residence"){
+  if (sp_res == "residence") {
     df %<>% rename_if(is_residence, funs(rename_vect(., sel = "residence")))
   }
 
@@ -328,8 +322,8 @@ gather_data <- function(df, sp_res, vect) {
   # information are standardized to be the same across all the data frame
   month_name <- c(month.abb %>% tolower(), month.name %>% tolower())
   if (is_in("key", names(df))) {
-    if ((is.na(match(df$key, month_name)) == FALSE) %>%
-        sum == length(df$key))
+    if ( (is.na(match(df$key, month_name)) == FALSE) %>%
+        sum == length(df$key) )
       df %<>% rename(month = key)
   }
   if (is_in("month", names(df))) {
@@ -340,7 +334,7 @@ gather_data <- function(df, sp_res, vect) {
 
   if (is_in("residence", colnames(df))) {
     if (df$residence %>% unique %>% tolower %>%
-        stringr::str_detect(. ,"[^[rural|urban]]") %>% all()) {
+        stringr::str_detect(., "[^[rural|urban]]") %>% all()) {
       df %<>% mutate(key = gsub("_urban|_rural", "", residence),
                      residence = stringr::str_extract(residence, "urban|rural"))
     }
@@ -372,15 +366,12 @@ gather_data <- function(df, sp_res, vect) {
     }
 
   df %<>% mutate(key = gsub("_+", "_", key)) %>%
-    #filter(is.na(value) == FALSE) %>%
     clean_rowkey()
   # output the data frame with the column names ordered as time, space, key,
   # value.
   suppressWarnings(df %<>%
                     select(one_of(c("year", "month", sp_res, "key", "value"))))
 
-  # Spread key on value, to have data frame in a wide format
-  df %>% spread(key, value)
 }
 
 # Reads one csv file and standardized and remove the empty columns and rows.
@@ -393,8 +384,20 @@ read_file <- function(file) {
   df
 }
 
+# Remove duplicate words
+# Used in "make_subsect"
+rem_dup_word <- function(vect) {
+  vect <- tolower(vect) %>%
+    map(strsplit, "_") %>%
+    map(unlist) %>% map(unique) %>%
+    map(paste, collapse = "_")
+}
+
 # Take care of the subsection in a data frame
+# Used in "tidy_clean_df"
 make_subsect <- function(df) {
+
+  # Repeat the name of the section on the row below to avoid duplication
   sel <- names(df)[1]
   df %<>%
     mutate(col = str_extract(df[, 1], ".*\\:$") %>%
@@ -402,10 +405,12 @@ make_subsect <- function(df) {
     fill(col) %>% unite(sel, col, sel) %>%
     mutate(sel = gsub("NA_|:", "", sel) %>%
              gsub("[[:blank:]+]{1, }", " ", .) %>%
+             # rename duplicated as "X_b" instead of "X'"
              gsub("'|,", "_b", .)) %>%
-    distinct #%>%
-   # mutate(sel = make.unique(sel, sep = "_"))
+    distinct
 
+  # Head of section written as the name of the section two times, renames one as
+  # "total"
   selc <- df$sel %>% map(strsplit, "_") %>% flatten() %>% map(duplicated) %>%
     map(any) %>% unlist
   df$sel[selc] %<>% strsplit("_") %>% map(replace, 2, "total") %>%
@@ -429,15 +434,16 @@ tidy_clean_df <- function(df, sp_res, hash = provinces){
     col_name <- sp_res
   }
 
-  lst_df <- lapply(#1:100, function(x) {
+  lst_df <- lapply(
     seq_along(df_tot$data_frame), function(x) {
     df_sel <- df_tot[x, ]
     file <- paste0(df_sel$category, "/", df_sel$data_frame, ".csv")
     df <- read_file(file) %>%
       make_col(col_name = col_name, hash = hash) %>%
       make_subsect %>%
-      gather_data(sp_res = sp_res, vect = df_sel$data_frame) #%>%
-      #clean_rowkey
+      gather_data(sp_res = sp_res, vect = df_sel$data_frame) %>%
+    # Spread key on value, to have data frame in a wide format
+      spread(key, value)
 
     # The river and stations names are in the same column, they need to be
     # separated
@@ -447,7 +453,7 @@ tidy_clean_df <- function(df, sp_res, hash = provinces){
       translate("station", hash = hash)
     }
 
-    # Correct the dack lack/ dak lak province names according to the yeat
+    # Correct the dack lack/ dak lak province names according to the year
     if (any(names(df) %in% "year" & any(names(df) %in% "province"))) {
       df %<>% dack_lak_function
     }
@@ -466,9 +472,9 @@ source("data-raw/creating_content.R")
 # Creating all the data frame
 lst_total <- lapply(content$sp_resolution %>% unique %>% sort, function(x) {
   if (x %in% c("station", "river")) {
-    lst_df <- tidy_clean_df(content, x, stations)
+    suppressWarnings(lst_df <- tidy_clean_df(content, x, stations))
   } else {
-    lst_df <- tidy_clean_df(content, x)
+    suppressWarnings(lst_df <- tidy_clean_df(content, x))
   }
 }) %>%
   unlist(recursive = FALSE)
