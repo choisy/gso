@@ -458,6 +458,13 @@ tidy_clean_df <- function(df, sp_res, hash = provinces){
       df %<>% dack_lak_function
     }
 
+    # Correct the year expression (integer / character )
+    if (is_in("year", names(df))) {
+      if (!grepl("_", df$year %>% paste(collapse = "|"))) {
+        df %<>% mutate(year = as.integer(year))
+      }
+    }
+
     df
 
   }) %>%
@@ -538,7 +545,6 @@ for (i in seq_along(content$data_name)) {
   }
 }
 
-
 content %<>% select(category, subcategory, data_frame, data_name,
                     time_resolution, time_range, sp_resolution, data)
 content$data <- with(content, setNames(data, data_name))
@@ -546,7 +552,7 @@ content$data <- with(content, setNames(data, data_name))
 
 # Save content in RData --------------------------------------------------------
 
-devtools::use_data(content, overwrite = TRUE)
+usethis::use_data(content, overwrite = TRUE)
 
 # erase everything
 rm(list = ls())
