@@ -2,73 +2,81 @@ library(tabulizer)
 library(tidyr)
 library(purrr)
 
-all <- extract_tables("age_group_province.pdf", method = "decide")
-text <- extract_text("age_group_province.pdf", 
-                     area = list(c(81.60, 66.52, 166.79, 546.24))) %>% 
-  gsub("[[:digit:]]*", "", .) %>% gsub("\n*", "", .) %>% strsplit(",") %>% 
-  purrr::map(1) %>% 
-  stringr::str_extract("(?<=\\.).{1,}") %>% 
-  gsub("[[:punct:]]*", "", .) %>% 
-  gsub("^ ", "", .) %>% 
-  tolower 
+# Prerequisite -----------------------------------------------------------------
 
-transl_test <- data_frame(origin = text) %>% 
-  mutate(transl_or = dictionary::vn_province[origin]) 
- 
-vect_or <- transl_test %>% filter(is.na(transl_or) == TRUE) %>% .$origin %>% na.omit
-vect_tranls <- c("hanoi", "ha giang", "cao bang", "tuyen quang", "lao cai", 
-                 "lai chau", "son la", "yen bai", "hoa binh", "thai nguyen",
-                 "lang son", "quang ninh", "bac giang", "phu tho", "hai duong",
-                 "hai phong", "hung yen", "thanh hoa", "nghe an", "quang binh",
-                 "quang tri", "da nang", "quang nam", "quang ngai", "phu yen",
-                 "khanh hoa", "kon tum", "gia lai", "dak lak", "dak nong",
-                 "lam dong", "binh phuoc", "tay ninh", "binh duong", "dong nai",
-                 "ba ria vung tau", "ho chi minh", "long an", "tien giang",
-                 "vinh long", "dong thap", "an giang", "kien giang", "can tho",
-                 "hau giang", "soc trang", "bac lieu") %>% 
-  dictionary::vn_province[.]
-hash <- dictionary::vn_province %>% c(setNames(vect_tranls, vect_or))
-transl_test %<>% mutate(transl_or = hash[origin]) %>% 
-  fill(transl_or) %>% 
-  mutate(number = rep(c(1, 2), length(text) / 2),
-         transl_or = paste(transl_or, number, sep = "_"))
+# Functions --------------------------------------------------------------------
 
-all_tables <-  setNames(all, transl_test$transl_or) %>% 
-  map(as.data.frame) %>% 
-  map(filter, grepl("Total", V1) == FALSE)
+# For some columns, the value of two columns are unite and separated by " ", the
+# problem is that the value inside one column is also expressed with " ", for
+# example "100 000" for 100000.
+# This function is taking care of this problem and is separating columns in two.
+# For example:
+# |"100 000 120 000"| becomes |"100 000"|"120 000"|
+# Recognize the columns containing the information of two columns when the
+# number of character in the first row of the column is superior to the `limit`
+# argument.
+sep_col <- function(df, limit = 10) {
+  sel <- df[1, ] %>% nchar(.) %>% {. > limit} %>% stringr::str_which("TRUE")
+  df <- df %>% mutate_all(stringr::str_trim) %>%
+    mutate_all(function(x) sub(" ", ".", x) %>% sub(" ", "_", .))
+  df <- df[, (which(nchar(df[2, ]) != 0))]
 
-make_colnames <- function(df){
-  year <- 2014 + (dim(df)[2] - 2)
-  colname_v <- c("age", 2014:year)
-  colnames(df) <- colname_v
-  df <- df[-1, ]
+  if (length(sel) > 0) {
+    suppressWarnings(df %<>%
+      separate(paste0("V", sel[1]), paste0(sel[1], ".", 1:2), sep = "_"))
+    if (length(sel) == 2) {
+      suppressWarnings(df %<>%
+          separate(paste0("V", sel[2]), paste0(sel[2], ".", 1:2), sep = "_"))
+    }
+    df %<>%
+      distinct %>%
+      mutate_all(function(x) sub("\\.", " ", x)) %>%
+      janitor::remove_empty(c("cols", "rows"))
+  }
+
+  names(df) <- paste0("V", seq_along(df))
+  return(df)
 }
 
-all_tables_2 <- keep(all_tables, names(all_tables) %>% grepl(2, .))  %>%
-  map(make_colnames) 
-all_tables_1 <- keep(all_tables, names(all_tables) %>% grepl(1, .)) %>% 
-  map(separate, V1, c("V1", "2014", "2014d"), sep = " ") %>% 
-  map(unite, "V2a", "2014", "2014d", sep = " ")  %>%
-  map(make_colnames) 
+# Data -------------------------------------------------------------------------
 
-total <- 
-  append(all_tables_1, all_tables_2) %>% 
-  map(mutate_all, funs(gsub("NA NA", NA, .))) %>% 
-  tibble(province = c(names(all_tables_1), names(all_tables_2))) %>% 
-  mutate(province = gsub("_.$", "", province)) %>% 
-  group_by(province)  %>% 
+## PROVINCE NAME
+text <- extract_text("R_script/age_group_province.pdf",
+  area = list(c(81.60, 66.52, 166.79, 546.24))
+  ) %>%
+  gsub("[[:digit:]]*", "", .) %>% gsub("\n*", "", .) %>% strsplit(",") %>%
+  purrr::map(1) %>%
+  stringr::str_extract("(?<=\\.).{1,}") %>%
+  gsub("[[:punct:]]*", "", .) %>%
+  gsub("^ ", "", .) %>%
+  grep("projected", ., value = TRUE, invert = TRUE, ignore.case = TRUE) %>%
+  na.omit %>%
+  tolower %>%
+  rep(., each = 2) %>%
+  dictionary::vn_province[.]
+
+## AGE-GROUP DATA FRAME
+all_tab <- extract_tables(
+  "R_script/Tieng Anh_Du Bao Dan So Viet Nam.compressed.pdf",
+  method = "decide", pages = c(108:233))
+age_group <- all_tab %>%
+  setNames(text) %>%
+  map(as.data.frame) %>%
+  map(mutate_if, is.factor, as.character) %>%
+  map(filter, grepl("Total|otal", V1) == FALSE) %>%
+  map(sep_col) %>%
+  map(rename, age = "V1") %>%
+  tibble(province = names(.)) %>%
+  group_by(province)  %>%
   nest %>%
-  mutate(data = map(data, unlist, FALSE) %>% 
-           map(bind_rows)) %>% 
-  unnest %>% 
-  mutate(key = age %>% gsub("[[:digit:]]|[[:punct:]]", NA, .)) %>% 
-  fill(key) %>% 
-  tidyr::gather(year, value, -province, -age, -key) %>% 
-  mutate(value = gsub(" ", "", value) %>% as.numeric) %>% 
-  filter(is.na(value) == FALSE)
-
-write.csv(total, file = "~/Desktop/vn_agegroup.csv", sep = ";", row.names = FALSE)
-
-
-
-  
+  mutate(data = map(data, unlist, FALSE) %>%
+           map(bind_rows)) %>%
+  unnest %>%
+  mutate(key = c(rep("Total", 17), rep("Male", 18), rep("Female", 18)) %>%
+           rep(63)) %>%
+  setNames(c("province", "age", c(2014:2034), "key")) %>%
+  tidyr::gather(year, value, -province, -age, -key) %>%
+  mutate(value = value %>% gsub("\\.|[[:blank:]]", "", .) %>% as.numeric(.),
+         year  = as.integer(year)) %>%
+  filter(is.na(value) == FALSE, key != "Total") %>%
+  spread(key, value)
