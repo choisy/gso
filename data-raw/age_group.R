@@ -1,8 +1,10 @@
-library(tabulizer)
-library(tidyr)
-library(purrr)
-
-# Prerequisite -----------------------------------------------------------------
+library(tabulizer) # for "extract_test", "extract_tables"
+library(tidyr)     # for "separate", "nest", "gather", "spread", "unnest"
+library(purrr)     # for "map",
+library(dplyr)     # for "mutate_all", "distinct", "select", "mutate", "filter",
+# "tibble", "group_by"
+library(magrittr)  # for "%>%", "%<>%"
+# The packages "stringr", "janitor", "dictionary" are also necessary
 
 # Functions --------------------------------------------------------------------
 
@@ -40,8 +42,14 @@ sep_col <- function(df, limit = 10) {
 
 # Data -------------------------------------------------------------------------
 
-## PROVINCE NAME
-text <- extract_text("R_script/age_group_province.pdf",
+## PROVINCE NAME _ to extract the province name, we had to transform the pdf
+# file with the page in portrait and with only the page containing the
+# information to save time. The file created
+# `age_group_province`, comes from the original file "Tieng Anh_Du Bao Dan So
+# Viet Nam.compressed.pdf".
+# The output is a vector of province name in the same order as the table extract
+# to create "age_group".
+text <- extract_text("data-raw/Age Group/age_group_province.pdf",
   area = list(c(81.60, 66.52, 166.79, 546.24))
   ) %>%
   gsub("[[:digit:]]*", "", .) %>% gsub("\n*", "", .) %>% strsplit(",") %>%
@@ -57,7 +65,7 @@ text <- extract_text("R_script/age_group_province.pdf",
 
 ## AGE-GROUP DATA FRAME
 all_tab <- extract_tables(
-  "R_script/Tieng Anh_Du Bao Dan So Viet Nam.compressed.pdf",
+  "data-raw/Age Group/Tieng Anh_Du Bao Dan So Viet Nam.compressed.pdf",
   method = "decide", pages = c(108:233))
 age_group <- all_tab %>%
   setNames(text) %>%
@@ -80,3 +88,27 @@ age_group <- all_tab %>%
          year  = as.integer(year)) %>%
   filter(is.na(value) == FALSE, key != "Total") %>%
   spread(key, value)
+
+# Integrating age_group in `content` -------------------------------------------
+
+load("data/content.rda")
+
+c_age_group <- tibble::tibble(
+  category = NA,
+  subcategory = "Population",
+  data_frame = "Vietnam population projection 2014 - 2049",
+  data_name = "age_group",
+  time_resolution = "year",
+  time_range = range(age_group$year) %>% paste(collapse = "-"),
+  sp_resolution = "province",
+  data = list(as.data.frame(age_group)))
+
+content %<>% rbind(c_age_group)
+
+# Save content in RData --------------------------------------------------------
+
+usethis::use_data(content, overwrite = TRUE)
+
+# Remove everything ------------------------------------------------------------
+
+rm(list = ls())
