@@ -195,4 +195,4 @@ content %<>%
 
 # Save content in RData --------------------------------------------------------
 
-devtools::use_data(content, overwrite = TRUE)
+usethis::use_data(content, overwrite = TRUE)
