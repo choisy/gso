@@ -1,0 +1,10 @@
+---
+title: 'gso: Access `gso` Vietnam General Statistic Office'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The General Statistics Office of Vietnam (GSO) is an organisation run by Ministry of Planning and Investment (PMI) of Vietnam 
