@@ -52,6 +52,7 @@ name_pattern <- function(df, search_col, pattern, replace_col, x,
 columns_pattern <- function(df, pattern, replace_col, x) {
 
   file_lst <- df %>% select(file) %>% unlist
+  file_lst %<>% grep("Age Group", ., value = TRUE, invert = TRUE)
   sel <- lapply(seq_along(file_lst), function(x) {
     any(read.csv(file_lst[x], skip = 1, sep = ";") %>% names %>%
           tolower %>% gsub("[[:punct:]]+", "_", .) %in% pattern)
@@ -65,7 +66,7 @@ columns_pattern <- function(df, pattern, replace_col, x) {
 # Creation content data frame --------------------------------------------------
 
 all_folder <- dir("data-raw/") %>%
-  grep(".R|.xls|.txt", ., invert = T, value = T)
+  grep(".R|.xls|.txt|Age Group", ., invert = T, value = T)
 
 content <- lapply(all_folder, function(x) {
     # category contains the theme of the data frame from website gso data_frame
@@ -195,4 +196,4 @@ content %<>%
 
 # Save content in RData --------------------------------------------------------
 
-devtools::use_data(content, overwrite = TRUE)
+usethis::use_data(content, overwrite = TRUE)
