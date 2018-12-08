@@ -22,10 +22,12 @@ Imports:
     dplyr,
     magrittr,
     purrr
-Suggests: knitr,
+Suggests: 
+    knitr,
     rmarkdown,
     RSelenium,
     dplyr,
     stringi,
-    tidyr
+    tidyr,
+    testthat
 VignetteBuilder: knitr
