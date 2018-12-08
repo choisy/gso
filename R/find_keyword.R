@@ -6,7 +6,18 @@
 #' @param keyword a vector of character string
 #'
 #' @return a data frame of three variables: `data_name`, `data_frame` and `data`
+#'
+#' @importFrom magrittr %>%
+#' @importFrom purrr map keep
+#' @importFrom dplyr filter select
 #' @export
+#'
+#' @examples
+#' # for one keyword
+#' pov <- find_keyword("poverty")
+#'
+#' # for multiple keyword
+#' export_import <- find_keyword(c("exportation", "importation"))
 find_keyword <- function(keyword) {
   # keyword in data frame name
   row_sel <- grep(paste0(keyword, collapse = "|"), content$data_frame,

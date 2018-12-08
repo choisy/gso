@@ -16,3 +16,10 @@ a data frame of three variables: `data_name`, `data_frame` and `data`
 Search by keyword in the content data frame and more precisely in the name of
 the data frame and in the name of the variables and returns a data frame.
 }
+\examples{
+# for one keyword
+pov <- find_keyword("poverty")
+
+# for multiple keyword
+export_import <- find_keyword(c("exportation", "importation"))
+}
