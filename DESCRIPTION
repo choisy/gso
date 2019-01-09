@@ -18,10 +18,14 @@ LazyData: TRUE
 RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10)
-Suggests: knitr,
+Imports: 
+    dplyr,
+    magrittr
+Suggests: 
+    knitr,
     rmarkdown,
     RSelenium,
-    dplyr,
     stringi,
-    tidyr
+    tidyr,
+    testthat
 VignetteBuilder: knitr
