@@ -36,3 +36,8 @@ find_keyword <- function(keyword) {
     select(data_name, data_frame, data)
   df
 }
+
+## quiets concerns of R CMD check for the values that appear in pipelines
+if (getRversion() >= "2.15.1") utils::globalVariables(c("content", "data",
+                                                        "data_name",
+                                                        "data_frame"))
