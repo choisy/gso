@@ -7,13 +7,15 @@
 extract_df(keyword)
 }
 \arguments{
-\item{keyword}{a vector of character string}
+\item{keyword}{a vector of character string, of value from the column
+`data_name` of the content data frame}
 }
 \value{
 a data frame or a list of data frame
 }
 \description{
-Extracts a data frame or a list of data frame in the content data frame.
+Extracts a data frame or a list of data frame from the name `data_name` of
+the data frame selected in the content data frame.
 }
 \examples{
 # for one keyword
