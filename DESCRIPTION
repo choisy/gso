@@ -15,7 +15,7 @@ Description: Contains the data from the General Statistical Office of Vietnam
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10)
 Suggests: knitr,
