@@ -26,7 +26,6 @@ Suggests:
     knitr,
     rmarkdown,
     RSelenium,
-    dplyr,
     stringi,
     tidyr,
     testthat
