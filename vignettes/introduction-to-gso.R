@@ -3,7 +3,6 @@
 
 ## ------------------------------------------------------------------------
 library(gso)
-library(dplyr) # for data manipulation
 
 ## ------------------------------------------------------------------------
 head(content)
@@ -11,21 +10,17 @@ head(content)
 ## ----eval=F--------------------------------------------------------------
 #  ?content
 
-## ---- message=FALSE------------------------------------------------------
-#install.packages("dplyr")
-#install.packages("tidyr")
-library(dplyr)
-library(tidyr)
-glimpse(content)
-
 ## ------------------------------------------------------------------------
-agri_forest_fish <- filter(content, category == "Agriculture, Forestry and Fishery")
-glimpse(agri_forest_fish)
+agri_forest_fish <- subset(content, category == "Agriculture, Forestry and Fishery", data)
+agri_forest_fish <- agri_forest_fish$data[[1]]
+str(agri_forest_fish)
 
 ## ------------------------------------------------------------------------
 sel <- grep("hiv", content$data_frame, ignore.case = TRUE)
 content[sel, ] # permit to print more information
-df_hiv <- unnest(content[sel, "data"])
+df_hiv <- content[sel, "data"]
+df_hiv <- df_hiv$data[[1]]
+head(df_hiv)
 
 ## ---- eval = F-----------------------------------------------------------
 #  View(content)
