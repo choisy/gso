@@ -8,8 +8,6 @@
 #'
 #' @return a data frame or a list of data frame
 #'
-#' @importFrom magrittr %>%
-#' @importFrom dplyr filter select
 #' @export
 #'
 #' @examples
@@ -27,10 +25,8 @@ extract_df <- function(keyword) {
   }
 
   lst <- lapply(keyword, function(x) {
-    df <- content %>%
-      filter(data_name == x) %>%
-      select(data) %>%
-      unlist(FALSE)
+    df <- subset(content, data_name == x, data)
+    df <- unlist(df, FALSE)
   })
   if (length(lst) == 1) {lst <- lst[[1]][[1]]}
   lst
