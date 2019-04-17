@@ -23,7 +23,6 @@ Loading and attaching the `gso` package:
 
 ```{r}
 library(gso)
-library(dplyr) # for data manipulation
 ```
 
 ## Content data frame
@@ -50,20 +49,12 @@ For more details:
 ```
 
 You can used `content` to select the data frame necessary for your study.
-You will need the `dplyr` and `tidyr` package for this step:
-```{r, message=FALSE}
-#install.packages("dplyr")
-#install.packages("tidyr")
-library(dplyr)
-library(tidyr)
-glimpse(content)
-```
-
-You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:
+You can filter the data by the category, subcategory or others parameters to see the data available by different criterium:
 
 ```{r}
-agri_forest_fish <- filter(content, category == "Agriculture, Forestry and Fishery")
-glimpse(agri_forest_fish)
+agri_forest_fish <- subset(content, category == "Agriculture, Forestry and Fishery", data)
+agri_forest_fish <- agri_forest_fish$data[[1]]
+str(agri_forest_fish)
 ```
 
 or, to select a data frame related to HIV in Vietnam
@@ -71,7 +62,9 @@ or, to select a data frame related to HIV in Vietnam
 ```{r}
 sel <- grep("hiv", content$data_frame, ignore.case = TRUE)
 content[sel, ] # permit to print more information
-df_hiv <- unnest(content[sel, "data"])
+df_hiv <- content[sel, "data"]
+df_hiv <- df_hiv$data[[1]]
+head(df_hiv)
 ```
 
 Or you can also used the function `View()` to print the data frame and explore all the data available, but the display can be quite long to open because of the column `data`
