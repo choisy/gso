@@ -25,7 +25,7 @@ find_keyword <- function(keyword) {
   names_sel1 <- unique(unlist(names_sel1))
   # keyword in variable name
   lst_name <- lapply(content$data, colnames)
-  lst_name <- setNames(lst_name, content$data)
+  lst_name <- setNames(lapply(content$data, colnames), names(content$data))
   names_sel2 <- lapply(lst_name, function(x) {
     any(grepl(paste0(keyword, collapse = "|"), x,
               ignore.case = TRUE))
