@@ -549,11 +549,6 @@ content %<>% select(category, subcategory, data_frame, data_name,
                     time_resolution, time_range, sp_resolution, data)
 content$data <- with(content, setNames(data, data_name))
 
-# Patch for demography_5 (population size)
-content[which(content$data_name == "demography_5"), ] <- content %>%
-  filter(data_name == "demography_5") %>%
-  mutate(data_frame = "Average population by sex by residence and by province")
-
 # Save content in RData --------------------------------------------------------
 
 usethis::use_data(content, overwrite = TRUE)
