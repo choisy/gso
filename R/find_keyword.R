@@ -30,7 +30,7 @@ find_keyword <- function(keyword) {
     any(grepl(paste0(keyword, collapse = "|"), x,
               ignore.case = TRUE))
     })
-  names_sel2 <- sapply(names_sel2, function(x) which(x == TRUE))
+  names_sel2 <- lapply(names_sel2, function(x) which(x == TRUE))
   names_sel2 <- names(unlist(names_sel2))
   # total results
   name_sel <- unique(c(names_sel1, names_sel2))
