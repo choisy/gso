@@ -13,6 +13,8 @@ Authors@R: c(person("Marc", "Choisy",
 Description: Contains the data from the General Statistical Office of Vietnam 
   (last update, September 21st, 2018).
 License: GPL-3
+URL: https://github.com/choisy/gso
+BugReports: https://github.com/choisy/gso/issues
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 6.1.1
