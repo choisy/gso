@@ -2,14 +2,14 @@
 library(magrittr)  # for '%>%' & '%<>%'
 library(dplyr)  # for 'filter', 'mutate', 'select'
 library(tidyr)  # for 'gather'
-library(dictionary)  # for 'provinces'
+library(dictionary)  # for 'vn_admin1'
 library(purrr)   # for map
 library(stringr) # for "str_extract"
 setwd("~/Desktop/gso")
 
 # Prerequisites ---------------------------------------------------------------
 
-provinces <- dictionary::vn_province
+provinces <- dictionary::vn_admin1
 stations <- read.table("data-raw/stations_dictionary.txt",
                        sep = ";", stringsAsFactors = FALSE)
 stations <- setNames(stringi::stri_escape_unicode(stations[, 2]),
@@ -549,6 +549,10 @@ content %<>% select(category, subcategory, data_frame, data_name,
                     time_resolution, time_range, sp_resolution, data)
 content$data <- with(content, setNames(data, data_name))
 
+# Patch for demography_5 (population size)
+content[which(content$data_name == "demography_5"), ] <- content %>%
+  filter(data_name == "demography_5") %>%
+  mutate(data_frame = "Average population by sex by residence and by province")
 
 # Save content in RData --------------------------------------------------------
 

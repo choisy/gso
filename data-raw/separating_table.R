@@ -1,11 +1,11 @@
 # packages ---------------------------------------------------------------------
 library(magrittr)  # for ' %>% ', ' %<>% '
 library(dplyr)  # for 'filter', 'select', 'add_row'
-library(dictionary)  # for 'vn_province'
+library(dictionary)  # for 'vn_admin1'
 setwd("~/Desktop/gso")
 
 # Prerequisite -----------------------------------------------------------------
-provinces <- dictionary::vn_province
+provinces <- dictionary::vn_admin1
 
 regions <- c("red_river_delta", "northern_midlands_and_mountain_areas",
               "north_central_and_central_coastal_areas",

@@ -60,7 +60,7 @@ text <- extract_text("data-raw/Age Group/age_group_province.pdf",
   na.omit %>%
   tolower %>%
   rep(., each = 2) %>%
-  dictionary::vn_province[.]
+  dictionary::vn_admin1[.]
 
 ## AGE-GROUP DATA FRAME
 all_tab <- extract_tables(
