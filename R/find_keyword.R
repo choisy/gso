@@ -18,6 +18,7 @@
 #' # for multiple keyword
 #' export_import <- find_keyword(c("exportation", "importation"))
 find_keyword <- function(keyword) {
+  content <- mget("content", inherits = TRUE)[[1]]
   # keyword in data frame name
   row_sel <- grep(paste0(keyword, collapse = "|"), content$data_frame,
                   ignore.case = TRUE)
@@ -35,11 +36,6 @@ find_keyword <- function(keyword) {
   # total results
   name_sel <- unique(c(names_sel1, names_sel2))
   df <- subset(content, data_name %in% name_sel,
-                c(data_name, data_frame, data))
+                c("data_name", "data_frame", "data"))
   df
 }
-
-## quiets concerns of R CMD check for the values that appear in pipelines
-if (getRversion() >= "2.15.1") utils::globalVariables(c("content", "data",
-                                                        "data_name",
-                                                        "data_frame"))

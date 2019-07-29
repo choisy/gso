@@ -18,6 +18,8 @@
 #' lst_demo <- extract_df(c("demography_5", "demography_3"))
 extract_df <- function(keyword) {
 
+  content <- mget("content", inherits = TRUE)[[1]]
+
   if (all(keyword %in% content$data_name) == FALSE) {
     stop(
       paste0("The argument `keyword` should contain character vector of value,",
@@ -25,7 +27,7 @@ extract_df <- function(keyword) {
   }
 
   lst <- lapply(keyword, function(x) {
-    df <- subset(content, data_name == x, data)
+    df <- subset(content, data_name == x, "data")
     df <- unlist(df, FALSE)
   })
   if (length(lst) == 1) {
