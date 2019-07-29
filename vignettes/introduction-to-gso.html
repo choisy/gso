@@ -12,54 +12,287 @@
 
 <meta name="author" content="Contamin Lucie" />
 
-<meta name="date" content="2018-09-10" />
+<meta name="date" content="2019-04-17" />
 
 <title>Introduction to GSO</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -69,8 +302,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Introduction to GSO</h1>
-<h4 class="author"><em>Contamin Lucie</em></h4>
-<h4 class="date"><em>2018-09-10</em></h4>
+<h4 class="author">Contamin Lucie</h4>
+<h4 class="date">2019-04-17</h4>
 
 
 
@@ -78,23 +311,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Introduction</h2>
 <p>GSO is the General Statistics Office of Vietnam (<a href="http://gso.gov.vn/Default_en.aspx?tabid=491">GSO</a>). The <code>gso</code> package contains the updated (last update 03/2017), cleaned and tidy version of all the 316 tables available on the website. For the moment, only 113 data frames and 1 summary data frame are available within this package (more details in this vignette).</p>
 <p>Installing the <code>gso</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;choisy/gso&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;choisy/gso&quot;</span>)</a></code></pre></div>
 <p>Loading and attaching the <code>gso</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gso)
-<span class="kw">library</span>(dplyr) <span class="co"># for data manipulation</span></code></pre></div>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(gso)</a></code></pre></div>
 </div>
 <div id="content-data-frame" class="section level2">
 <h2>Content data frame</h2>
 <p>The package contains a data frame called <code>content</code> containing for each row, a data frame (in the column <code>data</code>) and some description of this data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(content)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">head</span>(content)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 8
 ##   category subcategory data_frame data_name time_resolution time_range
 ##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;     
@@ -104,7 +328,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 4 Adminis… Land use    Land use … land_use… single time po… 28-02-2015
 ## 5 Adminis… Land use    Land use … land_use… single time po… 31-12-2015
 ## 6 Adminis… Climate     Mean air … climate_2 year            2006-2016 
-## # ... with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
+## # … with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
 <p>The data frame contains different columns describing the data:</p>
 <ul>
 <li><code>category</code> : global theme of the data frame.</li>
@@ -116,47 +340,78 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>data_name</code> : name of the data frames in the package</li>
 </ul>
 <p>For more details:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?content</code></pre></div>
-<p>You can used <code>content</code> to select the data frame necessary for your study. You will need the <code>dplyr</code> and <code>tidyr</code> package for this step:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;dplyr&quot;)</span>
-<span class="co">#install.packages(&quot;tidyr&quot;)</span>
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(tidyr)
-<span class="kw">glimpse</span>(content)</code></pre></div>
-<pre><code>## Observations: 316
-## Variables: 8
-## $ category        &lt;chr&gt; &quot;Administrative Unit, Land and Climate&quot;, &quot;Admi...
-## $ subcategory     &lt;chr&gt; &quot;Sea level&quot;, &quot;Sea level&quot;, &quot;Climate&quot;, &quot;Land use...
-## $ data_frame      &lt;chr&gt; &quot;Average of sea level at some stations&quot;, &quot;Aver...
-## $ data_name       &lt;chr&gt; &quot;sea_level_1&quot;, &quot;sea_level_2&quot;, &quot;climate_1&quot;, &quot;la...
-## $ time_resolution &lt;chr&gt; &quot;month&quot;, &quot;year&quot;, &quot;year&quot;, &quot;single time point&quot;, ...
-## $ time_range      &lt;chr&gt; &quot;2014-2016&quot;, &quot;2013-2016&quot;, &quot;2010-2016&quot;, &quot;28-02-...
-## $ sp_resolution   &lt;chr&gt; &quot;station&quot;, &quot;station&quot;, &quot;station&quot;, &quot;country&quot;, &quot;p...
-## $ data            &lt;list&gt; [&lt;c(&quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;2016&quot;, &quot;...</code></pre>
-<p>You can now filter the data by the category, subcategory or others parameters to see the data available by different criterium:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">agri_forest_fish &lt;-<span class="st"> </span><span class="kw">filter</span>(content, category <span class="op">==</span><span class="st"> &quot;Agriculture, Forestry and Fishery&quot;</span>)
-<span class="kw">glimpse</span>(agri_forest_fish)</code></pre></div>
-<pre><code>## Observations: 60
-## Variables: 8
-## $ category        &lt;chr&gt; &quot;Agriculture, Forestry and Fishery&quot;, &quot;Agricult...
-## $ subcategory     &lt;chr&gt; &quot;Agriculture&quot;, &quot;Forestry&quot;, &quot;Forestry&quot;, &quot;Forest...
-## $ data_frame      &lt;chr&gt; &quot;Area having product of main perennial crops&quot;,...
-## $ data_name       &lt;chr&gt; &quot;agriculture_1&quot;, &quot;forestry_1&quot;, &quot;forestry_2&quot;, &quot;...
-## $ time_resolution &lt;chr&gt; &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;, &quot;year&quot;...
-## $ time_range      &lt;chr&gt; &quot;2005-2016&quot;, &quot;1995-2016&quot;, &quot;2005-2016&quot;, &quot;1995-2...
-## $ sp_resolution   &lt;chr&gt; &quot;country&quot;, &quot;province&quot;, &quot;country&quot;, &quot;province&quot;, ...
-## $ data            &lt;list&gt; [&lt;c(&quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;2005&quot;, &quot;...</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">?content</a></code></pre></div>
+<p>You can used <code>content</code> to select the data frame necessary for your study. You can filter the data by the category, subcategory or others parameters to see the data available by different criterium:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">agri_forest_fish &lt;-<span class="st"> </span><span class="kw">subset</span>(content, category <span class="op">==</span><span class="st"> &quot;Agriculture, Forestry and Fishery&quot;</span>, data)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">agri_forest_fish &lt;-<span class="st"> </span>agri_forest_fish<span class="op">$</span>data[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">str</span>(agri_forest_fish)</a></code></pre></div>
+<pre><code>## 'data.frame':    11 obs. of  25 variables:
+##  $ year                                                      : int  2005 2007 2008 2009 2010 2011 2012 2013 2014 2015 ...
+##  $ area_thous_ha_cashew_nut                                  : num  224 303 321 340 339 ...
+##  $ area_thous_ha_coffee                                      : num  484 489 500 507 512 ...
+##  $ area_thous_ha_fruit_crops                                 : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ area_thous_ha_grape                                       : num  1.8 1.3 1.2 1 0.8 0.7 0.8 0.8 0.9 1.1 ...
+##  $ area_thous_ha_litchi_rambutan                             : num  89.3 102.8 100.1 96.6 97.2 ...
+##  $ area_thous_ha_longan                                      : num  90.3 87.8 85.4 83.5 83.1 79.7 74.6 72.1 67.7 64.6 ...
+##  $ area_thous_ha_mango                                       : num  51.4 60.8 67 68.8 71.2 71.8 73.6 74.2 73.6 73.3 ...
+##  $ area_thous_ha_orange_mandarin                             : num  59.4 65.2 63.9 64.5 64.1 55.8 55.6 56.6 59 58.4 ...
+##  $ area_thous_ha_pepper                                      : num  39.4 41.1 42.4 44.2 44.3 45 48.2 50.9 58.4 67.8 ...
+##  $ area_thous_ha_perennial_industrial_crops                  : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ area_thous_ha_rubber                                      : num  334 378 399 419 439 ...
+##  $ area_thous_ha_tea                                         : num  97.7 107.4 108.8 111.4 113.2 ...
+##  $ index_previous_year_100_percent_cashew_nut                : num  109.5 109.4 106 106.1 99.7 ...
+##  $ index_previous_year_100_percent_coffee                    : num  101 101 102 101 101 ...
+##  $ index_previous_year_100_percent_fruit_crops               : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ index_previous_year_100_percent_grape                     : num  105.9 76.5 92.3 83.3 80 ...
+##  $ index_previous_year_100_percent_litchi_rambutan           : num  105.3 108.6 97.4 96.5 100.6 ...
+##  $ index_previous_year_100_percent_longan                    : num  97.6 97.6 97.3 97.8 99.5 95.9 93.6 96.6 93.9 95.4 ...
+##  $ index_previous_year_100_percent_mango                     : num  96.1 109.2 110.2 102.7 103.5 ...
+##  $ index_previous_year_100_percent_orange_mandarin           : num  107 104.7 98 100.9 99.4 ...
+##  $ index_previous_year_100_percent_pepper                    : num  109 102 103 104 100 ...
+##  $ index_previous_year_100_percent_perennial_industrial_crops: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ index_previous_year_100_percent_rubber                    : num  111 106 106 105 105 ...
+##  $ index_previous_year_100_percent_tea                       : num  106 105 101 102 102 ...</code></pre>
 <p>or, to select a data frame related to HIV in Vietnam</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;hiv&quot;</span>, content<span class="op">$</span>data_frame, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)
-content[sel, ] <span class="co"># permit to print more information</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">sel &lt;-<span class="st"> </span><span class="kw">grep</span>(<span class="st">&quot;hiv&quot;</span>, content<span class="op">$</span>data_frame, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">content[sel, ] <span class="co"># permit to print more information</span></a></code></pre></div>
 <pre><code>## # A tibble: 1 x 8
 ##   category subcategory data_frame data_name time_resolution time_range
 ##   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;           &lt;chr&gt;     
 ## 1 Health,… Health      Number of… health_12 year            2011-2016 
-## # ... with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_hiv &lt;-<span class="st"> </span><span class="kw">unnest</span>(content[sel, <span class="st">&quot;data&quot;</span>])</code></pre></div>
+## # … with 2 more variables: sp_resolution &lt;chr&gt;, data &lt;list&gt;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">df_hiv &lt;-<span class="st"> </span>content[sel, <span class="st">&quot;data&quot;</span>]</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">df_hiv &lt;-<span class="st"> </span>df_hiv<span class="op">$</span>data[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">head</span>(df_hiv)</a></code></pre></div>
+<pre><code>##   year          province aids_patients_alive_accumulation_as_of_dec_31
+## 1 2011          An Giang                                          1638
+## 2 2011 Ba Ria - Vung Tau                                           657
+## 3 2011         Bac Giang                                           550
+## 4 2011           Bac Kan                                           235
+## 5 2011          Bac Lieu                                           212
+## 6 2011          Bac Ninh                                           186
+##   aids_patients_new_case
+## 1                    277
+## 2                     75
+## 3                     45
+## 4                    112
+## 5                     78
+## 6                     15
+##   hiv_infected_people_alive_accumulation_as_of_dec_31
+## 1                                                4450
+## 2                                                4157
+## 3                                                1721
+## 4                                                1214
+## 5                                                2090
+## 6                                                1588
+##   hiv_infected_people_new_case number_of_aids_deaths
+## 1                          267                   103
+## 2                          342                    76
+## 3                          169                    14
+## 4                          149                    42
+## 5                          196                    33
+## 6                           98                    17</code></pre>
 <p>Or you can also used the function <code>View()</code> to print the data frame and explore all the data available, but the display can be quite long to open because of the column <code>data</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(content)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">View</span>(content)</a></code></pre></div>
 </div>
 
 

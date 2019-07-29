@@ -10,7 +10,8 @@ find_keyword(keyword)
 \item{keyword}{a vector of character string}
 }
 \value{
-a data frame of three variables: `data_name`, `data_frame` and `data`
+a data frame of three variables: \code{data_name}, \code{data_frame}
+and \code{data}
 }
 \description{
 Search by keyword in the content data frame and more precisely in the name of

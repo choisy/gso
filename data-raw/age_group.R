@@ -50,8 +50,7 @@ sep_col <- function(df, limit = 10) {
 # The output is a vector of province name in the same order as the table extract
 # to create "age_group".
 text <- extract_text("data-raw/Age Group/age_group_province.pdf",
-  area = list(c(81.60, 66.52, 166.79, 546.24))
-  ) %>%
+  area = list(c(81.60, 66.52, 166.79, 546.24))) %>%
   gsub("[[:digit:]]*", "", .) %>% gsub("\n*", "", .) %>% strsplit(",") %>%
   purrr::map(1) %>%
   stringr::str_extract("(?<=\\.).{1,}") %>%

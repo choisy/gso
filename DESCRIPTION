@@ -20,15 +20,9 @@ LazyData: TRUE
 RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10)
-Imports: 
-    dplyr,
-    magrittr,
-    purrr
 Suggests: 
     knitr,
     rmarkdown,
     RSelenium,
-    stringi,
-    tidyr,
     testthat
 VignetteBuilder: knitr
