@@ -20,7 +20,7 @@ environment:
   # R_REMOTES_STANDALONE: true
   NOT_CRAN: true
   R_VERSION: release
-  R_BUILD_ARGS: --resave-data="best"
+  R_BUILD_ARGS: --resave-data="no"
   R_CHECK_ARGS: --no-manual
 
 # Adapt as necessary starting from here
