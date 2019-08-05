@@ -1,0 +1,14 @@
+﻿"Monthly average income per capita at current prices by income source, by residence, by sex of household head by Iterms, Year and Income source"
+
+"Iterms";"2010 Total";"2010 Salary & wage";"2010 Agriculture, forestry & fishery";"2010 Non-agriculture, forestry & fishery";"2010 Others";"2012 Total";"2012 Salary & wage";"2012 Agriculture, forestry & fishery";"2012 Non-agriculture, forestry & fishery";"2012 Others";"2014 Total";"2014 Salary & wage";"2014 Agriculture, forestry & fishery";"2014 Non-agriculture, forestry & fishery";"2014 Others";"Pre. 2016 Total";"Pre. 2016 Salary & wage";"Pre. 2016 Agriculture, forestry & fishery";"Pre. 2016 Non-agriculture, forestry & fishery";"Pre. 2016 Others"
+"WHOLE COUNTRY";1387;622;279;328;158;2000;923;397;442;238;2637;1253;458;591;335;3049;1448;513;744;344
+"Residence - Urban";2130;1169;96;601;264;2989;1667;147;790;385;3964;2226;175;1029;534;4368;2383;198;1298;489
+"Residence - Rural";1070;390;357;210;113;1579;607;503;294;175;2038;814;586;393;245;2437;1013;660;487;277
+"Sex of household head - Male";1321;555;315;318;133;1930;839;447;433;211;2525;1145;520;575;285;2946;1348;585;708;305
+"Sex of household head - Female";1618;859;154;361;244;2247;1219;217;476;335;3027;1630;246;644;507;3409;1798;262;869;480
+"Red River Delta";1580;798;189;392;201;2351;1216;275;556;304;3265;1733;327;738;467;3610;1965;360;847;438
+"Northern midlands and mountain areas";905;359;314;146;86;1258;536;406;197;119;1613;707;471;283;152;2033;906;558;375;194
+"North Central area and Central coastal area";1018;442;231;229;116;1505;679;320;343;163;1982;923;379;440;240;2432;1138;433;571;290
+"Central Highlands";1088;334;470;217;67;1643;497;759;293;94;2008;678;863;350;117;2562;851;972;600;139
+"South East";2304;1210;246;597;251;3173;1709;362;725;377;4125;2247;344;1022;512;4485;2389;322;1325;449
+"Mekong River Delta";1247;401;390;300;156;1797;598;540;402;257;2327;783;674;528;342;2798;978;772;660;388
