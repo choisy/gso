@@ -5,8 +5,6 @@ library(zip)
 
 folder_zip <- grep(".R|.txt|Age Group|.zip", dir("data-raw/"), value = TRUE,
                    invert = TRUE)
-#files_zip <- unlist(lapply(folder_zip, function(x)
-#  paste0("data-raw/", x, "/", dir(paste0("data-raw/", x, "/")))))
 path_to <- paste0("data-raw/gso_" ,format(Sys.Date(), "%d%m%Y"), "/")
 dir.create(path_to)
 ## Move files into the gso folder
