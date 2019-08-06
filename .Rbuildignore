@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^README.md$
+^appveyor\.yml$
+^README\.Rmd$
+^\.travis\.yml$
+^codecov\.yml$

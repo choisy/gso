@@ -37,7 +37,7 @@ add_colname_torow <- function(df) {
 # Data creation ----------------------------------------------------------------
 
 all_files <- dir("data-raw/") %>%
-  grep(".R|.xls|.txt", ., invert = T, value = T) %>%
+  grep(".R|.xls|.txt|.zip", ., invert = T, value = T) %>%
   lapply(., function(x) {
     file <- dir(paste0("data-raw/", x)) %>%
       paste0("data-raw/", x, "/", .)
