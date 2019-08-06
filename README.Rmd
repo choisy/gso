@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/epix-project/gso?branch=master&svg=true)](https://ci.appveyor.com/project/epix-project/gso)
 [![Travis build status](https://travis-ci.org/epix-project/gso.svg?branch=master)](https://travis-ci.org/epix-project/gso)
+[![Codecov test coverage](https://codecov.io/gh/epix-project/gso/branch/master/graph/badge.svg)](https://codecov.io/gh/epix-project/gso?branch=master)
 <!-- badges: end -->
 
 The goal of gso is to provide data from the General Statistics Office of Vietnam.
