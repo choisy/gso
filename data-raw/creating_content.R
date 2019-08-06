@@ -66,7 +66,7 @@ columns_pattern <- function(df, pattern, replace_col, x) {
 # Creation content data frame --------------------------------------------------
 
 all_folder <- dir("data-raw/") %>%
-  grep(".R|.xls|.txt|Age Group", ., invert = T, value = T)
+  grep(".R|.xls|.txt|.zip|Age Group", ., invert = T, value = T)
 
 content <- lapply(all_folder, function(x) {
     # category contains the theme of the data frame from website gso data_frame

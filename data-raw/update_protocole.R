@@ -30,3 +30,19 @@ rm(list = ls())
 
 # 8. Create a .zip file of the downloaded data:
 source("data-raw/compressed_files.R")
+
+## If you want to repeat from the step 4 the protocole without having to
+## download and process the .csv files, you can use the last .zip files as
+## source data by using the function `unzip_files`
+unzip_files <- function(zippath) {
+  zip::unzip(zippath, exdir = "data-raw/")
+  lapply(dir(zippath), function(x) {
+    ffile <- list.files(paste0(zippath, x), full.names = TRUE)
+    topath <- paste0("data-raw/", x, "/")
+    tofile <- paste0(topath, basename(ffile))
+    dir.create(topath)
+    file.rename(ffile, tofile)
+  })
+  unlink(zippath, recursive = TRUE)
+}
+

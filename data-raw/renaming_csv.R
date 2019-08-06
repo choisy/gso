@@ -2,7 +2,7 @@
 library(magrittr)  # for ' %>% '
 
 # Prerequisite -----------------------------------------------------------------
-all_folder <- dir() %>% grep(".R|.xls|.txt", ., invert = T, value = T)
+all_folder <- dir() %>% grep(".R|.xls|.txt|.zip", ., invert = T, value = T)
 
 # Data -------------------------------------------------------------------------
 # remove the '(*)' from files names:
