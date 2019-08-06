@@ -12,18 +12,21 @@ source("data-raw/separating_table.R")
 
 # 4. Read all the file and create the object "content" which contains the data
 # frames anf the information related (names, file associates, spatial and
-# temporal information)
+# temporal information):
 source("data-raw/tidying_data.R")
 
 # 5. Add data frames containing the population size by age group and by year
-# into the object "content"
+# into the object "content":
 source("data-raw/age_group.R")
 
-# 6. Update description field in the file DESCRIPTION
+# 6. Update description field in the file DESCRIPTION:
 descrip <- readLines("DESCRIPTION")
 descrip[grep("Description:", descrip) + 1] <-
   paste0("  (last update, ", format(Sys.Date(), "%d %B %Y"), ").")
 writeLines(unlist(tot_rd), con = paste0(path, "/R/data.R"), sep = "\n")
 
-# 7. Empty environment
+# 7. Empty environment:
 rm(list = ls())
+
+# 8. Create a .zip file of the downloaded data:
+source("data-raw/compressed_files.R")
