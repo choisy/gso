@@ -7,6 +7,8 @@
 
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/epix-project/gso?branch=master&svg=true)](https://ci.appveyor.com/project/epix-project/gso)
+[![Travis build
+status](https://travis-ci.org/epix-project/gso.svg?branch=master)](https://travis-ci.org/epix-project/gso)
 <!-- badges: end -->
 
 The goal of gso is to provide data from the General Statistics Office of

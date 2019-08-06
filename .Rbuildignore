@@ -4,3 +4,4 @@
 ^README.md$
 ^appveyor\.yml$
 ^README\.Rmd$
+^\.travis\.yml$
