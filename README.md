@@ -13,8 +13,8 @@ status](https://travis-ci.org/epix-project/gso.svg?branch=master)](https://travi
 coverage](https://codecov.io/gh/epix-project/gso/branch/master/graph/badge.svg)](https://codecov.io/gh/epix-project/gso?branch=master)
 <!-- badges: end -->
 
-The goal of gso is to provide data from the General Statistics Office of
-Vietnam.
+The goal of gso is to provide data from the [General Statistics Office
+of Vietnam](https://www.gso.gov.vn).
 
 ## Installation
 
